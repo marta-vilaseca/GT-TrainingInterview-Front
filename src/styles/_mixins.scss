@@ -1,0 +1,21 @@
+// styles/_mixins.scss
+
+// Mixin for flex centering (used to center content both vertically and horizontally)
+@mixin center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Mixin for responsive breakpoints (use as: @include respond-to(mobile) { ... })
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: 600px) {
+      @content;
+    }
+  } @else if $breakpoint == tablet {
+    @media (max-width: 768px) {
+      @content;
+    }
+  }
+}
