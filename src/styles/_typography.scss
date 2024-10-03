@@ -1,27 +1,34 @@
+@use 'sass:color';
+
 body {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
-  
-h1, h2, h3, h4, h5, h6 {
-    text-wrap: balance;
-    line-height: 1.2;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+  line-height: 1.2;
 }
 
 h1 {
-    font-size: 4rem;
-  }
-  
-p {
-    font-size: $font-medium;
-    text-wrap: pretty;
+  font-size: 4rem;
 }
-  
+
+p {
+  font-size: $font-medium;
+  text-wrap: pretty;
+}
+
 a {
-    font-weight: 500;
-    color: $accent;
-    text-decoration: inherit;
-  
-    &:hover {
-      color: lighten($accent, 10%);
-    }
+  font-weight: 500;
+  color: $accent;
+  text-decoration: inherit;
+
+  &:hover {
+    color: color.scale($accent, $lightness: 10%);
+  }
 }
