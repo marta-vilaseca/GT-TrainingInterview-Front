@@ -1,0 +1,30 @@
+@import '../../styles/_mixins';
+@import '../../styles/_variables';
+
+:root {
+  accent-color: $accent;
+}
+
+.form {
+  width: calc(100vw - 2rem);
+  max-width: $xxs-width;
+  margin: 0 auto;
+}
+
+.form ul {
+  list-style-type: none;
+  @include column-top-stretch;
+
+  li {
+    flex-basis: 100%;
+    @include column-top-stretch;
+  }
+}
+
+.form > ul {
+  gap: $padding-medium;
+}
+
+.form .options__radio label {
+  margin: 0 1rem;
+}
