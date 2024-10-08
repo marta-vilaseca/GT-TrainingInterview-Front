@@ -1,13 +1,12 @@
+import React from 'react';
+
 export interface IFormInputTextProps {
   labelText: string;
-  className?: string;
   id: string;
   name: string;
   value: string;
   type?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-  checked?: boolean;
   readOnly?: boolean;
 }
 
