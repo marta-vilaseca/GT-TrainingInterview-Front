@@ -1,12 +1,13 @@
 import React, { useState, ChangeEvent } from 'react';
-import TextInput from '../common/TextInput';
+import { userData } from '../../services/api';
+// import TextInput from '../common/TextInput';
 import RadioButton from '../common/RadioButton';
 import Dropdown from '../common/SelectDropdown';
 import Button from '../common/Button';
 import './Form.scss';
 
 interface LoginFormData {
-  name: string;
+  // name: string;
   role: string; // Changed from roles (array) to role (string)
   experience: string;
 }
@@ -23,20 +24,26 @@ const roles = ['UX/UI Designer', 'Frontend Developer', 'Backend Developer'];
 
 export default function LoginForm() {
   const [formData, setFormData] = useState<LoginFormData>({
-    name: '',
+    // name: '',
     role: '', // Initialize with empty string
     experience: 'Trainee', // Default to first option
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form data:', formData);
-    // TODO: Handle form submission
+    // console.log('Form data:', formData);
+
+    try {
+      const response = await userData('/ask', formData); // Specify the endpoint here
+      console.log('Response from API:', response); // Log the response from the API
+    } catch (error) {
+      console.error('Error submitting form data', error); // Log any errors
+    }
   };
 
-  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, name: e.target.value });
-  };
+  // const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setFormData({ ...formData, name: e.target.value });
+  // };
 
   const handleRoleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, role: e.target.value });
@@ -52,7 +59,7 @@ export default function LoginForm() {
   return (
     <form className="form" onSubmit={handleSubmit}>
       <ul>
-        <li>
+        {/* <li>
           <TextInput
             labelText="Name"
             id="name"
@@ -60,7 +67,7 @@ export default function LoginForm() {
             value={formData.name}
             onChange={handleNameChange}
           />
-        </li>
+        </li> */}
         <li>
           <div className="options__radio">
             {roles.map((role) => (
@@ -93,7 +100,7 @@ export default function LoginForm() {
           />
         </li>
         <li>
-          <Button type="submit">Send</Button>
+          <Button type="submit">Ask me a Question</Button>
         </li>
       </ul>
     </form>

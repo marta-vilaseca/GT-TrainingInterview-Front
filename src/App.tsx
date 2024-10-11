@@ -1,13 +1,12 @@
 import Layout from './components/layout/Layout';
-import LoginForm from './components/forms/LoginForm';
+import TempChat from './components/temp/TempChat';
 
 function App() {
   return (
     <>
       <Layout page="home" extraClassName="test">
-        <h1>Hola Mundo!</h1>
         <h2>Entrenador de Entrevistas</h2>
-        <LoginForm />
+        <TempChat />
       </Layout>
     </>
   );
