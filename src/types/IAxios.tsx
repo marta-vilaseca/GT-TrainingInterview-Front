@@ -4,6 +4,14 @@ export interface UserData {
   experience: string;
 }
 
-export interface FeedbackData {
-  answer: string;
+// export interface FeedbackData {
+//   answer: string;
+// }
+
+export interface UserResponseData {
+  role: string;
+  experience: string;
+  userResponse: string;
+  prompt: string;
+  feedback: string;
 }
