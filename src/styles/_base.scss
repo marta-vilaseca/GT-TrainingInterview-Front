@@ -47,7 +47,7 @@ html {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: $dark;
-    background-color: $light;
+    color: $text-color;
+    background-color: white;
   }
 }
