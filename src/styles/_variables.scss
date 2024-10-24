@@ -14,15 +14,32 @@ $secondary-color-lighter: #88E9E5;
 $text-color:#282a31;
 
 
+// Fonts
+$title: (
+    font-family: 'Montserrat, sans-serif',
+    font-weight: 700
+);
+$subtitle: (
+    font-family: 'Montserrat, sans-serif',
+    font-weight: 700
+);
+$body: (
+    font-family: 'Lato, sans-serif',
+    font-weight: 400
+);
+
+
 // Previous color variables - Pendiente de eliminar
 $dark: #242424;
 $accent: #646cff;
 $light: #ffffde;
 
+
 // Spacing
 $padding-small: 1rem;
 $padding-medium: 2rem;
 $padding-large: 4rem;
+
 
 // Font sizes
 $font-small: 1.2rem;
