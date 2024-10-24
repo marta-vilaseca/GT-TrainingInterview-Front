@@ -1,15 +1,17 @@
-import Layout from './components/layout/Layout';
-import TempChat from './components/temp/TempChat';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Chat from './pages/Chat';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <>
-      <Layout page="home" extraClassName="test">
-        <h2>Entrenador de Entrevistas</h2>
-        <TempChat />
-      </Layout>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chat" element={<Chat />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
