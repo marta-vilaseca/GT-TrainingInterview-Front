@@ -7,6 +7,14 @@
   align-items: center;
 }
 
+// Mixin for centered-column
+@mixin column-top-stretch {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
 // Mixin for responsive breakpoints (use as: @include respond-to(mobile) { ... })
 @mixin respond-to($breakpoint) {
   @if $breakpoint == mobile {

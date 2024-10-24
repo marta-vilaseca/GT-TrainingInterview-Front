@@ -1,9 +1,31 @@
 // styles/_variables.scss
+$main-font: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
 // Color variables
-$dark: #242424;
-$accent: #646cff;
-$light: #ffffde;
+$main-color: #42495c;
+$main-color-medium: #cacaca;
+$main-color-lighter: #f1f1f1;
+
+$secondary-color-darker: #066d64;
+$secondary-color: #0bbfb5;
+$secondary-color-lighter: #88e9e5;
+
+// Text colors
+$text-color: #282a31;
+
+// Fonts
+$title: (
+  font-family: 'Montserrat, sans-serif',
+  font-weight: 700,
+);
+$subtitle: (
+  font-family: 'Montserrat, sans-serif',
+  font-weight: 700,
+);
+$body: (
+  font-family: 'Lato, sans-serif',
+  font-weight: 400,
+);
 
 // Spacing
 $padding-small: 1rem;
@@ -14,3 +36,18 @@ $padding-large: 4rem;
 $font-small: 1.2rem;
 $font-medium: 1.6rem;
 $font-large: 2.4rem;
+
+// Widths
+$xxs-width: 360px;
+$xs-width: 480px;
+$s-width: 600px;
+$m-width: 750px;
+$l-width: 960px;
+$xl-width: 1280px;
+$xxl-width: 1440px;
+
+// TEMP - Previous color variables - Pendiente de eliminar
+$dark: #242424;
+$accent: #646cff;
+$accent-dark: #4c55fa;
+$light: #ffffde;

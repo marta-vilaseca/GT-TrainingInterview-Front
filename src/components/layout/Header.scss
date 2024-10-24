@@ -2,6 +2,6 @@
 @import '../../styles/_variables';
 
 .header {
-    padding: $padding-medium;
-    @include center-flex;
-  }
+  padding: $padding-medium;
+  @include center-flex;
+}
