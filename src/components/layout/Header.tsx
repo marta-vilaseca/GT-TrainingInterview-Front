@@ -1,11 +1,11 @@
-import LogoPildoras from '../../assets/pildorasUX-logo.svg';
+import Logo from '../../assets/Logotipo_PildorasUX.svg';
 import './Header.scss';
 
 export default function Header() {
   return (
     <header className="header">
-      <a className="logo" href="https://pildorasux.com/" target="_blank">
-        <img src={LogoPildoras} alt="Pildoras UX" />
+      <a href="https://pildorasux.com/" target="_blank">
+        <img src={Logo} className="logo" alt="PildorasUX logo" />
       </a>
     </header>
   );

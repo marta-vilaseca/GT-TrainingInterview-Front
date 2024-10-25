@@ -1,0 +1,67 @@
+@import '../../styles/_mixins';
+@import '../../styles/_variables';
+
+:root {
+  accent-color: $accent;
+}
+
+.form {
+  width: 80vw;
+  max-width: $xxs-width;
+  margin: 0 auto 2rem;
+  font-family: map-get($body, font-family);
+     font-weight: map-get($body, font-weight);
+    font-size: $font-medium;
+}
+
+.form ul {
+  list-style-type: none;
+  @include column-top-stretch;
+
+  li {
+    flex-basis: 100%;
+    @include column-top-stretch;
+  }
+}
+
+.form > ul {
+  gap: $padding-medium;
+}
+
+.form .options__select label {
+  margin: 0 1rem;
+}
+
+.question-section {
+  width: calc(100vw - 2rem);
+  max-width: $xxs-width;
+  margin: 0 auto;
+}
+
+.answer-section textarea {
+  width: 100%;
+  height: 15rem;
+  font-family: $main-font;
+  font-size: $font-medium;
+  padding: $padding-small;
+  margin-bottom: $padding-small;
+}
+
+.user-answer,
+.feedback {
+  font-weight: 200;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.question {
+  margin-bottom: $padding-medium;
+  padding: $padding-medium;
+  border: 1px solid #666;
+  border-radius: 1rem;
+}
+
+.buttons {
+  @include center-flex;
+  gap: 1rem;
+}

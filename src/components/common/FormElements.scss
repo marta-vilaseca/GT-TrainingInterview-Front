@@ -25,10 +25,11 @@ button {
   border: 0;
   outline: 0;
   background-color: $secondary-color;
-  color: $text-light-color;
+  color: white;
 
   &:hover {
-    background-color: $secondary-color-darker;
+    background-color: $main-color;
+    color: white;
     cursor: pointer;
   }
 }
