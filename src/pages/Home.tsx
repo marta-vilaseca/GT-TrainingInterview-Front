@@ -6,7 +6,7 @@ import './Home.scss';
 function Home() {
   return (
     <>
-      <Layout page="home" extraClassName="chat">
+      <Layout page="home" extraClassName="home">
         <div className="greetings">
           <img src={Dora} className="greetings__logo" alt="PildorasUX logo" />
           <h2 className="greetings__title">

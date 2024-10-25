@@ -1,6 +1,10 @@
 @import '../styles/_mixins';
 @import '../styles/_variables';
 
+.home {
+    padding-top: 0px;
+}
+
 .greetings {
     &__logo{
         width: 30%;
