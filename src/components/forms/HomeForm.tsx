@@ -22,7 +22,7 @@ const roles = {
 };
 
 export default function HomeForm() {
-  const [formData, setFormData] = useState({
+  const [homeFormData, setHomeFormData] = useState({
     name: '',
     role: '',
     experience: 'Trainee',
@@ -46,7 +46,7 @@ export default function HomeForm() {
     setLoadingState((prev) => ({ ...prev, formSubmit: true }));
 
     try {
-      const response: UserResponseData = await userData('/ask', formData);
+      const response: UserResponseData = await userData('/ask', homeFormData);
       setResponseData(response);
       setIsFormSubmitted(true);
     } catch (error) {
@@ -98,7 +98,7 @@ export default function HomeForm() {
                 required
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   const value = e.target.value;
-                  setFormData({ ...formData, name: value });
+                  setHomeFormData({ ...homeFormData, name: value });
                 }}
               />
             </li>
@@ -109,13 +109,14 @@ export default function HomeForm() {
                 name="role"
                 value={
                   Object.keys(roles).find(
-                    (key) => roles[key as keyof typeof roles] === formData.role
+                    (key) =>
+                      roles[key as keyof typeof roles] === homeFormData.role
                   ) || ''
                 }
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   const fullValue = e.target.value;
                   const shortValue = roles[fullValue as keyof typeof roles];
-                  setFormData({ ...formData, role: shortValue });
+                  setHomeFormData({ ...homeFormData, role: shortValue });
                 }}
                 options={Object.keys(roles)}
               />
@@ -129,7 +130,7 @@ export default function HomeForm() {
                   Object.keys(experienceLevels).find(
                     (key) =>
                       experienceLevels[key as keyof typeof experienceLevels] ===
-                      formData.experience
+                      homeFormData.experience
                   ) || ''
                 }
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -138,7 +139,7 @@ export default function HomeForm() {
                     experienceLevels[
                       fullValue as keyof typeof experienceLevels
                     ];
-                  setFormData({ ...formData, experience: shortValue });
+                  setHomeFormData({ ...homeFormData, experience: shortValue });
                 }}
                 options={Object.keys(experienceLevels)}
               />
