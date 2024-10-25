@@ -2,7 +2,10 @@
 @import '../../styles/_variables';
 
 .footer {
-    padding: $padding-medium;
-    @include center-flex;
-  }
-  
+  padding: $padding-medium;
+  @include center-flex;
+}
+
+.main.chat + .footer {
+  display: none;
+}

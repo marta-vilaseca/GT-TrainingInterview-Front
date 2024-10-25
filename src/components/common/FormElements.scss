@@ -17,13 +17,18 @@ label {
 
 button {
   border-radius: 0.5rem;
-  padding: 0 1.5rem;
+  padding: $padding-x-small $padding-medium;
+  font-size: $font-medium;
+  font-weight: bold;
+  height: calc($font-medium * 2.5);
+  vertical-align: middle;
   border: 0;
   outline: 0;
-  background-color: $accent;
+  background-color: $secondary-color;
+  color: $text-light-color;
 
   &:hover {
-    background-color: $accent-dark;
+    background-color: $secondary-color-darker;
     cursor: pointer;
   }
 }

@@ -1,0 +1,49 @@
+@import '../styles/_variables';
+
+.main.chat {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 0;
+  padding: 0;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.chat-text {
+  background-color: $main-color-lighter;
+  flex-grow: 1;
+  padding: $padding-large $padding-medium $padding-medium;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2rem;
+
+  h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: $font-large;
+    color: $main-color;
+  }
+
+  .text,
+  .text > * {
+    font-size: $font-medium;
+  }
+
+  .action {
+    button {
+      width: 100%;
+    }
+  }
+
+  strong {
+    color: $secondary-color;
+  }
+}
+
+.chat-form {
+  background-color: $secondary-color-lighter;
+  height: 8rem;
+}

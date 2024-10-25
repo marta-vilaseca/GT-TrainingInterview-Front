@@ -1,0 +1,15 @@
+@import '../../styles/_variables';
+
+.chat-form textarea {
+  background-color: white;
+  border: 0;
+  resize: none;
+  width: 100%;
+  height: 8rem;
+  padding: 1rem;
+  position: relative;
+  font-family: 'Lato', sans-serif;
+  font-size: $font-medium;
+  color: $main-color;
+  text-align: left;
+}
