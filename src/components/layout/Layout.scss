@@ -34,13 +34,7 @@
     padding: $padding-medium;
 }
 
-/* TEMP - Vite starter styles for the logo */
-.logo {
-    height: 6em;
-    padding: $padding-small;
-    will-change: filter;
-    transition: filter 300ms;
-}
+/* TEMP - Vite starter styles for the logo */   
 
 @keyframes logo-spin {
     from { transform: rotate(0deg); }

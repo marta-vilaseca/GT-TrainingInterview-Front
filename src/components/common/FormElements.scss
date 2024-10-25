@@ -20,10 +20,12 @@ button {
   padding: 0 1.5rem;
   border: 0;
   outline: 0;
-  background-color: $accent;
+  background-color: $secondary-color;
+  color: white;
 
   &:hover {
-    background-color: $accent-dark;
+    background-color: $main-color;
+    color: white;
     cursor: pointer;
   }
 }
