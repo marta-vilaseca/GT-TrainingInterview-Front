@@ -33,6 +33,7 @@ export default [
       'react/react-in-jsx-scope': 'off',
       'prettier/prettier': 'error',
       'no-unused-vars': 'off',
+      'no-undef': 'off',
       'no-console': 'off', // Allow console logs
     },
     settings: {

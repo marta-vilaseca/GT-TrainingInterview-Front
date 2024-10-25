@@ -4,6 +4,7 @@
 .footer {
   padding: $padding-medium;
   @include center-flex;
+  background: $main-color-medium;
 }
 
 .main.chat + .footer {

@@ -1,15 +1,18 @@
 import { IFormTextareaProps } from '../../types/IFormElements';
 import './FormElements.scss';
 
-export function FormTextarea({
-  labelText,
-  placeholder,
-  id,
-  name,
-  value,
-  onChange,
-  required,
-}: IFormTextareaProps) {
+export function FormTextarea(props: IFormTextareaProps) {
+  const {
+    labelText,
+    placeholder = '',
+    id,
+    name,
+    value,
+    onChange,
+    onKeyPress,
+    required = false,
+    disabled = false,
+  } = props;
   return (
     <div>
       {labelText && <label htmlFor={id}>{labelText}</label>}
@@ -19,7 +22,9 @@ export function FormTextarea({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        onKeyPress={onKeyPress}
         required={required}
+        disabled={disabled}
       />
     </div>
   );

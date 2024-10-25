@@ -17,7 +17,9 @@ export interface IFormTextareaProps {
   name: string;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onKeyPress: (event: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   required?: boolean;
+  disabled?: boolean;
 }
 
 export interface RadioButtonProps {
