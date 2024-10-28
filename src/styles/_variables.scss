@@ -1,8 +1,12 @@
 // styles/_variables.scss
 
 // Color variables
+$white: #fdfdfd;
+
 $main-color: #42495c;
+$main-color-dark: #93979f;
 $main-color-medium: #cacaca;
+$main-color-light: #dedede;
 $main-color-lighter: #f1f1f1;
 
 $secondary-color-darker: #066d64;
@@ -11,7 +15,7 @@ $secondary-color-lighter: #88e9e5;
 
 // Text colors
 $text-color: #282a31;
-$text-light-color: #fff;
+$text-light-color: #fdfdfd;
 
 // Fonts
 $title: (
@@ -39,7 +43,7 @@ $padding-large: 4rem;
 
 // Font sizes
 $font-x-small: 1.2rem;
-$font-small: 1.6rem;
+$font-small: 1.5rem;
 $font-medium: 2rem;
 $font-large: 2.6rem;
 $font-x-large: 3rem;

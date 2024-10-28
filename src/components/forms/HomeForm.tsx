@@ -5,20 +5,7 @@ import Button from '../common/Button';
 import Loader from '../common/Loader';
 import './HomeForm.scss';
 
-// Constants for experience levels and roles
-const experienceLevels = {
-  'Trainee - 0-1 Years': 'Trainee',
-  'Junior - 1-2 Years': 'Junior',
-  'Semi-Senior - 2-4 Years': 'Semi-Senior',
-  'Senior - 4+ Years': 'Senior',
-  'Lead - 8+ Years': 'Lead',
-};
-
-const roles = {
-  'UX/UI Designer': 'diseñador ux/ui',
-  'Frontend Developer': 'frontend',
-  'Backend Developer': 'backend',
-};
+import { experienceLevels, roles, themes } from '../../utils/constants';
 
 export default function HomeForm() {
   const navigate = useNavigate();

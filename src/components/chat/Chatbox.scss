@@ -1,20 +1,19 @@
 @import '../../styles/_variables';
 
 .chat-form {
-  background-color: $secondary-color-lighter;
-  height: 8rem;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  height: 6rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  width: calc(100% - 4rem);
 }
 
 .chat-form textarea {
   background-color: white;
-  border: 1px solid $secondary-color;
+  border-radius: 1.4rem;
   resize: none;
   width: 100%;
-  height: 8rem;
+  height: 6rem;
   padding: 1rem 8rem 1rem 1rem;
   position: relative;
   font-family: 'Lato', sans-serif;
@@ -23,7 +22,7 @@
   text-align: left;
 
   &:focus {
-    border: 1px solid $secondary-color;
+    border: 1px solid $main-color;
   }
 }
 
@@ -32,8 +31,8 @@
   top: 1rem;
   right: 1rem;
   z-index: 10;
-  width: 6rem;
-  height: 6rem;
+  width: 4rem;
+  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,6 +40,6 @@
   padding: 0;
 
   .button-icon {
-    font-size: 3.8rem;
+    font-size: 2.6rem;
   }
 }

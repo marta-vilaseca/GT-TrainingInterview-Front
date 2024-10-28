@@ -1,123 +1,12 @@
 @import '../styles/_variables';
 
-.main.chat {
+.chat .main {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  flex: 1;
   gap: 0;
   padding: 0;
   align-items: stretch;
   justify-content: flex-end;
-  min-height: 100vh;
-}
-
-.chat-text {
-  background-color: $main-color-lighter;
-  flex-grow: 1;
-  padding: $padding-large $padding-medium $padding-medium;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  overflow-y: visible;
-  height: auto;
-  min-height: 100vh;
-}
-
-.chat-text div.spacer {
-  border-top: 10rem solid transparent;
-  width: 100%;
-}
-
-.chat-intro {
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 2rem;
-  margin-bottom: $padding-medium;
-
-  h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: $font-large;
-    color: $main-color;
-  }
-
-  .action {
-    button {
-      width: 100%;
-    }
-  }
-
-  strong {
-    color: $secondary-color;
-    text-transform: capitalize;
-  }
-}
-
-.chat-entry {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 2rem;
-
-  &.chat-entry {
-    margin-bottom: 2rem;
-  }
-}
-
-.current-question {
-  margin: 2rem 0 3rem;
-}
-
-.bubble {
-  font-weight: 500;
-  font-size: $font-medium;
-  padding: $padding-medium;
-  border-radius: 1rem;
-  opacity: 0.7;
-  position: relative;
-}
-.question,
-.current-question,
-.feedback {
-  background-color: $secondary-color-darker;
-  color: $text-light-color;
-  text-align: left;
-  align-self: flex-start;
-}
-
-.question::before,
-.current-question::before,
-.feedback::before {
-  content: '';
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-left: 2rem solid $secondary-color-darker;
-  border-right: 1rem solid transparent;
-  border-top: 1rem solid $secondary-color-darker;
-  border-bottom: 2rem solid transparent;
-  left: 2rem;
-  bottom: -2rem;
-}
-
-.answer {
-  background-color: $main-color;
-  color: $text-light-color;
-  text-align: right;
-  align-self: flex-end;
-}
-
-.answer::before {
-  content: '';
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-right: 2rem solid $main-color;
-  border-left: 2rem solid transparent;
-  border-top: 2rem solid $main-color;
-  border-bottom: 2rem solid transparent;
-  right: 2rem;
-  bottom: -2rem;
+  padding: 0 $padding-medium;
 }
