@@ -23,3 +23,21 @@ export const fetchQuestion = async (data: QuestionData) => {
     throw error;
   }
 };
+
+export const fetchFeedback = async (data: {
+  question: string;
+  userResponse: string;
+}) => {
+  try {
+    const response: AxiosResponse<string> = await api.post(
+      `/question/feedback?userResponse=${encodeURIComponent(data.userResponse)}`, // userResponse as a query parameter
+      { question: data.question }, // question in the request body
+      { responseType: 'text' } // explicitly set response type to text
+    );
+
+    return response.data; // directly return the text response as feedback
+  } catch (error) {
+    console.error('Error posting feedback data', error);
+    throw error;
+  }
+};

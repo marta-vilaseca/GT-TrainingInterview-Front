@@ -1,16 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
+
 import { useLocation } from 'react-router-dom';
-import { fetchQuestion } from '../../services/api';
+
+import { fetchQuestion, fetchFeedback } from '../../services/api';
+
 import Button from '../common/Button';
+
 import Chatbox from './Chatbox';
-import ChatLoader from '../common/ChatLoader';
+
+import ChatLoader from './ChatLoader';
+
 import { QuestionData } from '../../types/IAxios';
+
 import { ChatEntry } from '../../types/IChatTypes';
+
 import './ChatContainer.scss';
 
 export default function ChatContainer() {
   const location = useLocation();
-  const { name, role, experience } = location.state || {};
+
+  const { name, role, experience, theme } = location.state || {};
 
   const [chatHistory, setChatHistory] = useState<ChatEntry[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState('');
@@ -19,24 +28,23 @@ export default function ChatContainer() {
   const [loadingFeedback, setLoadingFeedback] = useState(false);
   const [chatboxDisabled, setChatboxDisabled] = useState(true);
   const [chatStarted, setChatStarted] = useState(false);
+  const [showNextQuestionButton, setShowNextQuestionButton] = useState(false);
+  const [showCurrentQuestion, setShowCurrentQuestion] = useState(false); // New control for displaying the current question
+
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
-  // Load first question on button click
+  // Load initial question
   const handleStartChat = async () => {
     setLoadingQuestion(true);
     setChatboxDisabled(true);
     setChatStarted(true);
 
-    const requestData: QuestionData = {
-      role,
-      experience,
-      theme: '',
-    };
+    const requestData: QuestionData = { role, experience, theme: theme || '' };
 
     try {
-      const { question, comment } = await fetchQuestion(requestData);
+      const { question } = await fetchQuestion(requestData);
       setCurrentQuestion(question);
-      setCurrentFeedback(comment);
+      setShowCurrentQuestion(true);
     } catch (error) {
       console.error('Failed to fetch question:', error);
     } finally {
@@ -45,36 +53,62 @@ export default function ChatContainer() {
     }
   };
 
-  // Handle answer submission from Chatbox component
-  const handleSubmitAnswer = (answer: string) => {
+  // Handle answer submission and request feedback
+  const handleSubmitAnswer = async (answer: string) => {
     if (!currentQuestion) return;
 
-    // Add the current question and answer to chat history
+    // Add the question and answer to chat history
     setChatHistory((prevHistory) => [
       ...prevHistory,
       { question: currentQuestion, answer, feedback: '' },
     ]);
 
     setChatboxDisabled(true);
-
     setLoadingFeedback(true);
-    setTimeout(() => {
+    setShowCurrentQuestion(false); // Hide the question while feedback loads
+
+    try {
+      const feedback = await fetchFeedback({
+        question: currentQuestion,
+        userResponse: answer,
+      });
+      setCurrentFeedback(feedback);
+
+      // Update chat history with feedback
       setChatHistory((prevHistory) => {
         const newHistory = [...prevHistory];
-        newHistory[newHistory.length - 1].feedback = currentFeedback;
+        newHistory[newHistory.length - 1].feedback = feedback;
         return newHistory;
       });
 
+      setShowNextQuestionButton(true); // Show "Otra pregunta" button after feedback
+    } catch (error) {
+      console.error('Failed to fetch feedback:', error);
+    } finally {
       setLoadingFeedback(false);
+      setChatboxDisabled(false);
+      setCurrentQuestion(''); // Reset the current question until a new one is fetched
+    }
+  };
 
-      setTimeout(async () => {
-        await handleStartChat();
-      }, 1000);
-    }, 2000);
+  // Fetch next question when "Otra pregunta" is clicked
+  const handleNextQuestion = async () => {
+    setLoadingQuestion(true);
+    setChatboxDisabled(true);
+    setShowNextQuestionButton(false); // Hide button when fetching new question
 
-    // Reset the current question and feedback but keep chat history
-    setCurrentQuestion('');
-    setCurrentFeedback('');
+    const requestData: QuestionData = { role, experience, theme: theme || '' };
+
+    try {
+      const { question } = await fetchQuestion(requestData);
+      setCurrentQuestion(question);
+      setShowCurrentQuestion(true); // Show the new question
+    } catch (error) {
+      console.error('Failed to fetch question:', error);
+    } finally {
+      setLoadingQuestion(false);
+      setChatboxDisabled(false);
+    }
   };
 
   // Auto-scroll to the end of the chat when chat history or loading state changes
@@ -84,47 +118,65 @@ export default function ChatContainer() {
 
   return (
     <div className="chat-container">
-      <div className="chat-body">
-        {/* Chat intro */}
-        <div className="chat-intro">
-          <h2>Hola, {name}!</h2>
-          <p>
-            Voy a hacerte preguntas sobre <strong>{role}</strong> para un nivel{' '}
-            <strong>{experience}</strong>.
-          </p>
-          {!chatStarted && <Button onClick={handleStartChat}>Empecemos</Button>}
+      <div className="scrollbar-padding">
+        <div className="chat-body">
+          {/* Chat intro */}
+          <div className="chat-intro">
+            <h2>Hola, {name}!</h2>
+            <p>
+              Voy a hacerte preguntas sobre <strong>{role}</strong> para un
+              nivel <strong>{experience}</strong>
+              {theme && (
+                <>
+                  {' '}
+                  y centradas en <strong>{theme}</strong>
+                </>
+              )}
+              .
+            </p>
+            {!chatStarted && (
+              <Button onClick={handleStartChat}>Empecemos</Button>
+            )}
+          </div>
+
+          {/* Chat history */}
+          {chatHistory.map((entry, index) => (
+            <div key={index} className="chat-entry">
+              <div className="bubble question">{entry.question}</div>
+              <div className="bubble answer">{entry.answer}</div>
+              <div className="bubble feedback">
+                {entry.feedback || (loadingFeedback && <ChatLoader />)}
+              </div>
+            </div>
+          ))}
+
+          {/* Ask for another question */}
+          {showNextQuestionButton && !loadingQuestion && (
+            <div className="bubble next-question">
+              <Button onClick={handleNextQuestion}>Otra pregunta</Button>
+            </div>
+          )}
+
+          {/* Loading bubble for question while fetching the current question */}
+          {loadingQuestion && (
+            <div className="bubble current-question">
+              <ChatLoader />
+            </div>
+          )}
+
+          {/* Render current question if available and not loading */}
+          {showCurrentQuestion && currentQuestion && (
+            <div className="bubble current-question">{currentQuestion}</div>
+          )}
+
+          {/* Ref for auto-scrolling */}
+          <div className="spacer" ref={chatEndRef}></div>
         </div>
 
-        {/* Chat history */}
-        {chatHistory.map((entry, index) => (
-          <div key={index} className="chat-entry">
-            <div className="bubble question">{entry.question}</div>
-            <div className="bubble answer">{entry.answer}</div>
-            <div className="bubble feedback">
-              {entry.feedback || (loadingFeedback && <ChatLoader />)}
-            </div>
-          </div>
-        ))}
-
-        {/* Loading bubble for question while fetching the current question */}
-        {loadingQuestion && (
-          <div className="bubble current-question">
-            <ChatLoader />
-          </div>
-        )}
-
-        {/* Render current question if not loading */}
-        {!loadingQuestion && currentQuestion && (
-          <div className="bubble current-question">{currentQuestion}</div>
-        )}
-
-        {/* Ref for auto-scrolling */}
-        <div className="spacer" ref={chatEndRef}></div>
-      </div>
-
-      {/* Chatbox for submitting answers */}
-      <div className="chat-form">
-        <Chatbox onSubmit={handleSubmitAnswer} disabled={chatboxDisabled} />
+        {/* Chatbox for submitting answers */}
+        <div className="chat-form">
+          <Chatbox onSubmit={handleSubmitAnswer} disabled={chatboxDisabled} />
+        </div>
       </div>
     </div>
   );
