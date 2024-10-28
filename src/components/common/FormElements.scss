@@ -1,12 +1,29 @@
 @import '../../styles/_variables';
 
 input[type='text'],
-select,
-button {
-  line-height: 3rem;
-  height: 3rem;
+select {
+  line-height: calc($font-medium + 1rem);
+  height: calc($font-medium + 2rem);
   font-size: $font-medium;
-  padding: 0 0.5rem;
+  background-color: $text-light-color;
+  color: $main-color;
+  border: 1px solid $main-color-medium;
+  padding: $padding-x-small $padding-small;
+  outline: none;
+  font-family: map-get($body, font-family);
+  font-weight: map-get($body, font-weight);
+
+  &:focus {
+    border: 2px solid $secondary-color;
+  }
+
+  &::placeholder {
+    color: $main-color;
+  }
+}
+
+select > option {
+  font-size: $font-medium;
 }
 
 label {
@@ -17,7 +34,11 @@ label {
 
 button {
   border-radius: 0.5rem;
-  padding: 0 1.5rem;
+  padding: $padding-x-small $padding-medium;
+  font-size: $font-medium;
+  font-weight: bold;
+  height: calc($font-medium * 2.5);
+  vertical-align: middle;
   border: 0;
   outline: 0;
   background-color: $secondary-color;

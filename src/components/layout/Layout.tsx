@@ -16,9 +16,9 @@ export default function Layout(props: PropsWithChildren<Props>) {
     : props.extraClassName || ''; // and fall back to an empty string if undefined
 
   return (
-    <div className="wrapper">
+    <div className={`wrapper ${props.page} ${extraClasses}`}>
       <Header />
-      <main className={`main ${props.page} ${extraClasses}`}>
+      <main className="main">
         {props.title && <h2 className="visibleTitle">{props.title}</h2>}
         {props.children}
       </main>

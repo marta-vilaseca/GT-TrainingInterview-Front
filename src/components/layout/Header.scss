@@ -3,8 +3,43 @@
 
 .header {
   @include center-flex;
+  padding: $padding-small $padding-medium 0;
+  background-color: $white;
+  color: $main-color-medium;
+  height: 6rem;
 }
 
-.logo{
-  width: 80%;
+.logo {
+  height: 4.4rem;
+}
+
+.logged-in-menu {
+  display: none;
+}
+
+.chat .header {
+  @include header-inner;
+
+  .logo {
+    height: 3.2rem;
+    margin-top: $padding-small;
+  }
+
+  .logged-in-menu {
+    display: block;
+    font-size: 3.2rem;
+    display: flex;
+    gap: 1.4rem;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .search {
+    font-size: 2rem;
+    padding: 0.5rem;
+    border: 1px solid $main-color-dark;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+  }
 }

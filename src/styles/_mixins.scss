@@ -7,6 +7,12 @@
   align-items: center;
 }
 
+@mixin header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 // Mixin for centered-column
 @mixin column-top-stretch {
   display: flex;

@@ -1,13 +1,13 @@
+import ChatContainer from '../components/chat/ChatContainer';
+import ChatHeader from '../components/chat/ChatHeader';
 import Layout from '../components/layout/Layout';
+import './Chat.scss';
 
-function Chat() {
+export default function Chat() {
   return (
-    <>
-      <Layout page="home" extraClassName="chat">
-        <h2>Chat</h2>
-      </Layout>
-    </>
+    <Layout page="chat">
+      <ChatHeader />
+      <ChatContainer></ChatContainer>
+    </Layout>
   );
 }
-
-export default Chat;

@@ -1,0 +1,14 @@
+@import '../../styles/_variables';
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $padding-small;
+  font-size: $font-large;
+  height: 8rem;
+}
+
+.chat-header h3 {
+  font-size: $font-medium;
+}

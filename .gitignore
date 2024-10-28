@@ -23,3 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 file_tree.txt
+*.Zone.Identifier
+*copy.tsx

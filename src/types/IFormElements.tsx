@@ -10,6 +10,18 @@ export interface IFormInputTextProps {
   readOnly?: boolean;
 }
 
+export interface IFormTextareaProps {
+  labelText?: string;
+  placeholder?: string;
+  id: string;
+  name: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onKeyPress: (event: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  required?: boolean;
+  disabled?: boolean;
+}
+
 export interface RadioButtonProps {
   id: string;
   labelText: string;
