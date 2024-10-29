@@ -7,7 +7,7 @@ import './HomeForm.scss';
 
 import { experienceLevels, roles, themes } from '../../utils/constants';
 
-export default function HomeForm() {
+function HomeForm() {
   const navigate = useNavigate();
   const [homeFormData, setHomeFormData] = useState({
     name: '',
@@ -22,6 +22,14 @@ export default function HomeForm() {
 
     // Navigate to /chat and pass the form data as state
     navigate('/chat', { state: homeFormData });
+  };
+
+  const handleCancel = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoadingState(true);
+
+    // Navigate to /
+    navigate('/');
   };
 
   return (
@@ -83,6 +91,11 @@ export default function HomeForm() {
             />
           </li>
           <li>
+            <Button disabled={loadingState} onClick={handleCancel}>
+              Cancelar
+            </Button>
+          </li>
+          <li>
             <Button disabled={loadingState}>Enviar</Button>
           </li>
         </ul>
@@ -91,3 +104,5 @@ export default function HomeForm() {
     </div>
   );
 }
+
+export default HomeForm;

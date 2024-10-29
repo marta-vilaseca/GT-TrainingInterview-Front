@@ -3,10 +3,10 @@ import Dora from '../assets/artificial-bot-intelligence-svgrepo-com.svg';
 import HomeForm from '../components/forms/HomeForm';
 import './LogIn.scss';
 
-function Home() {
+function Login() {
   return (
     <>
-      <Layout page="login" extraClassName="login">
+      <Layout page="login">
         <div className="greetings">
           <img src={Dora} className="greetings__logo" alt="PildorasUX logo" />
           <h2 className="greetings__title">
@@ -17,7 +17,8 @@ function Home() {
             forma personalizada.
           </p>
           <p className="greetings__body">
-            ¿Listo para comenzar tu entrenamiento?
+            Dora está lista para guiarte. Completa estos campos para ajustar el
+            nivel y tipo de preguntas que recibirás durante el entrenamiento.
           </p>
         </div>
         <HomeForm></HomeForm>
@@ -26,4 +27,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Login;

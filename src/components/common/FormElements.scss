@@ -43,6 +43,7 @@ button {
   outline: 0;
   background-color: $secondary-color;
   color: white;
+  margin: $padding-medium;
 
   &:hover {
     background-color: $main-color;

@@ -18,3 +18,55 @@
     padding: $padding-small;
   }
 }
+
+.benefits {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: $padding-medium;
+  align-items: start;
+  &__text {
+    font-family: map-get($body, font-family);
+    font-weight: map-get($body, font-weight);
+    font-size: $font-small;
+    padding: $padding-small;
+  }
+}
+
+.benefit {
+  font-family: map-get($body, font-family);
+  font-weight: map-get($body, font-weight);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: $padding-medium;
+  gap: 1rem;
+
+  &__number {
+    background-color: $main-color-light;
+    color: $text-color;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: $font-medium;
+  }
+  
+  &__title {
+    font-weight: 700;
+    font-size: $font-small;
+  }
+  &__text {
+    font-size: $font-small;
+  }
+}
+
+.focus{
+  list-style: none;
+  font-size: 1.2rem;
+}
