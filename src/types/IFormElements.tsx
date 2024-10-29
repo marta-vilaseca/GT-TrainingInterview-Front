@@ -39,6 +39,7 @@ export interface FormSelectProps {
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   options: string[];
   required?: boolean;
+  hidden: boolean;
 }
 
 export interface FormButtonProps {

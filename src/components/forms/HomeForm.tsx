@@ -13,6 +13,7 @@ function HomeForm() {
     name: '',
     role: '',
     experience: 'Trainee',
+    theme: '',
   });
   const [loadingState, setLoadingState] = useState(false);
 
@@ -56,6 +57,7 @@ function HomeForm() {
               labelText="Rol"
               name="role"
               required
+              hidden={false}
               value={
                 Object.keys(roles).find(
                   (key) =>
@@ -75,6 +77,7 @@ function HomeForm() {
               id="experienceLevel"
               labelText="Experiencia"
               name="experienceLevel"
+              hidden={false}
               value={
                 Object.keys(experienceLevels).find(
                   (key) =>
@@ -89,6 +92,23 @@ function HomeForm() {
                 setHomeFormData({ ...homeFormData, experience: shortValue });
               }}
               options={Object.keys(experienceLevels)}
+            />
+          </li>
+          <li>
+            <Dropdown
+              id="theme"
+              labelText="Temática"
+              name="theme"
+              hidden={homeFormData.role === ''}
+              value={
+                Object.keys(themes).find((key) => key === homeFormData.theme) ||
+                ''
+              }
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                const fullValue = e.target.value;
+                setHomeFormData({ ...homeFormData, theme: fullValue });
+              }}
+              options={Object.keys(themes)}
             />
           </li>
           <li>
