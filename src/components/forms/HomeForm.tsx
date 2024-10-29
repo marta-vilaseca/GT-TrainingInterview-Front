@@ -37,7 +37,7 @@ function HomeForm() {
       <form className="form" onSubmit={handleSubmitForm}>
         <ul>
           <li>
-            <label htmlFor="name">Tu nombre:</label>
+            <label htmlFor="name">Nombre</label>
             <input
               type="text"
               name="name"
@@ -53,8 +53,9 @@ function HomeForm() {
           <li>
             <Dropdown
               id="role"
-              labelText="Tu rol:"
+              labelText="Rol"
               name="role"
+              required
               value={
                 Object.keys(roles).find(
                   (key) =>
@@ -72,7 +73,7 @@ function HomeForm() {
           <li>
             <Dropdown
               id="experienceLevel"
-              labelText="Tu experiencia:"
+              labelText="Experiencia"
               name="experienceLevel"
               value={
                 Object.keys(experienceLevels).find(
@@ -91,12 +92,12 @@ function HomeForm() {
             />
           </li>
           <li>
-            <Button disabled={loadingState} onClick={handleCancel}>
-              Cancelar
-            </Button>
-          </li>
-          <li>
-            <Button disabled={loadingState}>Enviar</Button>
+            <div className="button__container">
+              <Button disabled={loadingState} onClick={handleCancel}>
+                Cancelar
+              </Button>
+              <Button disabled={loadingState}>Enviar</Button>
+            </div>
           </li>
         </ul>
         {loadingState && <Loader />}

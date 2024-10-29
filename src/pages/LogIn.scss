@@ -1,2 +1,43 @@
 @import '../styles/_mixins';
 @import '../styles/_variables';
+
+.login {
+  &__title {
+    font-family: map-get($subtitle, font-family);
+    font-weight: map-get($subtitle, font-weight);
+    font-size: 2.4rem;
+    padding: $padding-small;
+  }
+  &__body {
+    font-family: map-get($body, font-family);
+    font-weight: map-get($body, font-weight);
+    font-size: $font-medium;
+    padding: $padding-small;
+  }
+}
+
+.hero {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: $padding-medium;
+    padding-top: 0px;
+  &__logo {
+    width: 8rem;
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+  &__title {
+    font-family: map-get($subtitle, font-family);
+    font-weight: map-get($subtitle, font-weight);
+    font-size: $font-large;
+    padding: $padding-small;
+  }
+  &__text {
+    font-size: $font-medium;
+  }
+}
