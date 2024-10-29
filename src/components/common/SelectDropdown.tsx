@@ -8,17 +8,19 @@ export default function FormSelect({
   value,
   onChange,
   options,
+  hidden = false,
   required = false,
 }: FormSelectProps) {
   return (
     <>
-      <label>{labelText}</label>
+      <label hidden={hidden}>{labelText}</label>
       <select
         id={id}
         name={name}
         value={value}
         onChange={onChange}
         required={required}
+        hidden={hidden}
       >
         <option value="" disabled>
           Select an option

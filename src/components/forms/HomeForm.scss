@@ -1,14 +1,15 @@
 @import '../../styles/_mixins';
 @import '../../styles/_variables';
 
-:root {
-  accent-color: $accent;
-}
-
 .form {
-  width: calc(100vw - 2rem);
+  width: 70vw;
   max-width: $xxs-width;
   margin: 0 auto 2rem;
+  font-family: map-get($body, font-family);
+  font-weight: map-get($body, font-weight);
+  font-weight: 700;
+  text-align: left;
+  font-size: $font-small;
 }
 
 .form ul {
@@ -24,8 +25,11 @@
 .form > ul {
   gap: $padding-medium;
 }
+.form select option {
+  font-size: $font-small;
+}
 
-.form .options__radio label {
+.form .options__select label {
   margin: 0 1rem;
 }
 
@@ -58,7 +62,9 @@
   border-radius: 1rem;
 }
 
-.buttons {
-  @include center-flex;
-  gap: 1rem;
+.button__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: stretch;
 }

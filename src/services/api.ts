@@ -1,7 +1,7 @@
 // services/api.ts
 
 import axios, { AxiosResponse } from 'axios';
-import { UserData, UserResponseData } from '../types/IAxios';
+import { QuestionData, QuestionResponseData } from '../types/IAxios';
 
 // Create an Axios instance
 const api = axios.create({
@@ -11,35 +11,33 @@ const api = axios.create({
   },
 });
 
-// Function to post the user Data and get a question and the question feedback
-export const userData = async (
-  endpoint: string,
-  payload: UserData
-): Promise<UserResponseData> => {
-  // Return type is now UserResponseData
+export const fetchQuestion = async (data: QuestionData) => {
   try {
-    const response: AxiosResponse<UserResponseData> = await api.post(
-      endpoint,
-      payload
+    const response: AxiosResponse<QuestionResponseData> = await api.post(
+      '/question',
+      data
     );
-    return response.data; // Now returns an object of type UserResponseData
+    return response.data;
   } catch (error) {
     console.error('Error posting data', error);
     throw error;
   }
 };
 
-// DISABLED FOR NOW - Function to post feedback
-// export const postFeedback = async (
-//   endpoint: string,
-//   payload: FeedbackData // New payload type
-// ): Promise<string> => {
-//   // Return type is string
-//   try {
-//     const response: AxiosResponse<string> = await api.post(endpoint, payload);
-//     return response.data; // Feedback is returned as a string
-//   } catch (error) {
-//     console.error('Error posting feedback', error);
-//     throw error;
-//   }
-// };
+export const fetchFeedback = async (data: {
+  question: string;
+  userResponse: string;
+}) => {
+  try {
+    const response: AxiosResponse<string> = await api.post(
+      `/question/feedback?userResponse=${encodeURIComponent(data.userResponse)}`, // userResponse as a query parameter
+      { question: data.question }, // question in the request body
+      { responseType: 'text' } // explicitly set response type to text
+    );
+
+    return response.data; // directly return the text response as feedback
+  } catch (error) {
+    console.error('Error posting feedback data', error);
+    throw error;
+  }
+};

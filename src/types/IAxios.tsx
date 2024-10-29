@@ -1,17 +1,15 @@
-export interface UserData {
+export interface QuestionData {
   name?: string;
   role: string;
   experience: string;
+  theme?: string;
 }
 
-// export interface FeedbackData {
-//   answer: string;
-// }
-
-export interface UserResponseData {
+export interface QuestionResponseData {
+  id: number;
+  question: string;
+  comment: string;
   role: string;
   experience: string;
-  userResponse: string;
-  prompt: string;
-  feedback: string;
+  theme: string;
 }
