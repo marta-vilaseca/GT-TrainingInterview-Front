@@ -7,12 +7,13 @@ import './HomeForm.scss';
 
 import { experienceLevels, roles, themes } from '../../utils/constants';
 
-export default function HomeForm() {
+function HomeForm() {
   const navigate = useNavigate();
   const [homeFormData, setHomeFormData] = useState({
     name: '',
     role: '',
     experience: 'Trainee',
+    theme: '',
   });
   const [loadingState, setLoadingState] = useState(false);
 
@@ -24,12 +25,20 @@ export default function HomeForm() {
     navigate('/chat', { state: homeFormData });
   };
 
+  const handleCancel = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoadingState(true);
+
+    // Navigate to /
+    navigate('/');
+  };
+
   return (
     <div className="container">
       <form className="form" onSubmit={handleSubmitForm}>
         <ul>
           <li>
-            <label htmlFor="name">Tu nombre:</label>
+            <label htmlFor="name">Nombre</label>
             <input
               type="text"
               name="name"
@@ -45,8 +54,10 @@ export default function HomeForm() {
           <li>
             <Dropdown
               id="role"
-              labelText="Tu rol:"
+              labelText="Rol"
               name="role"
+              required
+              hidden={false}
               value={
                 Object.keys(roles).find(
                   (key) =>
@@ -64,8 +75,9 @@ export default function HomeForm() {
           <li>
             <Dropdown
               id="experienceLevel"
-              labelText="Tu experiencia:"
+              labelText="Experiencia"
               name="experienceLevel"
+              hidden={false}
               value={
                 Object.keys(experienceLevels).find(
                   (key) =>
@@ -83,7 +95,29 @@ export default function HomeForm() {
             />
           </li>
           <li>
-            <Button disabled={loadingState}>Enviar</Button>
+            <Dropdown
+              id="theme"
+              labelText="Temática"
+              name="theme"
+              hidden={homeFormData.role === ''}
+              value={
+                Object.keys(themes).find((key) => key === homeFormData.theme) ||
+                ''
+              }
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                const fullValue = e.target.value;
+                setHomeFormData({ ...homeFormData, theme: fullValue });
+              }}
+              options={Object.keys(themes)}
+            />
+          </li>
+          <li>
+            <div className="button__container">
+              <Button disabled={loadingState} onClick={handleCancel}>
+                Cancelar
+              </Button>
+              <Button disabled={loadingState}>Enviar</Button>
+            </div>
           </li>
         </ul>
         {loadingState && <Loader />}
@@ -91,3 +125,5 @@ export default function HomeForm() {
     </div>
   );
 }
+
+export default HomeForm;

@@ -17,7 +17,12 @@ export const roles = {
 };
 
 // Themes
-export const themes = {
+export type RoleType =
+  | 'UX/UI Designer'
+  | 'Frontend Developer'
+  | 'Backend Developer';
+
+export const themes: { [key in RoleType]: string[] } = {
   'UX/UI Designer': [
     'Investigación de usuarios y perfiles',
     'Prototipado y wireframing',
