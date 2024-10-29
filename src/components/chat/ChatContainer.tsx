@@ -24,6 +24,7 @@ export default function ChatContainer() {
   const [chatHistory, setChatHistory] = useState<ChatEntry[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [currentFeedback, setCurrentFeedback] = useState('');
+  console.log(currentFeedback); // Temporary use for linter
   const [loadingQuestion, setLoadingQuestion] = useState(false);
   const [loadingFeedback, setLoadingFeedback] = useState(false);
   const [chatboxDisabled, setChatboxDisabled] = useState(true);

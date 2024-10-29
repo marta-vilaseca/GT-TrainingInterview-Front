@@ -20,17 +20,20 @@
 }
 
 .benefits {
-  list-style: none;
   display: flex;
   flex-direction: column;
   padding: $padding-medium;
-  align-items: start;
+  align-items: center;
   &__text {
     font-family: map-get($body, font-family);
     font-weight: map-get($body, font-weight);
     font-size: $font-small;
     padding: $padding-small;
   }
+}
+
+.benefits ul {
+  list-style: none;
 }
 
 .benefit {
@@ -56,7 +59,7 @@
     align-items: center;
     font-size: $font-medium;
   }
-  
+
   &__title {
     font-weight: 700;
     font-size: $font-small;
@@ -66,7 +69,7 @@
   }
 }
 
-.focus{
+.focus {
   list-style: none;
   font-size: 1.2rem;
 }

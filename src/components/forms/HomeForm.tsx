@@ -5,7 +5,12 @@ import Button from '../common/Button';
 import Loader from '../common/Loader';
 import './HomeForm.scss';
 
-import { experienceLevels, roles, themes } from '../../utils/constants';
+import {
+  experienceLevels,
+  roles,
+  themes,
+  RoleType,
+} from '../../utils/constants';
 
 function HomeForm() {
   const navigate = useNavigate();
@@ -21,15 +26,29 @@ function HomeForm() {
     e.preventDefault();
     setLoadingState(true);
 
+    // Ensure theme is set as empty if none is chosen
+    const formData = {
+      ...homeFormData,
+      theme: homeFormData.theme || 'General',
+    };
+
     // Navigate to /chat and pass the form data as state
-    navigate('/chat', { state: homeFormData });
+    navigate('/chat', { state: formData });
   };
 
   const handleCancel = (e: React.FormEvent) => {
     e.preventDefault();
     setLoadingState(true);
 
-    // Navigate to /
+    // Clear form data if needed
+    setHomeFormData({
+      name: '',
+      role: '',
+      experience: 'Trainee',
+      theme: '',
+    });
+
+    // Navigate to home
     navigate('/');
   };
 
@@ -100,15 +119,15 @@ function HomeForm() {
               labelText="Temática"
               name="theme"
               hidden={homeFormData.role === ''}
-              value={
-                Object.keys(themes).find((key) => key === homeFormData.theme) ||
-                ''
-              }
+              value={homeFormData.theme || ''}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                const fullValue = e.target.value;
-                setHomeFormData({ ...homeFormData, theme: fullValue });
+                const selectedTheme = e.target.value;
+                setHomeFormData({ ...homeFormData, theme: selectedTheme });
               }}
-              options={Object.keys(themes)}
+              options={[
+                'General',
+                ...(themes[homeFormData.role as RoleType] || []),
+              ]}
             />
           </li>
           <li>

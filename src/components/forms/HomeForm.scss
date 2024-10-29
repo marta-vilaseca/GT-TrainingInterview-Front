@@ -25,6 +25,9 @@
 .form > ul {
   gap: $padding-medium;
 }
+.form select option {
+  font-size: $font-small;
+}
 
 .form .options__select label {
   margin: 0 1rem;

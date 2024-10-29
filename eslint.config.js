@@ -43,4 +43,7 @@ export default [
     },
   },
   eslintConfigPrettier,
+  {
+    ignores: ['dist/**'], // Ensure this line is outside the config object
+  },
 ];

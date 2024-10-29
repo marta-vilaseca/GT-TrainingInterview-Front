@@ -17,27 +17,24 @@ export const roles = {
 };
 
 // Themes
-export type RoleType =
-  | 'UX/UI Designer'
-  | 'Frontend Developer'
-  | 'Backend Developer';
+export type RoleType = 'diseñador ux/ui' | 'frontend' | 'backend';
 
 export const themes: { [key in RoleType]: string[] } = {
-  'UX/UI Designer': [
+  'diseñador ux/ui': [
     'Investigación de usuarios y perfiles',
     'Prototipado y wireframing',
     'Accesibilidad y usabilidad',
     'Tipografía y diseño visual',
     'Flujo de usuario y arquitectura de la información',
   ],
-  'Frontend Developer': [
+  frontend: [
     'HTML y semántica',
     'CSS y estilización',
     'Javascript y manipulación del DOM',
     'Frameworks y librerías (React, Vue, Angular)',
     'Control de versiones y herramientas de construcción',
   ],
-  'Backend Developer': [
+  backend: [
     'Seguridad y Autenticación',
     'Escalabilidad y Rendimiento',
     'Manejo de errores y logs',
