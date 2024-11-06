@@ -2,19 +2,21 @@ import Layout from '../components/layout/Layout';
 import Dora from '../assets/artificial-bot-intelligence-svgrepo-com.svg';
 import Button from '../components/common/Button';
 import Modal from '../components/modals/KnowMoreModal';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './Home.scss';
 
-function Home() {
+const Home: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const navigate = useNavigate();
-  const handleStart = () => {
-    console.log('Hello');
+  const handleStart = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    console.log(e);
     navigate('/login');
   };
 
-  const handleClickModal = () => {
+  const handleClickModal = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    console.log(e);
     setShowModal(true);
   };
 
