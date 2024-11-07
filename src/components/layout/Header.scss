@@ -3,7 +3,7 @@
 
 .header {
   @include center-flex;
-  padding: $padding-small $padding-medium 0;
+  padding: $padding-medium;
   background-color: $white;
   color: $main-color-medium;
   height: 6rem;
@@ -22,7 +22,7 @@
 
   .logo {
     height: 3.2rem;
-    margin-top: $padding-small;
+    margin-top: $padding-medium
   }
 
   .logged-in-menu {

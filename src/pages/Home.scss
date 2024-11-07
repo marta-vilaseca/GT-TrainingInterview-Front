@@ -11,6 +11,12 @@
     font-size: 2.4rem;
     padding: $padding-small;
   }
+  &__subtitle {
+    font-family: map-get($subtitle, font-family);
+    font-weight: 500;
+    font-size: 2.4rem;
+    padding: $padding-small;
+  }
   &__body {
     font-family: map-get($body, font-family);
     font-weight: map-get($body, font-weight);

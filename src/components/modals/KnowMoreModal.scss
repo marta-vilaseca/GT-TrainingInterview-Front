@@ -1,0 +1,32 @@
+@import '../../styles/_mixins';
+@import '../../styles/_variables';
+
+
+.container{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: white 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal {
+    position: absolute;
+    display: flex;
+    width: 80vw;
+    height: 70vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible{
+    display: inherit;
+}
