@@ -16,7 +16,7 @@ export default function ChatContainer() {
     theme: 'general',
   };
 
-  const [isChatStarted, setIsChatStarted] = useState(false); // Chat started state
+  const [isChatStarted, setIsChatStarted] = useState(false);
   const [chatHistory, setChatHistory] = useState<
     {
       question: string;
@@ -25,9 +25,11 @@ export default function ChatContainer() {
       selectedAnswer: string | null;
     }[]
   >([]);
-  const [areControlsDisabled, setAreControlsDisabled] = useState(true); // Disable controls initially
+
+  const [areControlsDisabled, setAreControlsDisabled] = useState(true);
   const [areQuestionsLoading, setAreQuestionsLoading] = useState(false);
-  const [isAnswerSelected, setIsAnswerSelected] = useState(false); // Track if an answer is selected
+  const [isAnswerSelected, setIsAnswerSelected] = useState(false);
+
   const [questionSet, setQuestionSet] = useState<QuestionData2[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<QuestionData2 | null>(
     null
@@ -36,14 +38,109 @@ export default function ChatContainer() {
   const [currentAnswers, setCurrentAnswers] = useState<string[] | null>(null);
   const [correctAnswer, setCorrectAnswer] = useState<string | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [isContinuing, setIsContinuing] = useState(false); // Track if continuing after encouragement
+
+  const [isContinuing, setIsContinuing] = useState(false);
+  const [isSetCompleted, setIsSetCompleted] = useState(false);
+
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
-  // Start chat and fetch questions
+  // Initialization of the chat
   const handleStartChat = async () => {
     setAreQuestionsLoading(true);
     setAreControlsDisabled(true);
-    setIsChatStarted(true); // Mark chat as started
+    setIsChatStarted(true);
+    setIsSetCompleted(false);
+
+    const requestData = { role, experience, theme: theme || '' };
+
+    try {
+      const fetchedQuestions = await fetchQuestions(requestData);
+
+      if (fetchedQuestions.length > 0) {
+        const firstQuestion = fetchedQuestions[0];
+        const randomizedAnswers = randomizeStrings([
+          firstQuestion.correctAnswer,
+          firstQuestion.wrongAnswerA,
+          firstQuestion.wrongAnswerB,
+        ]);
+
+        setCurrentAnswers(randomizedAnswers);
+        setCurrentQuestion(firstQuestion);
+        setQuestionSet(fetchedQuestions);
+        setCorrectAnswer(firstQuestion.correctAnswer);
+        setCurrentQuestionIndex(0);
+      } else {
+        console.warn('No questions available.');
+      }
+    } catch (error) {
+      console.error('Failed to fetch questions:', error);
+    } finally {
+      setAreQuestionsLoading(false);
+      setAreControlsDisabled(false);
+    }
+  };
+
+  // Handle when the user picks an answer from the available options
+  const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedAnswer(e.target.value);
+    setIsAnswerSelected(true);
+  };
+
+  // Handle the answer submission for each question
+  const handleSubmitAnswer = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (currentQuestion && isAnswerSelected) {
+      const isCorrect = selectedAnswer === correctAnswer;
+      const feedbackToAdd = isCorrect
+        ? currentQuestion.correctFeedback
+        : currentQuestion.wrongFeedback;
+
+      setChatHistory((prevHistory) => [
+        ...prevHistory,
+        {
+          question: currentQuestion.question,
+          answers: currentAnswers || [],
+          feedback: feedbackToAdd,
+          selectedAnswer: selectedAnswer,
+        },
+      ]);
+
+      if (currentQuestionIndex === questionSet.length - 1) {
+        setIsSetCompleted(true);
+        setAreControlsDisabled(false);
+        setChatHistory((prevHistory) => [
+          ...prevHistory,
+          {
+            question: '',
+            answers: [],
+            feedback: '¡Gracias por participar!',
+            selectedAnswer: null,
+          },
+        ]);
+      } else {
+        displayNextQuestion();
+      }
+    }
+  };
+
+  // Handle when the user wants to exit
+  const handleCancelSession = () => {
+    setIsChatStarted(false);
+    setIsAnswerSelected(false);
+    setAreQuestionsLoading(false);
+    setCurrentAnswers([]);
+    setIsSetCompleted(false);
+    setTimeout(() => {
+      navigate('/');
+    }, 2000);
+  };
+
+  // Initialize a new round of questions
+  const startNewQuestionSet = async () => {
+    setAreQuestionsLoading(true);
+    setAreControlsDisabled(true);
+    setIsSetCompleted(false);
 
     const requestData = { role, experience, theme: theme || '' };
 
@@ -61,70 +158,25 @@ export default function ChatContainer() {
         setCurrentQuestion(firstQuestion);
         setQuestionSet(fetchedQuestions);
         setCorrectAnswer(firstQuestion.correctAnswer);
-      } else {
-        console.warn('No questions available.');
+        setCurrentQuestionIndex(0);
       }
     } catch (error) {
       console.error('Failed to fetch questions:', error);
     } finally {
       setAreQuestionsLoading(false);
-      setAreControlsDisabled(false); // Enable controls after questions are loaded
+      setAreControlsDisabled(false);
     }
   };
 
-  // Handle answer selection
-  const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedAnswer(e.target.value);
-    setIsAnswerSelected(true); // Mark answer as selected
-  };
-
-  // Submit answer and proceed to next question
-  const handleSubmitAnswer = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (currentQuestion && isAnswerSelected) {
-      const isCorrect = selectedAnswer === correctAnswer;
-      const feedbackToAdd = isCorrect
-        ? currentQuestion.correctFeedback
-        : currentQuestion.wrongFeedback || 'POTATO';
-
-      setChatHistory((prevHistory) => [
-        ...prevHistory,
-        {
-          question: currentQuestion.question,
-          answers: currentAnswers || [],
-          feedback: feedbackToAdd,
-          selectedAnswer: selectedAnswer,
-        },
-      ]);
-
-      displayNextQuestion();
-    } else {
-      console.log('Please select an answer before submitting.');
-    }
-  };
-
-  // Cancel session
-  const handleCancelSession = () => {
-    console.log('Session Cancelled');
-    setIsChatStarted(false);
-    setIsAnswerSelected(false);
-    setAreQuestionsLoading(false);
-    setCurrentAnswers([]);
-    setTimeout(() => {
-      navigate('/');
-    }, 2000);
-  };
-
-  // Function to handle when the next question is displayed or the end message is shown
+  // Handle the logic for displaying the next question
   const displayNextQuestion = () => {
     setSelectedAnswer(null);
     setIsAnswerSelected(false);
+    setAreControlsDisabled(true);
 
-    if (currentQuestionIndex < questionSet.length - 1) {
-      // Continue to the next question
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-      const nextQuestion = questionSet[currentQuestionIndex + 1];
+    if (!isSetCompleted) {
+      const nextIndex = currentQuestionIndex + 1;
+      const nextQuestion = questionSet[nextIndex];
 
       const randomizedAnswers = randomizeStrings([
         nextQuestion.correctAnswer,
@@ -135,79 +187,30 @@ export default function ChatContainer() {
       setCurrentQuestion(nextQuestion);
       setCorrectAnswer(nextQuestion.correctAnswer);
       setCurrentAnswers(randomizedAnswers);
-      setAreControlsDisabled(false); // Enable controls after a question is set
+      setCurrentQuestionIndex(nextIndex);
     } else {
-      // If it's the last question, show the thank you message and enable the buttons
+      // When set is completed, display encouragement message and start new set
       setChatHistory((prevHistory) => [
         ...prevHistory,
         {
           question: '',
           answers: [],
-          feedback: '¡Gracias por participar!',
+          feedback: '¡Vamos a por ello!',
           selectedAnswer: null,
         },
       ]);
-
-      // Set areControlsDisabled to false, enabling both buttons
-      setAreControlsDisabled(false);
-      console.log(
-        'Are controls disabled after last question?',
-        areControlsDisabled
-      );
+      startNewQuestionSet();
     }
   };
 
-  // Function to handle the "Continuar" button logic
-  const handleContinueSession = () => {
-    if (isContinuing) {
-      // Restart the round of questions
-      setIsContinuing(false);
-
-      // Add encouragement message
-      setChatHistory((prevHistory) => [
-        ...prevHistory,
-        {
-          question: '',
-          answers: [],
-          feedback: '¡Vamos por más!',
-          selectedAnswer: null,
-        },
-      ]);
-
-      // Reset to the first question of the set, but keep the previous questions in chatHistory
-      setCurrentQuestionIndex(0); // Reset question index
-      const nextQuestion = questionSet[0];
-      const randomizedAnswers = randomizeStrings([
-        nextQuestion.correctAnswer,
-        nextQuestion.wrongAnswerA,
-        nextQuestion.wrongAnswerB,
-      ]);
-
-      setCurrentQuestion(nextQuestion);
-      setCorrectAnswer(nextQuestion.correctAnswer);
-      setCurrentAnswers(randomizedAnswers);
-      setAreControlsDisabled(false); // Enable controls to allow answering
-    } else {
-      // Enable the "Continuar" button, show the encouragement message
-      setIsContinuing(true);
-
-      // Show the encouragement message when clicking "Continuar"
-      setChatHistory((prevHistory) => [
-        ...prevHistory,
-        {
-          question: '',
-          answers: [],
-          feedback: '¡Vamos por más!',
-          selectedAnswer: null,
-        },
-      ]);
-    }
-  };
-
-  // Scroll to the bottom of the chat when new content is added
+  // to always scroll automatically to the bottom of the chat
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [chatHistory]);
+    const scrollTimeout = setTimeout(() => {
+      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+
+    return () => clearTimeout(scrollTimeout);
+  }, [chatHistory, currentQuestion]);
 
   return (
     <div className="chat-container">
@@ -229,7 +232,6 @@ export default function ChatContainer() {
             </p>
           </div>
 
-          {/* Render chat history */}
           {chatHistory.map((chatItem, index) => (
             <div key={index}>
               {chatItem.question && <strong>{chatItem.question}</strong>}
@@ -252,7 +254,6 @@ export default function ChatContainer() {
             </div>
           ))}
 
-          {/* Render current question */}
           {isChatStarted &&
             currentQuestion &&
             !chatHistory.some(
@@ -269,8 +270,8 @@ export default function ChatContainer() {
                           labelText={answer}
                           name="role"
                           value={answer}
-                          checked={selectedAnswer === answer}
                           onChange={handleAnswerChange}
+                          checked={selectedAnswer === answer}
                         />
                       </li>
                     ))}
@@ -291,21 +292,23 @@ export default function ChatContainer() {
               <>
                 <Button
                   type="button"
-                  disabled={areControlsDisabled || !isAnswerSelected}
+                  // disabled={areQuestionsLoading}
+                  disabled={!isSetCompleted && !isAnswerSelected}
                   classname="secondary"
                   onClick={handleCancelSession}
                 >
                   Terminar
                 </Button>
+
                 <Button
                   type="submit"
-                  disabled={areControlsDisabled || !isAnswerSelected}
+                  disabled={!isSetCompleted && !isAnswerSelected}
                   classname="primary"
                   onClick={
-                    isContinuing ? handleContinueSession : handleSubmitAnswer
+                    isSetCompleted ? displayNextQuestion : handleSubmitAnswer
                   }
                 >
-                  Continuar
+                  {isSetCompleted ? 'Continuar' : 'Enviar'}
                 </Button>
               </>
             )}
