@@ -28,6 +28,7 @@ export interface RadioButtonProps {
   name: string;
   value: string;
   checked: boolean;
+  disabled?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -47,5 +48,6 @@ export interface FormButtonProps {
   disabled?: boolean;
   id?: string;
   children: React.ReactNode;
-  type?: string;
+  type?: 'button' | 'submit' | 'reset';
+  classname?: string;
 }

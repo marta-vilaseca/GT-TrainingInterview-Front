@@ -8,6 +8,7 @@ export default function RadioButton({
   value,
   checked,
   onChange,
+  disabled,
 }: RadioButtonProps) {
   return (
     <div>
@@ -18,6 +19,7 @@ export default function RadioButton({
         value={value}
         checked={checked}
         onChange={onChange}
+        disabled={disabled}
       />
       <label htmlFor={id}>{labelText}</label>
     </div>

@@ -1,7 +1,12 @@
 // services/api.ts
 
 import axios, { AxiosResponse } from 'axios';
-import { QuestionData, QuestionResponseData } from '../types/IAxios';
+import {
+  QuestionData,
+  QuestionResponseData,
+  RequestData,
+  QuestionData2,
+} from '../types/IAxios';
 
 // Create an Axios instance
 const api = axios.create({
@@ -10,6 +15,19 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+export const fetchQuestions = async (data: RequestData) => {
+  try {
+    const response: AxiosResponse<QuestionData2[]> = await api.post(
+      '/questionary/loadQuestions',
+      data
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error posting data', error);
+    throw error;
+  }
+};
 
 export const fetchQuestion = async (data: QuestionData) => {
   try {

@@ -148,3 +148,23 @@
   right: 2rem;
   bottom: -2rem;
 }
+
+.controlsBox {
+  button {
+    border: 1px solid $main-color;
+    &.primary {
+      background-color: $main-color;
+      color: $white;
+    }
+    &.secondary {
+      background-color: transparent;
+      color: $main-color;
+    }
+    &:disabled {
+      cursor: none;
+      background: transparent;
+      border: 1px solid $main-color-medium;
+      color: $main-color-medium;
+    }
+  }
+}

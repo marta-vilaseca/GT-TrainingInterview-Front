@@ -8,3 +8,9 @@ export interface ChatboxProps {
   onSubmit: (answer: string) => void;
   disabled: boolean;
 }
+
+export interface ControlsBoxProps {
+  onSubmit: (answer: string) => void;
+  isChatStarted: boolean;
+  disabled: boolean;
+}

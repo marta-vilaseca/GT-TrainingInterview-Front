@@ -10,12 +10,12 @@ import './Home.scss';
 const Home: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const navigate = useNavigate();
-  const handleStart = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleStart = (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log(e);
     navigate('/login');
   };
 
-  const handleClickModal = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleClickModal = (e: React.MouseEvent<HTMLParagraphElement>) => {
     console.log(e);
     setShowModal(true);
   };
@@ -61,6 +61,6 @@ const Home: React.FC = () => {
       </Layout>
     </>
   );
-}
+};
 
 export default Home;
