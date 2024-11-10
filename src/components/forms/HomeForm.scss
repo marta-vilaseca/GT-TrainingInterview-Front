@@ -9,7 +9,7 @@
   font-weight: map-get($body, font-weight);
   font-weight: 700;
   text-align: left;
-  font-size: $font-small;
+  font-size: 1.6rem;
 }
 
 .form ul {
@@ -59,9 +59,20 @@
   border-radius: 1rem;
 }
 
-.button__container {
+.button{
+  &__container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: stretch;
+  border-top: solid $secondary-color 1px;
+}
+&__item{
+  width: 100%;
+}
+&__secondary{
+  background-color: white;
+  border: solid $main-color 1px;
+  color: $main-color;
+}
 }

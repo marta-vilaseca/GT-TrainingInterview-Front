@@ -9,7 +9,7 @@ import { useState } from 'react';
 import './Home.scss';
 
 const Home: React.FC = () => {
-  const [showModal, setShowModal] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const handleStart = (e: React.MouseEvent<HTMLElement>) => {
     console.log(e);

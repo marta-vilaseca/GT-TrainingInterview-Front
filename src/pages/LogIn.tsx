@@ -9,18 +9,18 @@ function Login() {
       <Layout page="login">
         <div className="login">
           <div className="hero">
-            <img src={Dora} className="hero__logo" alt="PildorasUX logo" />
             <div className="hero__container">
-              <h2 className="hero__title">¡Hola, soy Dora!</h2>
+              <h2 className="hero__title">¡Hola!</h2>
               <p className="hero__text">
-                Tu entrenadora virtual para entrevistas.
+                ¡Prepárate para brillar en tus entrevistas!
               </p>
             </div>
+            <img src={Dora} className="hero__logo" alt="PildorasUX logo" />
           </div>
           <p className="login__body">
-            Dora está lista para guiarte. <br />
-            Completa estos campos para ajustar el nivel y tipo de preguntas que
-            recibirás durante el entrenamiento.
+            <b className="secondarycolor">Dora</b> está lista para guiarte,
+            ahora personalicemos tu entrenamiento completando los siguientes
+            campos.
           </p>
         </div>
         <HomeForm></HomeForm>

@@ -6,9 +6,10 @@ export default function Button({
   disabled,
   id,
   children,
+  className,
 }: FormButtonProps) {
   return (
-    <button id={id} onClick={onClick} disabled={disabled}>
+    <button id={id} onClick={onClick} disabled={disabled} className={className}>
       {children}
     </button>
   );
