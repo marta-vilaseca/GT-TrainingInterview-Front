@@ -101,52 +101,30 @@
   font-weight: 500;
   font-size: $font-medium;
   padding: $padding-medium;
-  border-radius: 1rem;
   opacity: 0.6;
   position: relative;
+  border: 0;
+
+  & ul {
+    list-style-type: none;
+  }
 }
 .question,
 .current-question,
 .feedback {
-  background-color: $secondary-color-darker;
-  color: $text-light-color;
+  background-color: $white;
+  color: $text-color;
   text-align: left;
   align-self: flex-start;
-}
-
-.question::before,
-.current-question::before,
-.feedback::before {
-  content: '';
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-left: 2rem solid $secondary-color-darker;
-  border-right: 1rem solid transparent;
-  border-top: 1rem solid $secondary-color-darker;
-  border-bottom: 2rem solid transparent;
-  left: 2rem;
-  bottom: -2rem;
+  border-radius: 1rem 1rem 1rem 0;
 }
 
 .answer {
-  background-color: $main-color;
-  color: $text-light-color;
+  background-color: $secondary-color-lighter;
+  color: $text-color;
   text-align: right;
   align-self: flex-end;
-}
-
-.answer::before {
-  content: '';
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-right: 2rem solid $main-color;
-  border-left: 2rem solid transparent;
-  border-top: 2rem solid $main-color;
-  border-bottom: 2rem solid transparent;
-  right: 2rem;
-  bottom: -2rem;
+  border-radius: 1rem 0 1rem 1rem;
 }
 
 .controlsBox {
@@ -167,4 +145,27 @@
       color: $main-color-medium;
     }
   }
+}
+
+.animated-bubble {
+  opacity: 0;
+  animation: fade-in 0.5s ease-in-out forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.feedback__correct {
+  font-weight: 600;
+}
+
+.feedback__incorrect {
+  font-weight: 600;
+  color: red;
 }
