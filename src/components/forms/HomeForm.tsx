@@ -53,7 +53,7 @@ function HomeForm() {
   };
 
   return (
-    <div className="container">
+    <div>
       <form className="form" onSubmit={handleSubmitForm}>
         <ul>
           <li>
@@ -132,10 +132,16 @@ function HomeForm() {
           </li>
           <li>
             <div className="button__container">
-              <Button disabled={loadingState} onClick={handleCancel}>
+              <Button
+                className="button__item button__secondary"
+                disabled={loadingState}
+                onClick={handleCancel}
+              >
                 Cancelar
               </Button>
-              <Button disabled={loadingState}>Enviar</Button>
+              <Button className="button__item" disabled={loadingState}>
+                Enviar
+              </Button>
             </div>
           </li>
         </ul>

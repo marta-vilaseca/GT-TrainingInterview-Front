@@ -6,21 +6,67 @@
     position: absolute;
     width: 100vw;
     height: 100vh;
-    background-color: white 50%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+        justify-content: center;
+        align-items: center;
 }
+.background{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 0.8;
+
+}
+
+.modal__container{
+        background-color: white;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid 2px $main-color;
+        border-radius: 20px;
+        flex-direction: column;
+        margin: $padding-medium;
+        padding: $padding-medium;
+}
+
 .modal {
     position: absolute;
     display: flex;
-    width: 80vw;
-    height: 70vh;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+   
+    padding: $padding-large;
+
+    
+    &__title{
+        font-family: map-get($subtitle, font-family);
+        font-weight: 700;
+        font-size: 1.6rem;
+        text-align: left;
+        width: 100%;
+        padding:0 $padding-small;
+
+    }
+    &__text{
+        font-family: map-get($body, font-family);
+    font-weight: 500;
+    font-size: map-get($body, font-size);
+    padding: $padding-small;
+    text-align: left;
+    font-size: 1.4rem;
+        &__list{
+            margin-left: 4rem;
+        }
+    }
+    &__cross{
+        position: absolute;
+        right: 2rem;
+        top: 2rem;
+        font-size: 2rem;
+    }
 }
 
 .hidden {
@@ -29,4 +75,8 @@
 
 .visible{
     display: inherit;
+}
+
+.secondarycolor{
+    color: $secondary-color;
 }
