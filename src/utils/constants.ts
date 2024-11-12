@@ -2,25 +2,23 @@
 
 // Experience levels
 export const experienceLevels = {
-  'Trainee - 0-1 Years': 'Trainee',
   'Junior - 1-2 Years': 'Junior',
   'Semi-Senior - 2-4 Years': 'Semi-Senior',
   'Senior - 4+ Years': 'Senior',
-  'Lead - 8+ Years': 'Lead',
 };
 
 // Roles
 export const roles = {
-  'UX/UI Designer': 'diseñador ux/ui',
+  'UX/UI Designer': 'design',
   'Frontend Developer': 'frontend',
   'Backend Developer': 'backend',
 };
 
 // Themes
-export type RoleType = 'diseñador ux/ui' | 'frontend' | 'backend';
+export type RoleType = 'design' | 'frontend' | 'backend';
 
 export const themes: { [key in RoleType]: string[] } = {
-  'diseñador ux/ui': [
+  design: [
     'Investigación de usuarios y perfiles',
     'Prototipado y wireframing',
     'Accesibilidad y usabilidad',

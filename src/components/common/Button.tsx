@@ -6,11 +6,17 @@ export default function Button({
   disabled,
   id,
   children,
-  classname,
+  className,
   type,
 }: FormButtonProps) {
   return (
-    <button id={id} onClick={onClick} disabled={disabled} className={classname} type={type}>
+    <button
+      id={id}
+      onClick={onClick}
+      disabled={disabled}
+      className={className}
+      type={type}
+    >
       {children}
     </button>
   );

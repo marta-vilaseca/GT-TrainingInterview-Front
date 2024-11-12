@@ -50,5 +50,5 @@ export interface FormButtonProps {
   id?: string;
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset';
-  classname?: string;
+  className?: string;
 }

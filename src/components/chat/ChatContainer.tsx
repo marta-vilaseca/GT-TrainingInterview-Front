@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchQuestions } from '../../services/api';
 import Button from '../common/Button';
 import RadioButton from '../common/RadioButton';
 import { randomizeStrings } from '../../utils/randomize';
 import './ChatContainer.scss';
 import { QuestionData2 } from '../../types/IAxios';
-import ChatLoader from './ChatLoader';
+// import ChatLoader from './ChatLoader';
 import {
   continue_ok_message,
   continue_question,
@@ -17,12 +17,15 @@ import {
 
 export default function ChatContainer() {
   const navigate = useNavigate();
-  const { name, role, experience, theme } = {
-    name: 'Gema',
-    role: 'design',
-    experience: 'junior',
-    theme: 'general',
-  };
+  // const { name, role, experience, theme } = {
+  //   name: 'Gema',
+  //   role: 'design',
+  //   experience: 'junior',
+  //   theme: 'general',
+  // };
+  const location = useLocation();
+
+  const { name, role, experience, theme } = location.state || {};
 
   const [isChatStarted, setIsChatStarted] = useState(false);
   const [chatHistory, setChatHistory] = useState<
@@ -396,7 +399,7 @@ export default function ChatContainer() {
                   type="button"
                   // disabled={areQuestionsLoading}
                   disabled={!isSetCompleted && !isAnswerSelected}
-                  classname="secondary"
+                  className="secondary"
                   onClick={handleCancelSession}
                 >
                   Terminar
@@ -405,7 +408,7 @@ export default function ChatContainer() {
                 <Button
                   type="submit"
                   disabled={!isSetCompleted && !isAnswerSelected}
-                  classname="primary"
+                  className="primary"
                   onClick={
                     isSetCompleted ? displayNextQuestion : handleSubmitAnswer
                   }
