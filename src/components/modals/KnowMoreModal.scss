@@ -67,6 +67,9 @@
         top: 2rem;
         font-size: 2rem;
     }
+    &__cross:hover{
+        cursor: pointer;
+    }
 }
 
 .hidden {

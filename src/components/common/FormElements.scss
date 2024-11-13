@@ -40,10 +40,10 @@ button {
   font-family: map-get($body, font-family);
   height: calc($font-medium * 2.5);
   vertical-align: middle;
-  border: 0;
+  border: solid 1px $text-color;
   outline: 0;
-  background-color: $main-color;
-  color: white;
+  background-color: $secondary-color-lighter;
+  color: $text-color;
   margin: $padding-medium;
 
   &:hover {

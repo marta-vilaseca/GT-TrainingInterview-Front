@@ -18,7 +18,7 @@ function HomeForm() {
     name: '',
     role: '',
     experience: 'Trainee',
-    theme: '',
+    theme: 'General',
   });
   const [loadingState, setLoadingState] = useState(false);
 

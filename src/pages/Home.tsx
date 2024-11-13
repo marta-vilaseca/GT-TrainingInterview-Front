@@ -33,29 +33,33 @@ const Home: React.FC = () => {
             Tu entrenadora virtual para entrevistas.
           </h3>
           <p className="greetings__subtitle">
-            Estoy aquí para ayudarte a prepararte y mejorar tus respuestas de
-            forma personalizada.
+            Con cada entrenamiento reforzarás tus habilidades y mejorarás tus
+            áreas débiles.
           </p>
-          <p className="greetings__subtitle">
-            ¿Listo para comenzar tu entrenamiento?
-          </p>
-          <Button onClick={handleStart}>Iniciemos</Button>
+          <Button className="greetings__button" onClick={handleStart}>
+            Comenzar entrevista
+          </Button>
         </div>
 
         <div className="benefits">
-          <p className="benefits__text">
-            A través de preguntas interactivas, simula entrevistas técnicas. Te
-            brinda feedback inmediato, señalando respuestas correctas y
-            ofreciendo consejos para optimizar tu desempeño.
-          </p>
-          <p className="benefits__text">
-            Con Dora, podrás reforzar tus conocimientos, identificar áreas de
-            mejora y avanzar con confianza en cada entrevista.
-          </p>
-          <p className="benefits__more" onClick={handleClickModal}>
-            Conoce más&nbsp;
+          <p className="benefits__text">Con Dora podrás:</p>
+          <ol className="benefits__list">
+            <li>
+              Simular entrevistas técnicas donde recibirás feedback inmediato,
+              señalando respuestas correctas.
+            </li>
+            <li>Recibirás consejos para optimizar tu desempeño.</li>
+            <li>
+              Reforzarás tus conocimientos, identificando las áreas de mejora.
+            </li>
+            <li>Aumentarás tu confianza en cada entrevista.</li>
+          </ol>
+          <div className="benefits__more">
+            <p className="benefits__more__text" onClick={handleClickModal}>
+              Cómo funciona&nbsp;
+            </p>
             <FaArrowRight className="benefits__more__arrow" />
-          </p>
+          </div>
         </div>
         <Modal
           showModal={showModal}
