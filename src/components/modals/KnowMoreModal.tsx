@@ -1,4 +1,5 @@
 import './KnowMoreModal.scss';
+import Button from '../common/Button';
 import { RxCross1 } from 'react-icons/rx';
 
 type propTypes = {
@@ -21,9 +22,8 @@ const KnowMoreModal: React.FC<propTypes> = ({
           <h3 className="modal__title">¿Qué es Dora?</h3>
           <h3 className="modal__title">¿Cómo te ayuda?</h3>
           <p className="modal__text">
-            Dora es tu{' '}
-            <b className="secondarycolor">entrenadora virtual de entrevistas</b>
-            , diseñada para ayudarte a destacar en el perfil seleccionado.{' '}
+            Dora es tu <b>entrenadora virtual de entrevistas</b>, diseñada para
+            ayudarte a destacar en el perfil seleccionado.
           </p>
           <p className="modal__text">
             Entrena con distintas temáticas acorde a tus necesidades y
@@ -43,10 +43,9 @@ const KnowMoreModal: React.FC<propTypes> = ({
               Seguridad.
             </li>
           </ul>
-          <p className="modal__text">
-            Con cada entrenamiento refuerzas tus habilidades y mejoras tus áreas
-            débiles
-          </p>
+          <Button className="modal__button" onClick={onClose}>
+            Cerrar ayuda
+          </Button>
           {children}
         </div>
       </div>
