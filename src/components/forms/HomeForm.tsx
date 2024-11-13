@@ -17,13 +17,25 @@ function HomeForm() {
   const [homeFormData, setHomeFormData] = useState({
     name: '',
     role: '',
-    experience: 'Trainee',
+    experience: '',
     theme: 'General',
   });
   const [loadingState, setLoadingState] = useState(false);
 
+  const [formErrors, setFormErrors] = useState({
+    experienceLevel: '',
+    role: '',
+    name: '',
+  });
+
   const handleSubmitForm = (e: React.FormEvent) => {
     e.preventDefault();
+    // Verificar si hay errores en el formulario antes de enviar
+    if (Object.values(formErrors).some((error) => error !== '')) {
+      // Si hay algún error, no enviar el formulario
+      return;
+    }
+
     setLoadingState(true);
 
     // Ensure theme is set as empty if none is chosen
@@ -44,14 +56,49 @@ function HomeForm() {
     setHomeFormData({
       name: '',
       role: '',
-      experience: 'Trainee',
-      theme: '',
+      experience: '',
+      theme: 'General',
     });
 
     // Navigate to home
     navigate('/');
   };
 
+  const handleClickConfirm = (e: React.FormEvent) => {
+    e.preventDefault();
+    var hasErrors = false;
+    if (!homeFormData.name || homeFormData.name === '') {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        name: 'Completa este campo para continuar.',
+      }));
+      hasErrors = true;
+    } else {
+      setFormErrors((prevErrors) => ({ ...prevErrors, name: '' })); // Limpiar error
+    }
+    if (!homeFormData.experience || homeFormData.experience === '') {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        experienceLevel: 'Selecciona un elemento de la lista.',
+      }));
+      hasErrors = true;
+    } else {
+      setFormErrors((prevErrors) => ({ ...prevErrors, experienceLevel: '' })); // Limpiar error
+    }
+    if (!homeFormData.role || homeFormData.role === '') {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        role: 'Selecciona un elemento de la lista.',
+      }));
+      hasErrors = true;
+    } else {
+      setFormErrors((prevErrors) => ({ ...prevErrors, role: '' })); // Limpiar error
+    }
+    if (hasErrors) {
+      return;
+    }
+    handleSubmitForm(e);
+  };
   return (
     <div>
       <form className="form" onSubmit={handleSubmitForm}>
@@ -72,6 +119,7 @@ function HomeForm() {
                 setHomeFormData({ ...homeFormData, name: value });
               }}
             />
+            <p className="error">{formErrors.name}</p>
           </li>
           <li>
             <Dropdown
@@ -93,6 +141,7 @@ function HomeForm() {
               }}
               options={Object.keys(roles)}
             />
+            <p className="error">{formErrors.role}</p>
           </li>
           <li>
             <Dropdown
@@ -100,6 +149,7 @@ function HomeForm() {
               labelText="Experiencia"
               name="experienceLevel"
               hidden={false}
+              required
               value={
                 Object.keys(experienceLevels).find(
                   (key) =>
@@ -115,12 +165,14 @@ function HomeForm() {
               }}
               options={Object.keys(experienceLevels)}
             />
+            <p className="error">{formErrors.experienceLevel}</p>
           </li>
           <li>
             <Dropdown
               id="theme"
               labelText="Temática"
               name="theme"
+              required
               hidden={homeFormData.role === ''}
               value={homeFormData.theme || ''}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -142,7 +194,11 @@ function HomeForm() {
               >
                 Cancelar
               </Button>
-              <Button className="button__item" disabled={loadingState}>
+              <Button
+                className="button__item"
+                disabled={loadingState}
+                onClick={handleClickConfirm}
+              >
                 Enviar
               </Button>
             </div>
