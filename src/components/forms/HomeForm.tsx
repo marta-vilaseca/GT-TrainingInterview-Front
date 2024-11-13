@@ -57,8 +57,11 @@ function HomeForm() {
       <form className="form" onSubmit={handleSubmitForm}>
         <ul>
           <li>
-            <label htmlFor="name">Nombre</label>
+            <label className="form__text" htmlFor="name">
+              Nombre
+            </label>
             <input
+              className="form__text"
               type="text"
               name="name"
               placeholder="Introduce tu nombre aquí."
