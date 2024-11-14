@@ -2,9 +2,9 @@
 
 // Experience levels
 export const experienceLevels = {
-  'Junior - 1-2 Years': 'Junior',
-  'Semi-Senior - 2-4 Years': 'Semi-Senior',
-  'Senior - 4+ Years': 'Senior',
+  'Junior - 1-2 Years': 'junior',
+  'Semi-Senior - 2-4 Years': 'semi-senior',
+  'Senior - 4+ Years': 'senior',
 };
 
 // Roles
@@ -13,6 +13,10 @@ export const roles = {
   'Frontend Developer': 'frontend',
   'Backend Developer': 'backend',
 };
+
+export const reverseRoles = Object.fromEntries(
+  Object.entries(roles).map(([key, value]) => [value, key])
+);
 
 // Themes
 export type RoleType = 'design' | 'frontend' | 'backend';

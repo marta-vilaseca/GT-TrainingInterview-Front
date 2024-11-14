@@ -9,9 +9,24 @@
   margin: 0 auto;
 }
 
-nav.nav-footer {
+nav.nav-footer-general {
   display: block;
   width: 100%;
+}
+
+nav.nav-footer-chat {
+  display: none;
+}
+
+.wrapper.chat {
+  nav.nav-footer-general {
+    display: none;
+  }
+
+  nav.nav-footer-chat {
+    display: block;
+    width: 100%;
+  }
 }
 
 .nav-footer ul {
@@ -30,6 +45,7 @@ nav.nav-footer {
     text-decoration: none;
     display: inline-block;
     border-bottom: 1px solid $main-color;
+    font-weight: 600;
   }
 
   a:hover,
@@ -37,4 +53,8 @@ nav.nav-footer {
     color: $secondary-color-darker;
     border-bottom: 1px solid $secondary-color-darker;
   }
+}
+
+.nav-footer-chat.nav-footer ul {
+  justify-content: flex-end;
 }

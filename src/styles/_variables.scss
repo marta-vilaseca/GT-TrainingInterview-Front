@@ -1,21 +1,22 @@
 // styles/_variables.scss
 
 // Color variables
-$white: #fdfdfd;
+$white: #ffffff;
 
 $main-color: #42495c;
 $main-color-dark: #93979f;
 $main-color-medium: #cacaca;
-$main-color-light: #dedede;
+$main-color-light: #dcdcdc;
 $main-color-lighter: #f1f1f1;
 
-$secondary-color-darker: #066d64;
+// TODO: buscar y unificar todos las ocurrencias de esto a $main-color-lighter
+$text-light-color: #f1f1f1;
+
+$secondary-color-darker: #0aada3;
 $secondary-color: #0bbfb5;
 $secondary-color-lighter: #88e9e5;
 
-// Text colors
 $text-color: #282a31;
-$text-light-color: #fdfdfd;
 
 // Fonts
 $title: (

@@ -11,7 +11,7 @@ export default function RadioButton({
   disabled,
 }: RadioButtonProps) {
   return (
-    <div>
+    <div className="radio__button">
       <input
         type="radio"
         id={id}

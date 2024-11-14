@@ -125,7 +125,7 @@ function HomeForm() {
                 setHomeFormData({ ...homeFormData, theme: selectedTheme });
               }}
               options={[
-                'General',
+                'general',
                 ...(themes[homeFormData.role as RoleType] || []),
               ]}
             />

@@ -5,8 +5,10 @@ import { fetchQuestions } from '../../services/api';
 import Button from '../common/Button';
 import RadioButton from '../common/RadioButton';
 import { randomizeStrings } from '../../utils/randomize';
+import Dora from '../../assets/dora-white.svg';
 import './ChatContainer.scss';
 import { QuestionData2 } from '../../types/IAxios';
+import { reverseRoles } from '../../utils/constants';
 // import ChatLoader from './ChatLoader';
 import {
   continue_ok_message,
@@ -17,15 +19,10 @@ import {
 
 export default function ChatContainer() {
   const navigate = useNavigate();
-  // const { name, role, experience, theme } = {
-  //   name: 'Gema',
-  //   role: 'design',
-  //   experience: 'junior',
-  //   theme: 'general',
-  // };
   const location = useLocation();
 
   const { name, role, experience, theme } = location.state || {};
+  const originalRole = reverseRoles[role] || role;
 
   const [isChatStarted, setIsChatStarted] = useState(false);
   const [chatHistory, setChatHistory] = useState<
@@ -57,6 +54,9 @@ export default function ChatContainer() {
 
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
+  /* @ts-ignore */
+  const [showFeedback, setShowFeedback] = useState(false);
+
   // Initialization of the chat
   const handleStartChat = async () => {
     setAreQuestionsLoading(true);
@@ -68,6 +68,8 @@ export default function ChatContainer() {
 
     try {
       const fetchedQuestions = await fetchQuestions(requestData);
+      console.log(requestData);
+      console.log(fetchedQuestions);
 
       if (fetchedQuestions.length > 0) {
         const firstQuestion = fetchedQuestions[0];
@@ -99,7 +101,7 @@ export default function ChatContainer() {
     setIsAnswerSelected(true);
   };
 
-  // Handle the answer submission for each question
+  //TEMP
   const handleSubmitAnswer = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -107,32 +109,50 @@ export default function ChatContainer() {
       const isCorrect = selectedAnswer === correctAnswer;
 
       const correction = isCorrect ? null : (
-        <p>
+        <>
           <span className="feedback__incorrect">Respuesta incorrecta</span>. La
           opción correcta es: {correctAnswer}
-        </p>
+        </>
       );
       const correctMessage = randomizeStrings(correct_answer)[0];
 
       const feedbackToAdd = isCorrect ? (
-        <p>
+        <>
           <span className="feedback__correct">{correctMessage} </span>
           {currentQuestion.correctFeedback}
-        </p>
+        </>
       ) : (
         currentQuestion.wrongFeedback
       );
 
+      // Add the user's selected answer immediately
       setChatHistory((prevHistory) => [
         ...prevHistory,
         {
           question: currentQuestion.question,
           answers: currentAnswers || [],
-          correction: correction,
-          feedback: feedbackToAdd,
+          correction: null, // Set correction to null initially
+          feedback: null, // Set feedback to null initially
           selectedAnswer: selectedAnswer,
         },
       ]);
+
+      // Introduce a delay before showing the feedback
+      setShowFeedback(false); // Reset feedback display state
+      setTimeout(() => {
+        setChatHistory((prevHistory) => {
+          // Update the last history entry with correction and feedback
+          const updatedHistory = [...prevHistory];
+          const lastItemIndex = updatedHistory.length - 1;
+          updatedHistory[lastItemIndex] = {
+            ...updatedHistory[lastItemIndex],
+            correction: correction,
+            feedback: feedbackToAdd,
+          };
+          return updatedHistory;
+        });
+        setShowFeedback(true);
+      }, 2000); // 2-second delay
 
       if (currentQuestionIndex === questionSet.length - 1) {
         setIsSetCompleted(true);
@@ -150,11 +170,11 @@ export default function ChatContainer() {
               selectedAnswer: null,
             },
           ]);
-        }, 2000); // 2 second delay
+        }, 2000); // Another delay for continuation
       } else {
         setTimeout(() => {
           displayNextQuestion();
-        }, 1000);
+        }, 4000); // Ensure sufficient delay before moving to the next question
       }
     }
   };
@@ -259,7 +279,7 @@ export default function ChatContainer() {
 
       setTimeout(() => {
         startNewQuestionSet();
-      }, 2000);
+      }, 3000);
     }
   };
 
@@ -280,63 +300,88 @@ export default function ChatContainer() {
             <h2>Hola, {name}</h2>
             <p>¡Aquí comienza tu entrenamiento!</p>
             <p>
-              Te haré preguntas específicas para <strong>{role}</strong>,
-              adecuadas para un nivel <strong>{experience}</strong>
-              {theme && (
+              Te haré preguntas específicas para <strong>{originalRole}</strong>
+              , adecuadas para un nivel <strong>{experience}</strong>
+              {theme && theme !== 'General' && (
                 <>
                   {' '}
-                  y centradas en <strong>{theme}</strong>
+                  (centradas en <strong>{theme}</strong>)
                 </>
-              )}
-              .
+              )}{' '}
+              y te daré consejos para tu próxima entrevista.
             </p>
           </div>
 
           {chatHistory.map((chatItem, index) => (
-            <div key={index}>
+            <div className="chat__history" key={index}>
               {/* Only render question bubble if there's actually a question and answers */}
               {chatItem.question && chatItem.answers.length > 0 && (
-                <div className="bubble question test">
-                  <p>
-                    <strong>{chatItem.question}</strong>
-                  </p>
-                  <ul>
-                    {chatItem.answers.map((answer, idx) => (
-                      <li key={['A', 'B', 'C'][idx]}>
-                        <RadioButton
-                          id={`role-${answer.toLowerCase().replace(/\s+/g, '-')}`}
-                          labelText={answer}
-                          name={`role-${index}`}
-                          value={answer}
-                          checked={answer === chatItem.selectedAnswer}
-                          onChange={() => {}}
-                          disabled
-                        />
-                      </li>
-                    ))}
-                  </ul>
+                <div className="outer__bubble ia">
+                  <div className="avatar">
+                    <img src={Dora} className="avatar__dora" alt="Dora logo" />
+                  </div>
+                  <div className="bubble question test">
+                    <p>
+                      <strong>{chatItem.question}</strong>
+                    </p>
+                    <ul>
+                      {chatItem.answers.map((answer, idx) => (
+                        <li key={['A', 'B', 'C'][idx]}>
+                          <RadioButton
+                            id={`role-${answer.toLowerCase().replace(/\s+/g, '-')}`}
+                            labelText={answer}
+                            name={`role-${index}`}
+                            value={answer}
+                            checked={answer === chatItem.selectedAnswer}
+                            onChange={() => {}}
+                            disabled
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               )}
 
               {chatItem.selectedAnswer && (
-                <div className="bubble answer">
-                  <p>{chatItem.selectedAnswer}</p>
+                <div className="outer__bubble user">
+                  <div className="avatar">{name.toUpperCase()[0]}</div>
+                  <div className="bubble answer">
+                    <p>{chatItem.selectedAnswer}</p>
+                  </div>
                 </div>
               )}
 
               {chatItem.correction && (
-                <div className="bubble feedback">
-                  <p>{chatItem.correction}</p>
+                <div className="outer__bubble ia">
+                  <div className="avatar">
+                    <img src={Dora} className="avatar__dora" alt="Dora logo" />
+                  </div>
+                  <div className="bubble feedback">
+                    <p>{chatItem.correction}</p>
+                  </div>
                 </div>
               )}
 
               {chatItem.feedback &&
                 (chatItem.feedback === 'Continuar' ? (
-                  <div className="bubble answer">
-                    <p>{chatItem.feedback}</p>
+                  <div className="outer__bubble user">
+                    <div className="avatar">{name.toUpperCase()[0]}</div>
+                    <div className="bubble answer">
+                      <p>{chatItem.feedback}</p>
+                    </div>
                   </div>
                 ) : (
-                  <div className="bubble feedback">{chatItem.feedback}</div>
+                  <div className="outer__bubble ia">
+                    <div className="avatar">
+                      <img
+                        src={Dora}
+                        className="avatar__dora"
+                        alt="Dora logo"
+                      />
+                    </div>
+                    <div className="bubble feedback">{chatItem.feedback}</div>
+                  </div>
                 ))}
             </div>
           ))}
@@ -352,7 +397,11 @@ export default function ChatContainer() {
             !chatHistory.some(
               (item) => item.question === currentQuestion.question
             ) && (
-              <>
+              <div className="outer__bubble ia">
+                <div className="avatar">
+                  <img src={Dora} className="avatar__dora" alt="Dora logo" />
+                </div>
+
                 <div
                   className={`bubble current-question ${areQuestionsLoading ? 'fade-in' : ''}`}
                 >
@@ -375,7 +424,7 @@ export default function ChatContainer() {
                       ))}
                   </ul>
                 </div>
-              </>
+              </div>
             )}
 
           {goodbyeMessage && (
@@ -386,39 +435,40 @@ export default function ChatContainer() {
 
           <div className="spacer" ref={chatEndRef}></div>
         </div>
+      </div>
+      <div className="chat-form">
+        <form className="controlsBox">
+          {!isChatStarted && (
+            <Button className="primary start" onClick={handleStartChat}>
+              Iniciar
+            </Button>
+          )}
 
-        <div className="chat-form">
-          <form className="controlsBox">
-            {!isChatStarted && (
-              <Button onClick={handleStartChat}>Iniciar</Button>
-            )}
+          {isChatStarted && !areQuestionsLoading && (
+            <div className="options">
+              <Button
+                type="button"
+                // disabled={areQuestionsLoading}
+                disabled={!isSetCompleted && !isAnswerSelected}
+                className="secondary"
+                onClick={handleCancelSession}
+              >
+                Terminar
+              </Button>
 
-            {isChatStarted && !areQuestionsLoading && (
-              <>
-                <Button
-                  type="button"
-                  // disabled={areQuestionsLoading}
-                  disabled={!isSetCompleted && !isAnswerSelected}
-                  className="secondary"
-                  onClick={handleCancelSession}
-                >
-                  Terminar
-                </Button>
-
-                <Button
-                  type="submit"
-                  disabled={!isSetCompleted && !isAnswerSelected}
-                  className="primary"
-                  onClick={
-                    isSetCompleted ? displayNextQuestion : handleSubmitAnswer
-                  }
-                >
-                  {isSetCompleted ? 'Continuar' : 'Enviar'}
-                </Button>
-              </>
-            )}
-          </form>
-        </div>
+              <Button
+                type="submit"
+                disabled={!isSetCompleted && !isAnswerSelected}
+                className="primary"
+                onClick={
+                  isSetCompleted ? displayNextQuestion : handleSubmitAnswer
+                }
+              >
+                Continuar
+              </Button>
+            </div>
+          )}
+        </form>
       </div>
     </div>
   );
