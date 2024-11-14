@@ -29,7 +29,7 @@ const Home: React.FC = () => {
         <div className="greetings">
           <img src={Dora} className="greetings__logo" alt="PildorasUX logo" />
           <h2 className="greetings__title">¡Hola, soy Dora!</h2>
-          <h3 className="greetings__title">
+          <h3 className="greetings__title greetings__title2">
             Tu entrenadora virtual para entrevistas.
           </h3>
           <p className="greetings__subtitle">

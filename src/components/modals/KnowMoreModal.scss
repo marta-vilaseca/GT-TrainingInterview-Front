@@ -92,3 +92,12 @@ padding: $padding-medium;
 .secondarycolor{
     color: $secondary-color;
 }
+
+@media (min-width: 480px) {
+    .modal__container{
+        
+max-width: 680px;
+}
+
+
+}
