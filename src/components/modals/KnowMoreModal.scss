@@ -3,17 +3,22 @@
 
 
 .container{
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+   
     display: flex;
         justify-content: center;
         align-items: center;
 }
 .background{
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: white;
     opacity: 0.8;
 
@@ -28,8 +33,8 @@
         border: solid 2px $main-color;
         border-radius: 20px;
         flex-direction: column;
-        margin: $padding-medium;
-        padding: $padding-medium;
+width: 80vw;
+padding: $padding-medium;
 }
 
 .modal {
@@ -37,9 +42,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-   
-    padding: $padding-large;
-
     
     &__title{
         font-family: map-get($subtitle, font-family);
@@ -59,6 +61,8 @@
     font-size: 1.4rem;
         &__list{
             margin-left: 4rem;
+            padding: $padding-small;
+            padding-left: 0;
         }
     }
     &__cross{
@@ -66,6 +70,14 @@
         right: 2rem;
         top: 2rem;
         font-size: 2rem;
+    }
+    &__cross:hover{
+        cursor: pointer;
+    }
+    &__button{
+        width: 90%;
+        margin: $padding-small;
+
     }
 }
 

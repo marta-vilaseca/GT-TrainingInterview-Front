@@ -18,9 +18,8 @@ function Login() {
             <img src={Dora} className="hero__logo" alt="PildorasUX logo" />
           </div>
           <p className="login__body">
-            <b className="secondarycolor">Dora</b> está lista para guiarte,
-            ahora personalicemos tu entrenamiento completando los siguientes
-            campos.
+            <b>Vamos a personalizar tu entrenamiento</b> completando los
+            siguientes campos.
           </p>
         </div>
         <HomeForm></HomeForm>

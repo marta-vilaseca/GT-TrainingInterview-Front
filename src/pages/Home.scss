@@ -17,6 +17,9 @@
     font-size: map-get($subtitle, font-size);
     padding: $padding-small;
   }
+  &__button{
+    width: 80%;
+  }
 }
 
 .benefits {
@@ -29,19 +32,36 @@
     font-weight: map-get($body, font-weight);
     font-size: $font-small;
     padding: $padding-small;
+    text-align: left;
+    width: 100%;
+  }
+  &__more{
+    text-align: right;
+    font-size: $font-medium;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: $padding-small;
+    &__text{
+      border-bottom: 1px solid $text-color;
+      font-weight: map-get($title, font-weight);
+    }
+  }
+  &__more:hover{
+    cursor: pointer;
+  }
+  &__list{
+    font-family: map-get($body, font-family);
+    font-weight: map-get($body, font-weight);
+    font-size: $font-small;
+    padding: $padding-small;
+    text-align: left;
+    width: 100%;
+    padding-inline-start: 3rem;
   }
 }
 
-.benefit {
-  font-family: map-get($body, font-family);
-  font-weight: map-get($body, font-weight);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: $padding-medium;
-  gap: 1rem;
-}
 
 .focus {
   list-style: none;

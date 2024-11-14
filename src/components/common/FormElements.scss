@@ -5,7 +5,7 @@ input[type='text'],
 select {
   line-height: calc($font-medium + 1rem);
   height: calc($font-medium + 2rem);
-  font-size: $font-medium;
+  font-size: $font-small;
   background-color: $text-light-color;
   color: $text-color;
   border: 1px solid $main-color-medium;
@@ -24,13 +24,13 @@ select {
 }
 
 select > option {
-  font-size: $font-medium;
+  font-size: $font-small;
 }
 
 label {
   line-height: 3rem;
   height: 3rem;
-  font-size: $font-medium;
+  font-size: $font-small;
 }
 
 .radio__button {
@@ -88,10 +88,10 @@ button {
   font-family: map-get($body, font-family);
   height: calc($font-medium * 2.5);
   vertical-align: middle;
-  border: 0;
+  border: solid 1px $text-color;
   outline: 0;
-  background-color: $main-color;
-  color: white;
+  background-color: $secondary-color-lighter;
+  color: $text-color;
   margin: $padding-medium;
 
   &:hover {
