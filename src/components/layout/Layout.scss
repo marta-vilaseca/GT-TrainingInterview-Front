@@ -7,11 +7,13 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  align-items: center;
 }
 
 .wrapper > * {
   @include center-flex;
   text-align: center;
+  
 }
 
 .main {
@@ -21,4 +23,6 @@
   align-items: center;
   justify-content: flex-start;
   padding: $padding-large $padding-medium;
+  max-width: 800px;
+
 }
