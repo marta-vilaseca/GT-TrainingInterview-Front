@@ -14,8 +14,23 @@
 }
 
 nav.nav-footer {
-  display: flex;
+  display: block;
   width: 100%;
+}
+
+nav.nav-footer-chat {
+  display: none;
+}
+
+.wrapper.chat {
+  nav.nav-footer-general {
+    display: none;
+  }
+
+  nav.nav-footer-chat {
+    display: block;
+    width: 100%;
+  }
 }
 
 .nav-footer ul {
@@ -34,28 +49,12 @@ nav.nav-footer {
     text-decoration: none;
     display: inline-block;
     border-bottom: 1px solid $main-color;
+    font-weight: 600;
   }
 
   a:hover,
   a:active {
     color: $secondary-color-darker;
     border-bottom: 1px solid $secondary-color-darker;
-  }
-}
-
-@media (min-width: 480px) {
-  .footer {
-    &__logo {
-      display: block;
-      width: 200px;
-    }
-  }
-  .nav-footer {
-    align-items: center;
-    justify-content: space-between;
-  }
-  .nav-footer ul {
-    gap: 2rem;
-    justify-content: end;
   }
 }

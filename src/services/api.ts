@@ -17,10 +17,16 @@ const api = axios.create({
 });
 
 export const fetchQuestions = async (data: RequestData) => {
+  // Ensure 'theme' is always in lowercase if it is defined
+  const processedData = {
+    ...data,
+    theme: data.theme ? data.theme.toLowerCase() : undefined,
+  };
+
   try {
     const response: AxiosResponse<QuestionData2[]> = await api.post(
       '/questionary/loadQuestions',
-      data
+      processedData
     );
     return response.data;
   } catch (error) {

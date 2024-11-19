@@ -7,17 +7,31 @@
   align-items: center;
 }
 
+// Mixin for flex items aligned to the left (but vertically centered)
+@mixin start-flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 @mixin header-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-// Mixin for centered-column
+// Mixin for column with items occupying full width
 @mixin column-top-stretch {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  justify-content: flex-start;
+}
+
+// Mixin for column with items freely aligned
+@mixin column-top {
+  display: flex;
+  flex-direction: column;
   justify-content: flex-start;
 }
 
