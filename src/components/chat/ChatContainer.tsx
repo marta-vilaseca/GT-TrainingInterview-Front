@@ -16,8 +16,6 @@ import {
   continue_question,
   correct_answer,
 } from '../../utils/constants';
-// TEMP
-// import { fetchedQuestions } from '../../utils/fetchedQuestions';
 
 export default function ChatContainer() {
   const navigate = useNavigate();
@@ -69,11 +67,9 @@ export default function ChatContainer() {
     setIsSetCompleted(false);
     setTotalQuestions(totalQuestions + 5);
 
-    // TEMP turned off until DDBB is online
     const requestData = { role, experience, theme: theme || '' };
 
     try {
-      // TEMP turned off until DDBB is online
       const fetchedQuestions = await fetchQuestions(requestData);
       console.log(requestData);
       console.log(fetchedQuestions);

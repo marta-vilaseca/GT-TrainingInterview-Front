@@ -17,41 +17,43 @@ const codeTagProps = {
   },
 };
 
-export const renderInlineCode = React.memo(
-  (text?: string | null, defaultLanguage = 'javascript'): React.ReactNode => {
-    if (!text) return '';
+export const renderInlineCode = (text: string): React.ReactNode => {
+  const regex = /([^]+)`/g; // Regular expression to match text between backticks
+  let match;
+  let lastIndex = 0;
+  const elements: React.ReactNode[] = []; // Use React.ReactNode to allow strings and JSX
 
-    const regex = /`([^`]+)`/g;
-    let match;
-    let lastIndex = 0;
-    const elements: React.ReactNode[] = [];
-
-    while ((match = regex.exec(text)) !== null) {
-      if (match.index > lastIndex) {
-        elements.push(
-          <span key={lastIndex}>{text.substring(lastIndex, match.index)}</span>
-        );
-      }
-
+  while ((match = regex.exec(text)) !== null) {
+    // Add the text before the match as a plain string
+    if (match.index > lastIndex) {
       elements.push(
-        <SyntaxHighlighter
-          key={match.index}
-          style={prism}
-          language={defaultLanguage}
-          customStyle={inlineCodeStyle}
-          codeTagProps={codeTagProps}
-        >
-          {match[1]}
-        </SyntaxHighlighter>
+        <span key={lastIndex}>{text.substring(lastIndex, match.index)}</span>
       );
-
-      lastIndex = regex.lastIndex;
     }
 
-    if (lastIndex < text.length) {
-      elements.push(<span key={lastIndex}>{text.substring(lastIndex)}</span>);
-    }
+    // Add the matched inline code wrapped in the SyntaxHighlighter component
+    elements.push(
+      <SyntaxHighlighter
+        key={match.index}
+        style={prism}
+        customStyle={inlineCodeStyle}
+        codeTagProps={codeTagProps}
+      >
+        {match[1]}
+      </SyntaxHighlighter>
+    );
 
-    return elements.length > 0 ? <>{elements}</> : '';
+    lastIndex = regex.lastIndex;
   }
-);
+
+  if (lastIndex < text.length) {
+    elements.push(<span key={lastIndex}>{text.substring(lastIndex)}</span>);
+  }
+
+  if (elements.length > 0) {
+    return <>{elements}</>;
+  }
+
+  // If there are no elements, return a default empty string (ensure that it never returns undefined)
+  return '';
+};
