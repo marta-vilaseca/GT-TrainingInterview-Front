@@ -1,4 +1,5 @@
 import { RadioButtonProps } from '../../types/IFormElements';
+import { renderInlineCode } from './renderInlineCode';
 import './FormElements.scss';
 
 export default function RadioButton({
@@ -21,7 +22,7 @@ export default function RadioButton({
         onChange={onChange}
         disabled={disabled}
       />
-      <label htmlFor={id}>{labelText}</label>
+      <label htmlFor={id}>{renderInlineCode(labelText)}</label>
     </div>
   );
 }
