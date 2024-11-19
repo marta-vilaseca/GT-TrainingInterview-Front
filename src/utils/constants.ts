@@ -80,5 +80,5 @@ export const continue_ok_message: string[] = [
 ];
 
 export const exit_message: string[] = [
-  '¡Excelente trabajo hasta aquí! Gracias por participar en esta práctica de entrevista. Recuerda que la preparación es clave, y cada paso te acerca a tu objetivo. Si deseas continuar en otro momento, aquí estaré para ayudarte. ¡Hasta la próxima y mucha suerte!',
+  'Gracias por participar en esta práctica de entrevista. Recuerda que la preparación es clave, y cada paso te acerca a tu objetivo. Si deseas continuar en otro momento, aquí estaré para ayudarte. ¡Hasta la próxima y mucha suerte!',
 ];

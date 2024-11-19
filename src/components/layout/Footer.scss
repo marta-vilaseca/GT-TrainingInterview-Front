@@ -13,21 +13,21 @@
   }
 }
 
-nav.nav-footer-general {
-  display: block;
+.nav-footer-general {
+  display: flex;
   width: 100%;
 }
 
-nav.nav-footer-chat {
+.nav-footer-chat {
   display: none;
 }
 
 .wrapper.chat {
-  nav.nav-footer-general {
+  .nav-footer-general {
     display: none;
   }
 
-  nav.nav-footer-chat {
+  .nav-footer-chat {
     display: block;
     width: 100%;
   }
@@ -63,18 +63,18 @@ nav.nav-footer-chat {
   justify-content: flex-end;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 600px) {
   .footer {
     &__logo {
       display: block;
       width: 200px;
     }
   }
-  .nav-footer {
+  .nav-footer-general {
     align-items: center;
     justify-content: space-between;
   }
-  .nav-footer ul {
+  .nav-footer-general ul {
     gap: 2rem;
     justify-content: end;
   }

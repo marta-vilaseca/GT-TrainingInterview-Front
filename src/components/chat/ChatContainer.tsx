@@ -9,13 +9,14 @@ import Dora from '../../assets/dora-white.svg';
 import './ChatContainer.scss';
 import { QuestionData2 } from '../../types/IAxios';
 import { reverseRoles } from '../../utils/constants';
-// import ChatLoader from './ChatLoader';
+import ChatLoader from './ChatLoader';
 import {
   continue_ok_message,
   continue_question,
   correct_answer,
-  exit_message,
 } from '../../utils/constants';
+// TEMP
+import { fetchedQuestions } from '../../utils/fetchedQuestions';
 
 export default function ChatContainer() {
   const navigate = useNavigate();
@@ -49,8 +50,10 @@ export default function ChatContainer() {
   const [correctAnswer, setCorrectAnswer] = useState<string | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
 
+  const [totalQuestions, setTotalQuestions] = useState(0);
+  const [correctQuestions, setCorrectQuestions] = useState(0);
   const [isSetCompleted, setIsSetCompleted] = useState(false);
-  const [goodbyeMessage, setGoodbyeMessage] = useState<string | null>(null);
+  // const [goodbyeMessage, setGoodbyeMessage] = useState<string | null>(null);
 
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -63,13 +66,16 @@ export default function ChatContainer() {
     setAreControlsDisabled(true);
     setIsChatStarted(true);
     setIsSetCompleted(false);
+    setTotalQuestions(totalQuestions + 5);
 
-    const requestData = { role, experience, theme: theme || '' };
+    // TEMP turned off until DDBB is online
+    // const requestData = { role, experience, theme: theme || '' };
 
     try {
-      const fetchedQuestions = await fetchQuestions(requestData);
-      console.log(requestData);
-      console.log(fetchedQuestions);
+      // TEMP turned off until DDBB is online
+      // const fetchedQuestions = await fetchQuestions(requestData);
+      // console.log(requestData);
+      // console.log(fetchedQuestions);
 
       if (fetchedQuestions.length > 0) {
         const firstQuestion = fetchedQuestions[0];
@@ -101,12 +107,13 @@ export default function ChatContainer() {
     setIsAnswerSelected(true);
   };
 
-  //TEMP
+  // Handle answer submission
   const handleSubmitAnswer = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (currentQuestion && isAnswerSelected) {
       const isCorrect = selectedAnswer === correctAnswer;
+      if (isCorrect) setCorrectQuestions(correctQuestions + 1);
 
       const correction = isCorrect ? null : (
         <>
@@ -181,16 +188,15 @@ export default function ChatContainer() {
 
   // Handle when the user wants to exit
   const handleCancelSession = () => {
-    // Goodbye message isn't randomized because it's always the same one
-    setGoodbyeMessage(exit_message[0]);
-
-    setIsChatStarted(false);
-    setIsAnswerSelected(false);
-    setAreQuestionsLoading(false);
-    setCurrentAnswers([]);
-    setIsSetCompleted(false);
     setTimeout(() => {
-      navigate('/');
+      navigate('/chat/thankyou', {
+        state: {
+          fromChat: true,
+          formData: { name, role, experience, theme },
+          totalQuestions,
+          correctQuestions,
+        },
+      });
     }, 2000);
   };
 
@@ -386,12 +392,6 @@ export default function ChatContainer() {
             </div>
           ))}
 
-          {/* {areQuestionsLoading && (
-            <div className="chat-loader">
-              <ChatLoader />
-            </div>
-          )} */}
-
           {isChatStarted &&
             currentQuestion &&
             !chatHistory.some(
@@ -427,9 +427,9 @@ export default function ChatContainer() {
               </div>
             )}
 
-          {goodbyeMessage && (
-            <div className="new-question">
-              <p>{goodbyeMessage}</p>
+          {areQuestionsLoading && (
+            <div className="chat-loader">
+              <ChatLoader />
             </div>
           )}
 

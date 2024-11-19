@@ -1,6 +1,13 @@
 @import '../../styles/_variables';
 @import '../../styles/_mixins';
 
+.chat_loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+
 .chat-container {
   flex-grow: 1;
   height: calc(100vh - 20rem);
@@ -242,4 +249,15 @@
 .feedback__incorrect {
   font-weight: 600;
   color: red;
+}
+
+@media (min-width: 480px) {
+  .controlsBox {
+    .start {
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+      margin: 0 auto;
+    }
+  }
 }

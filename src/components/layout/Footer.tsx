@@ -4,7 +4,7 @@ import Dora from '../../assets/Logotipo_PildorasUX.svg';
 export default function Footer() {
   return (
     <footer className="footer">
-      <nav className="nav-footer">
+      <nav className="nav-footer nav-footer-general">
         <img src={Dora} alt="Logo Pildoras UX" className="footer__logo" />
         <ul>
           <li>
