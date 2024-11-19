@@ -16,7 +16,7 @@ import {
   correct_answer,
 } from '../../utils/constants';
 // TEMP
-import { fetchedQuestions } from '../../utils/fetchedQuestions';
+// import { fetchedQuestions } from '../../utils/fetchedQuestions';
 
 export default function ChatContainer() {
   const navigate = useNavigate();
@@ -69,13 +69,13 @@ export default function ChatContainer() {
     setTotalQuestions(totalQuestions + 5);
 
     // TEMP turned off until DDBB is online
-    // const requestData = { role, experience, theme: theme || '' };
+    const requestData = { role, experience, theme: theme || '' };
 
     try {
       // TEMP turned off until DDBB is online
-      // const fetchedQuestions = await fetchQuestions(requestData);
-      // console.log(requestData);
-      // console.log(fetchedQuestions);
+      const fetchedQuestions = await fetchQuestions(requestData);
+      console.log(requestData);
+      console.log(fetchedQuestions);
 
       if (fetchedQuestions.length > 0) {
         const firstQuestion = fetchedQuestions[0];
