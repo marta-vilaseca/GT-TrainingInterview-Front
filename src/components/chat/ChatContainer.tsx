@@ -10,6 +10,7 @@ import './ChatContainer.scss';
 import { QuestionData2 } from '../../types/IAxios';
 import { reverseRoles } from '../../utils/constants';
 import ChatLoader from './ChatLoader';
+import { renderInlineCode } from '../common/renderInlineCode';
 import {
   continue_ok_message,
   continue_question,
@@ -30,7 +31,7 @@ export default function ChatContainer() {
     {
       question: string;
       answers: string[];
-      feedback: JSX.Element | string | null;
+      feedback: React.ReactNode;
       correction: JSX.Element | null;
       selectedAnswer: string | null;
     }[]
@@ -107,7 +108,7 @@ export default function ChatContainer() {
     setIsAnswerSelected(true);
   };
 
-  // Handle answer submission
+  // Handle when the user picks an answer from the available options
   const handleSubmitAnswer = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -115,21 +116,24 @@ export default function ChatContainer() {
       const isCorrect = selectedAnswer === correctAnswer;
       if (isCorrect) setCorrectQuestions(correctQuestions + 1);
 
+      // Prepare correction JSX if the answer is incorrect
       const correction = isCorrect ? null : (
         <>
           <span className="feedback__incorrect">Respuesta incorrecta</span>. La
-          opción correcta es: {correctAnswer}
+          opción correcta es: {renderInlineCode(correctAnswer as string)}
         </>
       );
+
       const correctMessage = randomizeStrings(correct_answer)[0];
 
+      // Prepare feedback to add, either correct or incorrect
       const feedbackToAdd = isCorrect ? (
         <>
-          <span className="feedback__correct">{correctMessage} </span>
-          {currentQuestion.correctFeedback}
+          <span className="feedback__correct">{correctMessage}</span>
+          {renderInlineCode(currentQuestion.correctFeedback as string)}
         </>
       ) : (
-        currentQuestion.wrongFeedback
+        renderInlineCode(currentQuestion.wrongFeedback) // no need to wrap it inside another object
       );
 
       // Add the user's selected answer immediately
@@ -153,14 +157,15 @@ export default function ChatContainer() {
           const lastItemIndex = updatedHistory.length - 1;
           updatedHistory[lastItemIndex] = {
             ...updatedHistory[lastItemIndex],
-            correction: correction,
-            feedback: feedbackToAdd,
+            correction: correction, // Set correction based on isCorrect
+            feedback: feedbackToAdd, // Set feedback, either correct or incorrect
           };
           return updatedHistory;
         });
         setShowFeedback(true);
       }, 2000); // 2-second delay
 
+      // If it's the last question in the set, handle completion
       if (currentQuestionIndex === questionSet.length - 1) {
         setIsSetCompleted(true);
         setAreControlsDisabled(false);
@@ -328,7 +333,7 @@ export default function ChatContainer() {
                   </div>
                   <div className="bubble question test">
                     <p>
-                      <strong>{chatItem.question}</strong>
+                      <strong>{renderInlineCode(chatItem.question)}</strong>
                     </p>
                     <ul>
                       {chatItem.answers.map((answer, idx) => (
@@ -353,7 +358,7 @@ export default function ChatContainer() {
                 <div className="outer__bubble user">
                   <div className="avatar">{name.toUpperCase()[0]}</div>
                   <div className="bubble answer">
-                    <p>{chatItem.selectedAnswer}</p>
+                    <p>{renderInlineCode(chatItem.selectedAnswer)}</p>
                   </div>
                 </div>
               )}
@@ -406,7 +411,9 @@ export default function ChatContainer() {
                   className={`bubble current-question ${areQuestionsLoading ? 'fade-in' : ''}`}
                 >
                   <p>
-                    <strong>{currentQuestion.question}</strong>
+                    <strong>
+                      {renderInlineCode(currentQuestion.question)}
+                    </strong>
                   </p>
                   <ul>
                     {currentAnswers &&
