@@ -14,7 +14,7 @@
 }
 
 nav.nav-footer {
-  display: block;
+  display: flex;
   width: 100%;
 }
 
@@ -56,5 +56,23 @@ nav.nav-footer-chat {
   a:active {
     color: $secondary-color-darker;
     border-bottom: 1px solid $secondary-color-darker;
+  }
+}
+
+@media (min-width: 480px) {
+  .footer {
+    &__logo {
+      display: block;
+      width: 200px;
+    }
+  }
+  .nav-footer {
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  .nav-footer ul {
+    gap: 2rem;
+    justify-content: end;
   }
 }
