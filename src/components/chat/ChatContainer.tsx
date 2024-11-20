@@ -1,183 +1,495 @@
-import { useEffect, useRef, useState } from 'react';
-
-import { useLocation } from 'react-router-dom';
-
-import { fetchQuestion, fetchFeedback } from '../../services/api';
-
+/* eslint-disable no-unused-vars */
+import { useState, useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { fetchQuestions } from '../../services/api';
 import Button from '../common/Button';
-
-import Chatbox from './Chatbox';
-
-import ChatLoader from './ChatLoader';
-
-import { QuestionData } from '../../types/IAxios';
-
-import { ChatEntry } from '../../types/IChatTypes';
-
+import RadioButton from '../common/RadioButton';
+import { randomizeStrings } from '../../utils/randomize';
+import Dora from '../../assets/dora-white.svg';
 import './ChatContainer.scss';
+import { QuestionData2 } from '../../types/IAxios';
+import { ReviewQuestion } from '../../types/IChatTypes';
+import { reverseRoles, reverseThemes, RoleType } from '../../utils/constants';
+import ChatLoader from './ChatLoader';
+import { renderInlineCode } from '../common/renderInlineCode';
+import {
+  continue_ok_message,
+  continue_question,
+  correct_answer,
+} from '../../utils/constants';
 
 export default function ChatContainer() {
+  const navigate = useNavigate();
   const location = useLocation();
 
   const { name, role, experience, theme } = location.state || {};
+  const originalRole = reverseRoles[role] || role;
+  const originalTheme = theme
+    ? reverseThemes[role as RoleType]?.[theme] || theme
+    : theme;
 
-  const [chatHistory, setChatHistory] = useState<ChatEntry[]>([]);
-  const [currentQuestion, setCurrentQuestion] = useState('');
-  const [currentFeedback, setCurrentFeedback] = useState('');
-  console.log(currentFeedback); // Temporary use for linter
-  const [loadingQuestion, setLoadingQuestion] = useState(false);
-  const [loadingFeedback, setLoadingFeedback] = useState(false);
-  const [chatboxDisabled, setChatboxDisabled] = useState(true);
-  const [chatStarted, setChatStarted] = useState(false);
-  const [showNextQuestionButton, setShowNextQuestionButton] = useState(false);
-  const [showCurrentQuestion, setShowCurrentQuestion] = useState(false); // New control for displaying the current question
+  const [isChatStarted, setIsChatStarted] = useState(false);
+  const [chatHistory, setChatHistory] = useState<
+    {
+      question: string;
+      answers: string[];
+      feedback: React.ReactNode;
+      correction: JSX.Element | null;
+      selectedAnswer: string | null;
+    }[]
+  >([]);
+
+  /* @ts-ignore */
+  const [areControlsDisabled, setAreControlsDisabled] = useState(true);
+  const [areQuestionsLoading, setAreQuestionsLoading] = useState(false);
+  const [isAnswerSelected, setIsAnswerSelected] = useState(false);
+
+  const [questionSet, setQuestionSet] = useState<QuestionData2[]>([]);
+  const [currentQuestion, setCurrentQuestion] = useState<QuestionData2 | null>(
+    null
+  );
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentAnswers, setCurrentAnswers] = useState<string[] | null>(null);
+  const [correctAnswer, setCorrectAnswer] = useState<string | null>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+
+  const [totalQuestions, setTotalQuestions] = useState(0);
+  const [correctQuestions, setCorrectQuestions] = useState(0);
+  const [reviewQuestions, setReviewQuestions] = useState<ReviewQuestion[]>([]);
+  const [isSetCompleted, setIsSetCompleted] = useState(false);
+  // const [goodbyeMessage, setGoodbyeMessage] = useState<string | null>(null);
 
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
-  // Load initial question
+  /* @ts-ignore */
+  const [showFeedback, setShowFeedback] = useState(false);
+
+  // Initialization of the chat
   const handleStartChat = async () => {
-    setLoadingQuestion(true);
-    setChatboxDisabled(true);
-    setChatStarted(true);
+    setAreQuestionsLoading(true);
+    setAreControlsDisabled(true);
+    setIsChatStarted(true);
+    setIsSetCompleted(false);
+    setTotalQuestions(totalQuestions + 5);
 
-    const requestData: QuestionData = { role, experience, theme: theme || '' };
+    const requestData = { role, experience, theme: theme || '' };
 
     try {
-      const { question } = await fetchQuestion(requestData);
-      setCurrentQuestion(question);
-      setShowCurrentQuestion(true);
+      const fetchedQuestions = await fetchQuestions(requestData);
+      console.log(requestData);
+      console.log(fetchedQuestions);
+
+      if (fetchedQuestions.length > 0) {
+        const firstQuestion = fetchedQuestions[0];
+        const randomizedAnswers = randomizeStrings([
+          firstQuestion.correctAnswer,
+          firstQuestion.wrongAnswerA,
+          firstQuestion.wrongAnswerB,
+        ]);
+
+        setCurrentAnswers(randomizedAnswers);
+        setCurrentQuestion(firstQuestion);
+        setQuestionSet(fetchedQuestions);
+        setCorrectAnswer(firstQuestion.correctAnswer);
+        setCurrentQuestionIndex(0);
+      } else {
+        console.warn('No questions available.');
+      }
     } catch (error) {
-      console.error('Failed to fetch question:', error);
+      console.error('Failed to fetch questions:', error);
     } finally {
-      setLoadingQuestion(false);
-      setChatboxDisabled(false);
+      setAreQuestionsLoading(false);
+      setAreControlsDisabled(false);
     }
   };
 
-  // Handle answer submission and request feedback
-  const handleSubmitAnswer = async (answer: string) => {
-    if (!currentQuestion) return;
+  // Handle when the user picks an answer from the available options
+  const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedAnswer(e.target.value);
+    setIsAnswerSelected(true);
+  };
 
-    // Add the question and answer to chat history
-    setChatHistory((prevHistory) => [
-      ...prevHistory,
-      { question: currentQuestion, answer, feedback: '' },
-    ]);
+  // Handle when the user picks an answer from the available options
+  const handleSubmitAnswer = (e: React.FormEvent) => {
+    e.preventDefault();
 
-    setChatboxDisabled(true);
-    setLoadingFeedback(true);
-    setShowCurrentQuestion(false); // Hide the question while feedback loads
+    if (currentQuestion && isAnswerSelected) {
+      const isCorrect = selectedAnswer === correctAnswer;
+      isCorrect
+        ? setCorrectQuestions(correctQuestions + 1)
+        : setReviewQuestions((wrongQuestionSet) => [
+            ...wrongQuestionSet,
+            {
+              question: currentQuestion,
+            },
+          ]);
 
-    try {
-      const feedback = await fetchFeedback({
-        question: currentQuestion,
-        userResponse: answer,
+      // Prepare correction JSX if the answer is incorrect
+      const correction = isCorrect ? null : (
+        <>
+          <span className="feedback__incorrect">Respuesta incorrecta</span>. La
+          opción correcta es: {renderInlineCode(correctAnswer as string)}
+        </>
+      );
+
+      const correctMessage = randomizeStrings(correct_answer)[0];
+
+      // Prepare feedback to add, either correct or incorrect
+      const feedbackToAdd = isCorrect ? (
+        <>
+          <span className="feedback__correct">{correctMessage}</span>
+          {renderInlineCode(currentQuestion.correctFeedback as string)}
+        </>
+      ) : (
+        renderInlineCode(currentQuestion.wrongFeedback) // no need to wrap it inside another object
+      );
+
+      // Add the user's selected answer immediately
+      setChatHistory((prevHistory) => [
+        ...prevHistory,
+        {
+          question: currentQuestion.question,
+          answers: currentAnswers || [],
+          correction: null, // Set correction to null initially
+          feedback: null, // Set feedback to null initially
+          selectedAnswer: selectedAnswer,
+        },
+      ]);
+
+      // Introduce a delay before showing the feedback
+      setShowFeedback(false); // Reset feedback display state
+      setTimeout(() => {
+        setChatHistory((prevHistory) => {
+          // Update the last history entry with correction and feedback
+          const updatedHistory = [...prevHistory];
+          const lastItemIndex = updatedHistory.length - 1;
+          updatedHistory[lastItemIndex] = {
+            ...updatedHistory[lastItemIndex],
+            correction: correction, // Set correction based on isCorrect
+            feedback: feedbackToAdd, // Set feedback, either correct or incorrect
+          };
+          return updatedHistory;
+        });
+        setShowFeedback(true);
+      }, 2000); // 2-second delay
+
+      // If it's the last question in the set, handle completion
+      if (currentQuestionIndex === questionSet.length - 1) {
+        setIsSetCompleted(true);
+        setAreControlsDisabled(false);
+        const continueQuestion = randomizeStrings(continue_question)[0];
+
+        setTimeout(() => {
+          setChatHistory((prevHistory) => [
+            ...prevHistory,
+            {
+              question: '',
+              answers: [],
+              correction: null,
+              feedback: continueQuestion,
+              selectedAnswer: null,
+            },
+          ]);
+        }, 2000); // Another delay for continuation
+      } else {
+        setTimeout(() => {
+          displayNextQuestion();
+        }, 4000); // Ensure sufficient delay before moving to the next question
+      }
+    }
+  };
+
+  // Handle when the user wants to exit
+  const handleCancelSession = () => {
+    setTimeout(() => {
+      navigate('/chat/thankyou', {
+        state: {
+          fromChat: true,
+          formData: { name, role, experience, theme },
+          totalQuestions,
+          correctQuestions,
+          reviewQuestions,
+        },
       });
-      setCurrentFeedback(feedback);
-
-      // Update chat history with feedback
-      setChatHistory((prevHistory) => {
-        const newHistory = [...prevHistory];
-        newHistory[newHistory.length - 1].feedback = feedback;
-        return newHistory;
-      });
-
-      setShowNextQuestionButton(true); // Show "Otra pregunta" button after feedback
-    } catch (error) {
-      console.error('Failed to fetch feedback:', error);
-    } finally {
-      setLoadingFeedback(false);
-      setChatboxDisabled(false);
-      setCurrentQuestion(''); // Reset the current question until a new one is fetched
-    }
+    }, 2000);
   };
 
-  // Fetch next question when "Otra pregunta" is clicked
-  const handleNextQuestion = async () => {
-    setLoadingQuestion(true);
-    setChatboxDisabled(true);
-    setShowNextQuestionButton(false); // Hide button when fetching new question
+  // Initialize a new round of questions
+  const startNewQuestionSet = async () => {
+    setAreQuestionsLoading(true);
+    setAreControlsDisabled(true);
+    setIsSetCompleted(false);
+    setTotalQuestions(totalQuestions + 5);
 
-    const requestData: QuestionData = { role, experience, theme: theme || '' };
+    const requestData = { role, experience, theme: theme || '' };
 
     try {
-      const { question } = await fetchQuestion(requestData);
-      setCurrentQuestion(question);
-      setShowCurrentQuestion(true); // Show the new question
+      const fetchedQuestions = await fetchQuestions(requestData);
+      if (fetchedQuestions.length > 0) {
+        const firstQuestion = fetchedQuestions[0];
+        const randomizedAnswers = randomizeStrings([
+          firstQuestion.correctAnswer,
+          firstQuestion.wrongAnswerA,
+          firstQuestion.wrongAnswerB,
+        ]);
+
+        setCurrentAnswers(randomizedAnswers);
+        setCurrentQuestion(firstQuestion);
+        setQuestionSet(fetchedQuestions);
+        setCorrectAnswer(firstQuestion.correctAnswer);
+        setCurrentQuestionIndex(0);
+        setSelectedAnswer(null);
+        setIsAnswerSelected(false);
+      } else {
+        console.warn('No questions available');
+      }
     } catch (error) {
-      console.error('Failed to fetch question:', error);
+      console.error('Failed to fetch questions:', error);
     } finally {
-      setLoadingQuestion(false);
-      setChatboxDisabled(false);
+      setAreQuestionsLoading(false);
+      setAreControlsDisabled(false);
     }
   };
 
-  // Auto-scroll to the end of the chat when chat history or loading state changes
+  // Handle the logic for displaying the next question
+  const displayNextQuestion = () => {
+    setSelectedAnswer(null);
+    setIsAnswerSelected(false);
+    setAreControlsDisabled(true);
+    setAreQuestionsLoading(true);
+
+    if (!isSetCompleted) {
+      const nextIndex = currentQuestionIndex + 1;
+      const nextQuestion = questionSet[nextIndex];
+
+      const randomizedAnswers = randomizeStrings([
+        nextQuestion.correctAnswer,
+        nextQuestion.wrongAnswerA,
+        nextQuestion.wrongAnswerB,
+      ]);
+
+      setCurrentQuestion(nextQuestion);
+      setCorrectAnswer(nextQuestion.correctAnswer);
+      setCurrentAnswers(randomizedAnswers);
+      setCurrentQuestionIndex(nextIndex);
+      setAreControlsDisabled(false);
+      setAreQuestionsLoading(false);
+    } else {
+      // When set is completed, display "Continuar" bubble and then the encouragement message
+      setChatHistory((prevHistory) => [
+        ...prevHistory,
+        {
+          question: '',
+          answers: [],
+          correction: null,
+          feedback: 'Continuar',
+          selectedAnswer: null,
+        },
+      ]);
+
+      // When set is completed, display encouragement message and start new set
+      setTimeout(() => {
+        const continueMessage = randomizeStrings(continue_ok_message)[0];
+        setChatHistory((prevHistory) => [
+          ...prevHistory,
+          {
+            question: '',
+            answers: [],
+            correction: null,
+            feedback: continueMessage,
+            selectedAnswer: null,
+          },
+        ]);
+      }, 1000);
+
+      setTimeout(() => {
+        startNewQuestionSet();
+      }, 3000);
+    }
+  };
+
+  // to always scroll automatically to the bottom of the chat
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [chatHistory, loadingQuestion, loadingFeedback]);
+    const scrollTimeout = setTimeout(() => {
+      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+
+    return () => clearTimeout(scrollTimeout);
+  }, [chatHistory, currentQuestion]);
 
   return (
     <div className="chat-container">
       <div className="scrollbar-padding">
         <div className="chat-body">
-          {/* Chat intro */}
           <div className="chat-intro">
-            <h2>Hola, {name}!</h2>
+            <h2>Hola, {name}</h2>
+            <p>¡Aquí comienza tu entrenamiento!</p>
             <p>
-              Voy a hacerte preguntas sobre <strong>{role}</strong> para un
-              nivel <strong>{experience}</strong>
-              {theme && (
+              Te haré preguntas específicas para <strong>{originalRole}</strong>
+              , adecuadas para un nivel <strong>{experience}</strong>
+              {originalTheme && originalTheme !== 'General' && (
                 <>
                   {' '}
-                  y centradas en <strong>{theme}</strong>
+                  (centradas en <strong>{originalTheme}</strong>)
                 </>
-              )}
-              .
+              )}{' '}
+              y te daré consejos para tu próxima entrevista.
             </p>
-            {!chatStarted && (
-              <Button onClick={handleStartChat}>Empecemos</Button>
-            )}
           </div>
 
-          {/* Chat history */}
-          {chatHistory.map((entry, index) => (
-            <div key={index} className="chat-entry">
-              <div className="bubble question">{entry.question}</div>
-              <div className="bubble answer">{entry.answer}</div>
-              <div className="bubble feedback">
-                {entry.feedback || (loadingFeedback && <ChatLoader />)}
-              </div>
+          {chatHistory.map((chatItem, index) => (
+            <div className="chat__history" key={index}>
+              {/* Only render question bubble if there's actually a question and answers */}
+              {chatItem.question && chatItem.answers.length > 0 && (
+                <div className="outer__bubble ia">
+                  <div className="avatar">
+                    <img src={Dora} className="avatar__dora" alt="Dora logo" />
+                  </div>
+                  <div className="bubble question test">
+                    <p>
+                      <strong>{renderInlineCode(chatItem.question)}</strong>
+                    </p>
+                    <ul>
+                      {chatItem.answers.map((answer, idx) => (
+                        <li key={['A', 'B', 'C'][idx]}>
+                          <RadioButton
+                            id={`role-${answer.toLowerCase().replace(/\s+/g, '-')}`}
+                            labelText={answer}
+                            name={`role-${index}`}
+                            value={answer}
+                            checked={answer === chatItem.selectedAnswer}
+                            onChange={() => {}}
+                            disabled
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {chatItem.selectedAnswer && (
+                <div className="outer__bubble user">
+                  <div className="avatar">{name.toUpperCase()[0]}</div>
+                  <div className="bubble answer">
+                    <p>{renderInlineCode(chatItem.selectedAnswer)}</p>
+                  </div>
+                </div>
+              )}
+
+              {chatItem.correction && (
+                <div className="outer__bubble ia">
+                  <div className="avatar">
+                    <img src={Dora} className="avatar__dora" alt="Dora logo" />
+                  </div>
+                  <div className="bubble feedback">
+                    <p>{chatItem.correction}</p>
+                  </div>
+                </div>
+              )}
+
+              {chatItem.feedback &&
+                (chatItem.feedback === 'Continuar' ? (
+                  <div className="outer__bubble user">
+                    <div className="avatar">{name.toUpperCase()[0]}</div>
+                    <div className="bubble answer">
+                      <p>{chatItem.feedback}</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="outer__bubble ia">
+                    <div className="avatar">
+                      <img
+                        src={Dora}
+                        className="avatar__dora"
+                        alt="Dora logo"
+                      />
+                    </div>
+                    <div className="bubble feedback">{chatItem.feedback}</div>
+                  </div>
+                ))}
             </div>
           ))}
 
-          {/* Ask for another question */}
-          {showNextQuestionButton && !loadingQuestion && (
-            <div className="bubble next-question">
-              <Button onClick={handleNextQuestion}>Otra pregunta</Button>
-            </div>
-          )}
+          {isChatStarted &&
+            currentQuestion &&
+            !chatHistory.some(
+              (item) => item.question === currentQuestion.question
+            ) && (
+              <div className="outer__bubble ia">
+                <div className="avatar">
+                  <img src={Dora} className="avatar__dora" alt="Dora logo" />
+                </div>
 
-          {/* Loading bubble for question while fetching the current question */}
-          {loadingQuestion && (
-            <div className="bubble current-question">
+                <div
+                  className={`bubble current-question ${areQuestionsLoading ? 'fade-in' : ''}`}
+                >
+                  <p>
+                    <strong>
+                      {renderInlineCode(currentQuestion.question)}
+                    </strong>
+                  </p>
+                  <ul>
+                    {currentAnswers &&
+                      currentAnswers.map((answer, index) => (
+                        <li key={['A', 'B', 'C'][index]}>
+                          <RadioButton
+                            id={`role-${answer.toLowerCase().replace(/\s+/g, '-')}`}
+                            labelText={answer}
+                            name="role"
+                            value={answer}
+                            onChange={handleAnswerChange}
+                            checked={selectedAnswer === answer}
+                          />
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+
+          {areQuestionsLoading && (
+            <div className="chat-loader">
               <ChatLoader />
             </div>
           )}
 
-          {/* Render current question if available and not loading */}
-          {showCurrentQuestion && currentQuestion && (
-            <div className="bubble current-question">{currentQuestion}</div>
-          )}
-
-          {/* Ref for auto-scrolling */}
           <div className="spacer" ref={chatEndRef}></div>
         </div>
+      </div>
+      <div className="chat-form">
+        <form className="controlsBox">
+          {!isChatStarted && (
+            <Button className="primary start" onClick={handleStartChat}>
+              Iniciar
+            </Button>
+          )}
 
-        {/* Chatbox for submitting answers */}
-        <div className="chat-form">
-          <Chatbox onSubmit={handleSubmitAnswer} disabled={chatboxDisabled} />
-        </div>
+          {isChatStarted && !areQuestionsLoading && (
+            <div className="options">
+              <Button
+                type="button"
+                // disabled={!isSetCompleted && !isAnswerSelected}
+                disabled={false}
+                className="secondary"
+                onClick={handleCancelSession}
+              >
+                Terminar
+              </Button>
+
+              <Button
+                type="submit"
+                disabled={!isSetCompleted && !isAnswerSelected}
+                className="primary"
+                onClick={
+                  isSetCompleted ? displayNextQuestion : handleSubmitAnswer
+                }
+              >
+                Continuar
+              </Button>
+            </div>
+          )}
+        </form>
       </div>
     </div>
   );

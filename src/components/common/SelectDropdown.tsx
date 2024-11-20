@@ -13,8 +13,11 @@ export default function FormSelect({
 }: FormSelectProps) {
   return (
     <>
-      <label hidden={hidden}>{labelText}</label>
+      <label className="form__text" hidden={hidden}>
+        {labelText}
+      </label>
       <select
+        className="form__text"
         id={id}
         name={name}
         value={value}

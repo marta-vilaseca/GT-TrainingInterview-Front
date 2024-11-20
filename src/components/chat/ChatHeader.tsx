@@ -1,13 +1,13 @@
-import { AiOutlineMenu } from 'react-icons/ai';
-import { AiOutlineEdit } from 'react-icons/ai';
+import { FiArrowLeft } from 'react-icons/fi';
 import './ChatHeader.scss';
 
 function ChatHeader() {
   return (
     <div className="chat-header">
-      <AiOutlineMenu />
-      <h3>Dora</h3>
-      <AiOutlineEdit />
+      <a href="/login">
+        <FiArrowLeft />
+        <h3>Entrenando con Dora</h3>
+      </a>
     </div>
   );
 }

@@ -1,12 +1,13 @@
 @import '../../styles/_variables';
+@import '../../styles/_mixins';
 
 input[type='text'],
 select {
   line-height: calc($font-medium + 1rem);
   height: calc($font-medium + 2rem);
-  font-size: $font-medium;
+  font-size: $font-small;
   background-color: $text-light-color;
-  color: $main-color;
+  color: $text-color;
   border: 1px solid $main-color-medium;
   padding: $padding-x-small $padding-small;
   outline: none;
@@ -23,31 +24,98 @@ select {
 }
 
 select > option {
-  font-size: $font-medium;
+  font-size: $font-small;
 }
 
 label {
   line-height: 3rem;
   height: 3rem;
-  font-size: $font-medium;
+  font-size: $font-small;
+}
+
+.radio__button {
+  display: flex;
+  align-items: stretch;
+
+  input[type='radio'] {
+    position: relative;
+    margin-right: $padding-small;
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-top: 0.3rem;
+    appearance: none; /* Removes default styling (for better control) */
+    -webkit-appearance: none; /* For Webkit-based browsers */
+    background-color: $white;
+    accent-color: $secondary-color;
+    border: 1px solid $secondary-color;
+    border-radius: 50%;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  input[type='radio']:checked {
+    background-color: $white; /* Custom color when checked (optional) */
+  }
+
+  input[type='radio']::after {
+    content: '';
+    display: block;
+    width: 1.2rem;
+    height: 1.2rem;
+    background-color: $secondary-color;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden; /* Hide initially */
+  }
+
+  input[type='radio']:checked::after {
+    visibility: visible; /* Show when checked */
+  }
+
+  label {
+    height: auto;
+  }
 }
 
 button {
-  border-radius: 0.5rem;
+  border-radius: 5rem;
   padding: $padding-x-small $padding-medium;
-  font-size: $font-medium;
-  font-weight: bold;
+  font-size: $font-small;
+  font-weight: 700;
+  font-family: map-get($body, font-family);
   height: calc($font-medium * 2.5);
   vertical-align: middle;
-  border: 0;
+  border: solid 1px $text-color;
   outline: 0;
-  background-color: $secondary-color;
-  color: white;
+  background-color: $secondary-color-lighter;
+  color: $text-color;
   margin: $padding-medium;
 
   &:hover {
     background-color: $main-color;
     color: white;
     cursor: pointer;
+  }
+}
+
+button {
+  border: 1px solid $main-color;
+  &.primary {
+    background-color: $secondary-color-lighter;
+    color: $main-color;
+  }
+  &.secondary {
+    background-color: transparent;
+    color: $main-color;
+  }
+  &:disabled {
+    cursor: none;
+    background: transparent;
+    border: 1px solid $text-color;
+    color: $text-color;
+    opacity: 0.25;
   }
 }

@@ -2,31 +2,40 @@ import Layout from '../components/layout/Layout';
 import Dora from '../assets/artificial-bot-intelligence-svgrepo-com.svg';
 import HomeForm from '../components/forms/HomeForm';
 import './LogIn.scss';
+import React from 'react';
+import { LoginFormProps } from '../types/ILoginForm';
 
-function Login() {
+interface LoginProps {
+  homeFormData: LoginFormProps;
+  setHomeFormData: React.Dispatch<React.SetStateAction<LoginFormProps>>;
+}
+
+const Login: React.FC<LoginProps> = ({ homeFormData, setHomeFormData }) => {
   return (
     <>
       <Layout page="login">
         <div className="login">
           <div className="hero">
-            <img src={Dora} className="hero__logo" alt="PildorasUX logo" />
             <div className="hero__container">
-              <h2 className="hero__title">¡Hola, soy Dora!</h2>
+              <h2 className="hero__title">¡Hola!</h2>
               <p className="hero__text">
-                Tu entrenadora virtual para entrevistas.
+                ¡Prepárate para brillar en tus entrevistas!
               </p>
             </div>
+            <img src={Dora} className="hero__logo" alt="PildorasUX logo" />
           </div>
           <p className="login__body">
-            Dora está lista para guiarte. <br />
-            Completa estos campos para ajustar el nivel y tipo de preguntas que
-            recibirás durante el entrenamiento.
+            <b>Vamos a personalizar tu entrenamiento</b> completando los
+            siguientes campos.
           </p>
         </div>
-        <HomeForm></HomeForm>
+        <HomeForm
+          homeFormData={homeFormData}
+          setHomeFormData={setHomeFormData}
+        ></HomeForm>
       </Layout>
     </>
   );
-}
+};
 
 export default Login;
