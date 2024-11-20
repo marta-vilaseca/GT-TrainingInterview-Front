@@ -1,11 +1,19 @@
 @import '../styles/variables';
 
 .thankyou {
+  &__logo {
+    width: 30%;
+    height: auto;
+    margin: 2rem auto;
+  }
+  &__message {
+    font-size: 1.8rem;
+  }
   &__title {
     font-family: map-get($title, font-family);
     font-weight: map-get($title, font-weight);
     font-size: map-get($title, font-size);
-    padding: $padding-small;
+    padding: $padding-medium;
     color: $text-color;
   }
 
@@ -13,16 +21,45 @@
     font-family: map-get($title, font-family);
     font-weight: map-get($title, font-weight);
     font-size: map-get($subtitle, font-size);
-    padding: $padding-small;
-    color: $secondary-color-darker;
+    margin: $padding-medium 0;
+    color: $text-color;
+    text-align: left;
   }
 
-  &__subtitle {
+  &__reviewTitle {
     font-family: map-get($subtitle, font-family);
-    font-weight: 500;
     font-size: map-get($subtitle, font-size);
-    padding: $padding-small;
-    color: $text-color;
+    padding: $padding-small 0;
+    color: $secondary-color-darker;
+    text-align: left;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  &__reviewQuestions p {
+    text-align: left;
+  }
+
+  ol {
+    list-style-type: none;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: -0.5rem;
+    margin-top: 2rem;
+
+    .reviewItem {
+      &__question {
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .exitMessage {
+    margin: 2rem 0;
   }
 }
 

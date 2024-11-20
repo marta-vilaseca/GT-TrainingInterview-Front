@@ -10,8 +10,10 @@ h6 {
   line-height: 1.2;
 }
 
-p {
-  font-size: $font-medium;
+p,
+ol,
+ul {
+  font-size: map-get($body, font-size);
   text-wrap: pretty;
 }
 

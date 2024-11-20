@@ -21,29 +21,40 @@ export const reverseRoles = Object.fromEntries(
 // Themes
 export type RoleType = 'design' | 'frontend' | 'backend';
 
-export const themes: { [key in RoleType]: string[] } = {
-  design: [
-    'Investigación de usuarios y perfiles',
-    'Prototipado y wireframing',
-    'Accesibilidad y usabilidad',
-    'Tipografía y diseño visual',
-    'Flujo de usuario y arquitectura de la información',
-  ],
-  frontend: [
-    'HTML y semántica',
-    'CSS y estilización',
-    'Javascript y manipulación del DOM',
-    'Frameworks y librerías (React, Vue, Angular)',
-    'Control de versiones y herramientas de construcción',
-  ],
-  backend: [
-    'Seguridad y Autenticación',
-    'Escalabilidad y Rendimiento',
-    'Manejo de errores y logs',
-    'Arquitecturas',
-    'Control de versiones y despliegue continuo',
-  ],
+export const themes: { [key in RoleType]: { [themeName: string]: string } } = {
+  design: {
+    'Procesos UX/UI': 'procesos UX/UI',
+    'Usuarios y Arquetipos': 'usuarios y arquetipos',
+    'Flujos de Usuarios': 'flujos de usuarios',
+    'Arquitecturas de Información': 'arquitecturas de informacion',
+    Accesibilidad: 'accesibilidad',
+    Wireframing: 'wireframing',
+  },
+  frontend: {
+    'HTML y semántica': 'html',
+    'CSS y estilización': 'css',
+    'Javascript y manipulación del DOM': 'javascript',
+    'Frameworks y librerías (React, Vue, Angular)': 'frameworks',
+    'Control de versiones y herramientas de construcción': 'controlversiones',
+  },
+  backend: {
+    'Gestión de base de datos': 'gestionbasedatos',
+    'Integración con APIs y servicios externos': 'integracion',
+    'Seguridad y autenticación': 'seguridad',
+    Arquitecturas: 'arquitecturas',
+    'Control de versiones y despliegue continuo': 'versiones',
+  },
 };
+
+export const reverseThemes: { [key in RoleType]: { [value: string]: string } } =
+  Object.fromEntries(
+    Object.entries(themes).map(([role, themeObj]) => [
+      role,
+      Object.fromEntries(
+        Object.entries(themeObj).map(([key, value]) => [value, key])
+      ),
+    ])
+  ) as { [key in RoleType]: { [value: string]: string } };
 
 // Chat messages
 export const correct_answer: string[] = [
@@ -80,5 +91,5 @@ export const continue_ok_message: string[] = [
 ];
 
 export const exit_message: string[] = [
-  'Gracias por participar en esta práctica de entrevista. Recuerda que la preparación es clave, y cada paso te acerca a tu objetivo. Si deseas continuar en otro momento, aquí estaré para ayudarte. ¡Hasta la próxima y mucha suerte!',
+  'Gracias por participar en esta práctica de entrevista. Si deseas continuar en otro momento, aquí estaré para ayudarte. ¡Hasta la próxima y mucha suerte!',
 ];

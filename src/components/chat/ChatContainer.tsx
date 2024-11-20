@@ -8,7 +8,8 @@ import { randomizeStrings } from '../../utils/randomize';
 import Dora from '../../assets/dora-white.svg';
 import './ChatContainer.scss';
 import { QuestionData2 } from '../../types/IAxios';
-import { reverseRoles } from '../../utils/constants';
+import { ReviewQuestion } from '../../types/IChatTypes';
+import { reverseRoles, reverseThemes, RoleType } from '../../utils/constants';
 import ChatLoader from './ChatLoader';
 import { renderInlineCode } from '../common/renderInlineCode';
 import {
@@ -23,6 +24,9 @@ export default function ChatContainer() {
 
   const { name, role, experience, theme } = location.state || {};
   const originalRole = reverseRoles[role] || role;
+  const originalTheme = theme
+    ? reverseThemes[role as RoleType]?.[theme] || theme
+    : theme;
 
   const [isChatStarted, setIsChatStarted] = useState(false);
   const [chatHistory, setChatHistory] = useState<
@@ -51,6 +55,7 @@ export default function ChatContainer() {
 
   const [totalQuestions, setTotalQuestions] = useState(0);
   const [correctQuestions, setCorrectQuestions] = useState(0);
+  const [reviewQuestions, setReviewQuestions] = useState<ReviewQuestion[]>([]);
   const [isSetCompleted, setIsSetCompleted] = useState(false);
   // const [goodbyeMessage, setGoodbyeMessage] = useState<string | null>(null);
 
@@ -110,7 +115,14 @@ export default function ChatContainer() {
 
     if (currentQuestion && isAnswerSelected) {
       const isCorrect = selectedAnswer === correctAnswer;
-      if (isCorrect) setCorrectQuestions(correctQuestions + 1);
+      isCorrect
+        ? setCorrectQuestions(correctQuestions + 1)
+        : setReviewQuestions((wrongQuestionSet) => [
+            ...wrongQuestionSet,
+            {
+              question: currentQuestion,
+            },
+          ]);
 
       // Prepare correction JSX if the answer is incorrect
       const correction = isCorrect ? null : (
@@ -196,6 +208,7 @@ export default function ChatContainer() {
           formData: { name, role, experience, theme },
           totalQuestions,
           correctQuestions,
+          reviewQuestions,
         },
       });
     }, 2000);
@@ -206,6 +219,7 @@ export default function ChatContainer() {
     setAreQuestionsLoading(true);
     setAreControlsDisabled(true);
     setIsSetCompleted(false);
+    setTotalQuestions(totalQuestions + 5);
 
     const requestData = { role, experience, theme: theme || '' };
 
@@ -224,6 +238,10 @@ export default function ChatContainer() {
         setQuestionSet(fetchedQuestions);
         setCorrectAnswer(firstQuestion.correctAnswer);
         setCurrentQuestionIndex(0);
+        setSelectedAnswer(null);
+        setIsAnswerSelected(false);
+      } else {
+        console.warn('No questions available');
       }
     } catch (error) {
       console.error('Failed to fetch questions:', error);
@@ -309,10 +327,10 @@ export default function ChatContainer() {
             <p>
               Te haré preguntas específicas para <strong>{originalRole}</strong>
               , adecuadas para un nivel <strong>{experience}</strong>
-              {theme && theme !== 'General' && (
+              {originalTheme && originalTheme !== 'General' && (
                 <>
                   {' '}
-                  (centradas en <strong>{theme}</strong>)
+                  (centradas en <strong>{originalTheme}</strong>)
                 </>
               )}{' '}
               y te daré consejos para tu próxima entrevista.
@@ -451,8 +469,8 @@ export default function ChatContainer() {
             <div className="options">
               <Button
                 type="button"
-                // disabled={areQuestionsLoading}
-                disabled={!isSetCompleted && !isAnswerSelected}
+                // disabled={!isSetCompleted && !isAnswerSelected}
+                disabled={false}
                 className="secondary"
                 onClick={handleCancelSession}
               >

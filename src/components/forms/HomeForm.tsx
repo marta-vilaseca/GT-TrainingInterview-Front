@@ -170,6 +170,7 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
             />
             <p className="error">{formErrors.experienceLevel}</p>
           </li>
+
           <li>
             <Dropdown
               id="theme"
@@ -177,17 +178,35 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
               name="theme"
               required
               hidden={homeFormData.role === ''}
-              value={homeFormData.theme || ''}
+              value={
+                homeFormData.role && homeFormData.theme
+                  ? Object.keys(
+                      themes[homeFormData.role as RoleType] || {}
+                    ).find(
+                      (key) =>
+                        themes[homeFormData.role as RoleType]?.[key] ===
+                        homeFormData.theme
+                    ) || 'General'
+                  : 'General'
+              }
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                const selectedTheme = e.target.value;
-                setHomeFormData({ ...homeFormData, theme: selectedTheme });
+                const selectedKey = e.target.value;
+                const selectedValue =
+                  selectedKey === 'General'
+                    ? 'General'
+                    : themes[homeFormData.role as RoleType]?.[selectedKey] ||
+                      '';
+                setHomeFormData({ ...homeFormData, theme: selectedValue });
               }}
               options={[
                 'General',
-                ...(themes[homeFormData.role as RoleType] || []),
+                ...(homeFormData.role
+                  ? Object.keys(themes[homeFormData.role as RoleType] || {})
+                  : []),
               ]}
             />
           </li>
+
           <li>
             <div className="button__container">
               <Button

@@ -1,5 +1,6 @@
 @import '../../styles/_variables';
 @import '../../styles/_mixins';
+@import '../../styles/typography';
 
 .chat_loader {
   display: flex;
@@ -159,7 +160,7 @@
 
 .bubble {
   font-weight: 500;
-  font-size: $font-medium;
+  font-size: map-get($body, font-size);
   padding: $padding-small;
   position: relative;
   border: 0;
@@ -168,6 +169,12 @@
   & ul {
     list-style-type: none;
     margin-top: 1rem;
+    font-size: map-get($body, font-size);
+  }
+
+  p,
+  span {
+    font-size: map-get($body, font-size);
   }
 }
 
