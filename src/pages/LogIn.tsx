@@ -2,8 +2,15 @@ import Layout from '../components/layout/Layout';
 import Dora from '../assets/artificial-bot-intelligence-svgrepo-com.svg';
 import HomeForm from '../components/forms/HomeForm';
 import './LogIn.scss';
+import React from 'react';
+import { LoginFormProps } from '../types/ILoginForm';
 
-function Login() {
+interface LoginProps {
+  homeFormData: LoginFormProps;
+  setHomeFormData: React.Dispatch<React.SetStateAction<LoginFormProps>>;
+}
+
+const Login: React.FC<LoginProps> = ({ homeFormData, setHomeFormData }) => {
   return (
     <>
       <Layout page="login">
@@ -22,10 +29,13 @@ function Login() {
             siguientes campos.
           </p>
         </div>
-        <HomeForm></HomeForm>
+        <HomeForm
+          homeFormData={homeFormData}
+          setHomeFormData={setHomeFormData}
+        ></HomeForm>
       </Layout>
     </>
   );
-}
+};
 
 export default Login;

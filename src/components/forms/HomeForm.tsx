@@ -12,14 +12,16 @@ import {
   RoleType,
 } from '../../utils/constants';
 
-function HomeForm() {
+import { LoginFormProps } from '../../types/ILoginForm';
+
+interface FormProps {
+  homeFormData: LoginFormProps;
+  setHomeFormData: React.Dispatch<React.SetStateAction<LoginFormProps>>;
+}
+
+const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
   const navigate = useNavigate();
-  const [homeFormData, setHomeFormData] = useState({
-    name: '',
-    role: '',
-    experience: '',
-    theme: 'General',
-  });
+
   const [loadingState, setLoadingState] = useState(false);
 
   const [formErrors, setFormErrors] = useState({
@@ -114,6 +116,7 @@ function HomeForm() {
               placeholder="Introduce tu nombre aquí."
               autoComplete="name"
               required
+              value={homeFormData.name || ''}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 const value = e.target.value;
                 setHomeFormData({ ...homeFormData, name: value });
@@ -180,7 +183,7 @@ function HomeForm() {
                 setHomeFormData({ ...homeFormData, theme: selectedTheme });
               }}
               options={[
-                'general',
+                'General',
                 ...(themes[homeFormData.role as RoleType] || []),
               ]}
             />
@@ -208,6 +211,6 @@ function HomeForm() {
       </form>
     </div>
   );
-}
+};
 
 export default HomeForm;
