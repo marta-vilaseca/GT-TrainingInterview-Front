@@ -12,14 +12,10 @@ const Home: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const handleStart = (e: React.MouseEvent<HTMLElement>) => {
-    console.log(e);
-    console.log('This is a botton');
     navigate('/login');
   };
 
   const handleClickModal = (e: React.MouseEvent<HTMLElement>) => {
-    console.log(e);
-    console.log('This is a know more');
     setShowModal(true);
   };
 
