@@ -1,5 +1,6 @@
 export interface LoginFormProps {
   name: string;
-  roles: string[];
-  experienceLevel: string;
+  role: string;
+  experience: string;
+  theme: string;
 }

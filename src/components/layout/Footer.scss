@@ -13,7 +13,7 @@
   }
 }
 
-.nav-footer-general {
+nav.nav-footer {
   display: flex;
   width: 100%;
 }
@@ -73,6 +73,7 @@
   .nav-footer-general {
     align-items: center;
     justify-content: space-between;
+    flex-direction: row;
   }
   .nav-footer-general ul {
     gap: 2rem;
