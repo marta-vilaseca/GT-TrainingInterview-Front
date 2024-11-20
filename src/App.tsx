@@ -5,6 +5,9 @@ import Home from './pages/Home';
 import LogIn from './pages/LogIn';
 import Chat from './pages/Chat';
 import ThankYou from './pages/ThankYou';
+import LegalNotice from './pages/LegalNotice';
+import CookiePolicy from './pages/CookiePolicy';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import { LoginFormProps } from './types/ILoginForm';
 
 const App: React.FC = () => {
@@ -29,6 +32,9 @@ const App: React.FC = () => {
         />
         <Route path="/chat" element={<Chat />} />
         <Route path="/chat/thankyou" element={<ThankYou />} />
+        <Route path="/legalnotice" element={<LegalNotice />} />
+        <Route path="/cookies" element={<CookiePolicy />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
       </Routes>
     </Router>
   );

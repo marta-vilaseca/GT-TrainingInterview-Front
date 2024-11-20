@@ -8,13 +8,13 @@ export default function Footer() {
         <img src={Dora} alt="Logo Pildoras UX" className="footer__logo" />
         <ul>
           <li>
-            <a href="#">Aviso Legal</a>
+            <a href="/legalnotice">Aviso Legal</a>
           </li>
           <li>
-            <a href="#">Política de Cookies</a>
+            <a href="/cookies">Política de Cookies</a>
           </li>
           <li>
-            <a href="#">Política de Privacidad</a>
+            <a href="/privacy">Política de Privacidad</a>
           </li>
         </ul>
       </nav>
