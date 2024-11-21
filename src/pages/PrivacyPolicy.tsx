@@ -8,10 +8,10 @@ const PrivacyPolicy: React.FC = () => {
       <Layout page="cookies">
         <h2 className="legal__title">Política de privacidad</h2>
         <p className="legal__text">
-          En PíldorasUX estamos comprometidas con la privacidad de nuestros
-          usuarios y usuarias. Llevamos a cabo tratamientos de datos personales
-          basados en la lealtad y la transparencia. Es por ello que, para
-          adaptarnos al Reglamento Europeo 679/2016 de Protección de Datos
+          En <b>PíldorasUX</b> estamos comprometidas con la privacidad de
+          nuestros usuarios y usuarias. Llevamos a cabo tratamientos de datos
+          personales basados en la lealtad y la transparencia. Es por ello que,
+          para adaptarnos al Reglamento Europeo 679/2016 de Protección de Datos
           personales (R.G.P.D.) y la Ley Orgánica 3/2018, de 5 de diciembre, de
           Protección de Datos Personales y garantía de los derechos digitales
           (L.O.P.D.G.D.D.), hemos actualizado nuestra Política de Privacidad.
@@ -106,52 +106,61 @@ const PrivacyPolicy: React.FC = () => {
           3. Bases jurídicas de la página web{' '}
         </h3>
         <p className="legal__text">
-          En el consentimiento que nos has prestado para tratar sus datos con
-          las finalidades de contestar a dudas y consultas, el envío de la guía
-          gratuita «Guía quiero ser UX» o las newsletters periódicas y la
-          gestión de comentarios en el blog. La negativa a facilitar sus datos
-          personales conllevara la imposibilidad de tratar sus datos con las
-          finalidades mencionadas.{' '}
+          En el <b>consentimiento</b> que nos has prestado para tratar sus datos
+          con las finalidades de contestar a dudas y consultas, el envío de la
+          guía gratuita <b>«Guía quiero ser UX»</b> o las newsletters periódicas
+          y la gestión de comentarios en el blog. La negativa a facilitar sus
+          datos personales conllevara la imposibilidad de tratar sus datos con
+          las finalidades mencionadas.{' '}
         </p>
         <p className="legal__text">
-          Para cumplir con las obligaciones legales que se nos aplican. En este
-          caso, el interesado no podrá negarse al tratamiento de los datos
-          personales.{' '}
+          Para <b>cumplir con las obligaciones legales</b> que se nos aplican.
+          En este caso, el interesado no podrá negarse al tratamiento de los
+          datos personales.{' '}
         </p>
         <p className="legal__text">
-          En nuestro interés legítimo de proteger nuestra imagen, negocio y
-          trayectoria evitando ataques a nuestra página web. En este caso, el o
-          la interesada no podrá negarse al tratamiento de los datos personales,
-          aunque podrá ejercer, en su caso, los derechos reconocidos en el
-          apartado octavos de la presente política.
+          En nuestro <b>interés legítimo</b> de proteger nuestra imagen, negocio
+          y trayectoria evitando ataques a nuestra página web. En este caso, el
+          o la interesada no podrá negarse al tratamiento de los datos
+          personales, aunque podrá ejercer, en su caso, los derechos reconocidos
+          en el apartado octavos de la presente política.
         </p>
         <h4 className="legal__subtitle2">Estudiantes de cursos online</h4>
         <p className="legal__text">
-          La ejecución de un contrato en el que el o la estudiante es parte con
-          la finalidad de gestionar, administrar y supervisar la impartición de
-          cursos online y mantener comunicaciones relacionas con los cursos
-          contratados. La negativa a facilitar sus datos personales conllevara
-          la imposibilidad de tratar sus datos con las finalidades mencionadas.
+          La <b>ejecución de un contrato</b> en el que el o la estudiante es
+          parte con la finalidad de gestionar, administrar y supervisar la
+          impartición de cursos online y mantener comunicaciones relacionas con
+          los cursos contratados.{' '}
+          <b>
+            La negativa a facilitar sus datos personales conllevara la
+            imposibilidad de tratar sus datos con las finalidades mencionadas.
+          </b>
         </p>
         <p className="legal__text">
-          En el consentimiento que nos has prestado para tratar sus datos con
-          las finalidades de gestionar los comentarios de los alumnos en los
+          En el <b>consentimiento</b> que nos has prestado para tratar sus datos
+          con las finalidades de gestionar los comentarios de los alumnos en los
           blogs incluidos en los cursos y el envío de comunicaciones sobre
-          cursos similares o complementarios a los impartidos. La negativa a
-          facilitar sus datos personales conllevara la imposibilidad de tratar
-          sus datos con las finalidades mencionadas.{' '}
+          cursos similares o complementarios a los impartidos.{' '}
+          <b>
+            La negativa a facilitar sus datos personales conllevara la
+            imposibilidad de tratar sus datos con las finalidades mencionadas.
+          </b>{' '}
         </p>
         <p className="legal__text">
-          Para cumplir con las obligaciones legales que se nos aplican. En este
-          caso, el interesado no podrá negarse al tratamiento de los datos
-          personales.{' '}
+          <b>Para cumplir con las obligaciones legales</b> que se nos aplican.
+          <i>
+            En este caso, el interesado no podrá negarse al tratamiento de los
+            datos personales.
+          </i>{' '}
         </p>
         <p className="legal__text">
-          En nuestro interés legítimo de proteger nuestra imagen, negocio y
-          trayectoria evitando ataques a nuestra página web. En este caso, el
-          interesado no podrá negarse al tratamiento de los datos personales,
-          aunque podrá ejercer, en su caso, los derechos reconocidos en el
-          apartado octavos de la presente política.
+          En <b>nuestro interés legítimo</b> de proteger nuestra imagen, negocio
+          y trayectoria evitando ataques a nuestra página web.{' '}
+          <i>
+            En este caso, el interesado no podrá negarse al tratamiento de los
+            datos personales, aunque podrá ejercer, en su caso, los derechos
+            reconocidos en el apartado octavos de la presente política.
+          </i>
         </p>
         <h3 className="legal__subtitle1">
           4. Plazos o criterios de conservación de los datos{' '}
@@ -176,15 +185,15 @@ const PrivacyPolicy: React.FC = () => {
         </p>
         <p className="legal__text">
           {' '}
-          1.Entre 5 o 15 años según el caso, atendiendo a lo dispuesto en el
+          1. Entre 5 o 15 años según el caso, atendiendo a lo dispuesto en el
           artículo 1964.2 del Código Civil.{' '}
         </p>
         <p className="legal__text">
-          2.Durante 6 años, respecto de la información mercantil atendiendo a
+          2. Durante 6 años, respecto de la información mercantil atendiendo a
           dispuesto en el artículo 30 del Código de Comercio.
         </p>
         <p className="legal__text">
-          3.Durante 4 años, respecto a la información relacionada con las
+          3. Durante 4 años, respecto a la información relacionada con las
           obligaciones fiscales atendiendo a lo dispuesto en la Ley General
           Tributaria.
         </p>
@@ -208,7 +217,8 @@ const PrivacyPolicy: React.FC = () => {
           6. Transferencias internacionales de datos{' '}
         </h3>
         <p className="legal__text">
-          Algunos cursos de PíldorasUX utilizan las siguientes plataformas:
+          Algunos cursos de <b>PíldorasUX</b> utilizan las siguientes
+          plataformas:
         </p>
         <p className="legal__text">
           HOTMART, para dar los cursos de formación online a sus alumnos. Por
@@ -228,11 +238,11 @@ const PrivacyPolicy: React.FC = () => {
           automatizado, incluido la elaboración de perfiles.{' '}
         </p>
         <p className="legal__text">
-          Para ello, PíldorasUX pone a disposición de todos los interesados el
-          correo electrónico hola@pildorasux.com. Es muy importante que junto a
-          la solicitud se acompañe una fotocopia del D.N.I. o documento
-          equivalente, con la finalidad de acreditar la identidad del
-          solicitante.{' '}
+          Para ello, <b>PíldorasUX</b> pone a disposición de todos los
+          interesados el correo electrónico hola@pildorasux.com. Es muy
+          importante que junto a la solicitud se acompañe una fotocopia del
+          D.N.I. o documento equivalente, con la finalidad de acreditar la
+          identidad del solicitante.{' '}
         </p>
         <p className="legal__text">
           Se informa asimismo a los interesados de que tienen la opción de
@@ -249,9 +259,9 @@ const PrivacyPolicy: React.FC = () => {
           En cumplimiento de lo dispuesto en el artículo 21 de la Ley 34/2002 de
           servicios de la sociedad de la información y comercio electrónico,
           para no recibir más información sobre los productos o servicios de
-          PíldorasUX, los interesados pueden darse de baja enviando un correo
-          electrónico a la dirección hola@pildorasux.com, con asunto «Darse de
-          baja».{' '}
+          <b>PíldorasUX</b>, los interesados pueden darse de baja enviando un
+          correo electrónico a la dirección hola@pildorasux.com, con asunto
+          «Darse de baja».{' '}
         </p>
         <p className="legal__text">
           Asimismo, también podrán revocar su consentimiento pinchando en la
@@ -261,7 +271,7 @@ const PrivacyPolicy: React.FC = () => {
         <h3 className="legal__subtitle1">9. Confidencialidad y seguridad </h3>
         <p className="legal__text">
           {' '}
-          Desde PíldorasUX empleamos todos los esfuerzos razonables para
+          Desde <b>PíldorasUX</b> empleamos todos los esfuerzos razonables para
           mantener la confidencialidad de la información de carácter personal
           que se trate a través de nuestra página web.{' '}
         </p>
@@ -294,17 +304,17 @@ const PrivacyPolicy: React.FC = () => {
           En el supuesto de que el usuario facilite datos de terceros, declara
           que cuenta con el consentimiento de los interesados y se compromete a
           trasladarle la información contenida en esta cláusula, eximiendo a
-          PíldorasUX de cualquier responsabilidad derivada por la falta de
-          cumplimiento de la presente obligación.{' '}
+          <b>PíldorasUX</b> de cualquier responsabilidad derivada por la falta
+          de cumplimiento de la presente obligación.{' '}
         </p>
         <h3 className="legal__subtitle1">
           12. Modificaciones de esta política de privacidad{' '}
         </h3>
         <p className="legal__text">
-          Es posible que PíldorasUX deba actualizar esta Política de Privacidad;
-          por ello es necesario que se revise esta política periódicamente con
-          el objetivo de estar adecuadamente informado sobre el tipo de
-          información recopilada y sus tratamientos.{' '}
+          Es posible que <b>PíldorasUX</b> deba actualizar esta Política de
+          Privacidad; por ello es necesario que se revise esta política
+          periódicamente con el objetivo de estar adecuadamente informado sobre
+          el tipo de información recopilada y sus tratamientos.{' '}
         </p>
         <p className="legal__text">
           En caso de producirse un cambio sustancial, informaremos a todos

@@ -53,6 +53,7 @@ padding: $padding-medium;
 
     }
     &__text{
+        width: 100%;
         font-family: map-get($body, font-family);
     font-weight: 500;
     font-size: map-get($body, font-size);

@@ -9,13 +9,21 @@ const LegalNotice: React.FC = () => {
         <h2 className="legal__title">Aviso Legal</h2>
         <h3 className="legal__subtitle1">1. Datos identificativos</h3>
         <p className="legal__text">
-          Usted está visitando la página web http://pildorasux.com/ titularidad
-          de Gema Gutiérrez Medina. Domiciliada en Avd Olímpica, 32, con
-          DNI:46889606N y correo electrónico de contacto es hola@pildorasux.com.
+          Usted está visitando la página web{' '}
+          <b>
+            <a href="/privacy">
+              <a href="/privacy">
+                <b>http://pildorasux.com/</b>
+              </a>
+            </a>
+          </b>{' '}
+          titularidad de Gema Gutiérrez Medina. Domiciliada en Avd Olímpica, 32,
+          con DNI:46889606N y correo electrónico de contacto es{' '}
+          <b>hola@pildorasux.com.</b>
         </p>{' '}
         <p className="legal__text">
-          En adelante La Titular. Puede contactar con la TITULAR a través del
-          correo electrónico hola@pildorasux.com
+          <b>En adelante La Titular.</b> Puede contactar con la TITULAR a través
+          del correo electrónico hola@pildorasux.com
         </p>
         <h3 className="legal__subtitle1">2. Usuarios</h3>
         <p className="legal__text">
@@ -32,10 +40,17 @@ const LegalNotice: React.FC = () => {
         </p>
         <h3 className="legal__subtitle1">3. Uso del portal</h3>
         <p className="legal__text">
-          http://pildorasux.com/ proporciona el acceso a multitud de
-          informaciones, servicios, programas o datos (en adelante, “los
-          contenidos”) en Internet pertenecientes a LA TITULAR o a sus
-          licenciantes a los que el USUARIO puede tener acceso.
+          <b>
+            <a href="/privacy">
+              <a href="/privacy">
+                <b>http://pildorasux.com/</b>
+              </a>
+            </a>
+          </b>{' '}
+          proporciona el acceso a multitud de informaciones, servicios,
+          programas o datos (en adelante, “los contenidos”) en Internet
+          pertenecientes a LA TITULAR o a sus licenciantes a los que el USUARIO
+          puede tener acceso.
         </p>{' '}
         <p className="legal__text">
           El usuario asume la responsabilidad del uso del portal. Dicha
@@ -57,22 +72,23 @@ const LegalNotice: React.FC = () => {
           fe y al orden público.{' '}
         </p>{' '}
         <p className="legal__text">
-          2.Difundir contenidos o propaganda racista, xenófoba,
+          2. Difundir contenidos o propaganda racista, xenófoba,
           pornográfico-ilegal, de apología del terrorismo o atentatoria contra
           los derechos humanos.{' '}
         </p>{' '}
         <p className="legal__text">
-          3.Provocar daños en los sistemas físicos y lógicos de PíldorasUX de
-          sus proveedores o de terceras personas, introducir o difundir en l red
-          virus informáticos o cualesquiera otros sistemas físicos o lógicos que
-          sean susceptibles de provocar los daños anteriormente mencionados.{' '}
+          3. Provocar daños en los sistemas físicos y lógicos de{' '}
+          <b>PíldorasUX</b> de sus proveedores o de terceras personas,
+          introducir o difundir en l red virus informáticos o cualesquiera otros
+          sistemas físicos o lógicos que sean susceptibles de provocar los daños
+          anteriormente mencionados.{' '}
         </p>{' '}
         <p className="legal__text">
-          4.Intentar acceder y, en su caso, utilizar las cuentas de correo
+          4. Intentar acceder y, en su caso, utilizar las cuentas de correo
           electrónico de otros usuarios y modificar o manipular sus mensajes.{' '}
         </p>{' '}
         <p className="legal__text">
-          5.Utilizar el sitio web ni las informaciones que en él se contienen
+          5. Utilizar el sitio web ni las informaciones que en él se contienen
           con fines comerciales, políticos, publicitarios y para cualquier uso
           comercial, sobre todo en el envío de correos electrónicos no
           solicitados.{' '}
@@ -90,7 +106,8 @@ const LegalNotice: React.FC = () => {
         <h3 className="legal__subtitle1">4. Protección de datos</h3>
         <p className="legal__text">
           Todo lo relativo a la política de protección de datos se encuentra
-          recogido en el documento de Política de Privacidad.{' '}
+          recogido en el documento de{' '}
+          <a href="/privacy">Política de Privacidad.</a>{' '}
         </p>{' '}
         <h3 className="legal__subtitle1">5. Contenidos.</h3>
         <p className="legal__text">
@@ -116,7 +133,7 @@ const LegalNotice: React.FC = () => {
           {' '}
           6. Exclusión de garantías y responsabilidad.
         </h3>
-        <p>
+        <p className="legal__text">
           EL USUARIO reconoce que la utilización de la página web y de sus
           contenidos y servicios se desarrolla bajo su exclusiva
           responsabilidad. En concreto, a título meramente enunciativo, EL
@@ -189,9 +206,15 @@ const LegalNotice: React.FC = () => {
         </p>{' '}
         <h3 className="legal__subtitle1">8. Enlaces</h3>
         <p className="legal__text">
-          En el caso de que en http://pildorasux.com/ se incluyesen enlaces o
-          hipervínculos hacia otros sitios de Internet, LA TITULAR no ejercerá
-          ningún tipo de control sobre dichos sitios y contenidos.{' '}
+          En el caso de que en{' '}
+          <a href="/privacy">
+            <a href="/privacy">
+              <b>http://pildorasux.com/</b>
+            </a>
+          </a>{' '}
+          se incluyesen enlaces o hipervínculos hacia otros sitios de Internet,
+          LA TITULAR no ejercerá ningún tipo de control sobre dichos sitios y
+          contenidos.{' '}
         </p>{' '}
         <p className="legal__text">
           En ningún caso LA TITULAR asumirá responsabilidad alguna por los
@@ -229,10 +252,14 @@ const LegalNotice: React.FC = () => {
         </p>
         <h3 className="legal__subtitle1">12. Menores de edad</h3>
         <p className="legal__text">
-          http://pildorasux.com/ dirige sus servicios a usuarios mayores de 18
-          años. Los menores de esta edad no están autorizados a utilizar
-          nuestros servicios y no deberán, por tanto, enviarnos sus datos
-          personales.{' '}
+          <a href="/privacy">
+            <a href="/privacy">
+              <b>http://pildorasux.com/</b>
+            </a>
+          </a>{' '}
+          dirige sus servicios a usuarios mayores de 18 años. Los menores de
+          esta edad no están autorizados a utilizar nuestros servicios y no
+          deberán, por tanto, enviarnos sus datos personales.{' '}
         </p>{' '}
         <p className="legal__text">
           Informamos de que si se da tal circunstancia, LA TITULAR no se hace
@@ -241,9 +268,15 @@ const LegalNotice: React.FC = () => {
         </p>
         <h3 className="legal__subtitle1"> 13. Comentario en el blog</h3>
         <p className="legal__text">
-          El usuario de http://pildorasux.com/ que haga uso del blog vertiendo
-          sus comentarios declara haber leído estas condiciones y estar de
-          acuerdo con todos los puntos expuestos a continuación.{' '}
+          El usuario de{' '}
+          <a href="/privacy">
+            <a href="/privacy">
+              <b>http://pildorasux.com/</b>
+            </a>
+          </a>{' '}
+          que haga uso del blog vertiendo sus comentarios declara haber leído
+          estas condiciones y estar de acuerdo con todos los puntos expuestos a
+          continuación.{' '}
         </p>{' '}
         <p className="legal__text">
           Cualquier comentario pasará por un filtro previo a su publicación que
@@ -264,10 +297,12 @@ const LegalNotice: React.FC = () => {
           colectivo.{' '}
         </p>{' '}
         <p className="legal__text">
-          LA TITULAR se reserva el derecho a suspender a aquellos usuarios si
-          consideramos que sus comentarios y su actividad tienden a resultar
-          molestos para el resto de usuarios y no permite el normal desarrollo
-          de las conversaciones.
+          <b>
+            LA TITULAR se reserva el derecho a suspender a aquellos usuarios si
+            consideramos que sus comentarios y su actividad tienden a resultar
+            molestos para el resto de usuarios y no permite el normal desarrollo
+            de las conversaciones.
+          </b>
         </p>{' '}
         <p className="legal__text"> Última actualización 01-08-2023</p>
       </Layout>

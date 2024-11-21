@@ -133,23 +133,27 @@ const CookiePolicy: React.FC = () => {
           los usuarios del sitio web y mejorar la usabilidad del mismo, pero en
           ningún caso se asocian a datos que pudieran llegar a identificar al
           usuario. Google Analytics, es un servicio analítico de web prestado
-          por Google, Inc., El usuario puede consultar aquí el tipo de cookies
-          utilizadas por Google.{' '}
+          por Google, Inc., El usuario puede consultar{' '}
+          <a href="https://policies.google.com/technologies/cookies?hl=es&gl=es#types-of-cookies">
+            <b>aquí</b>
+          </a>{' '}
+          el tipo de cookies utilizadas por Google.{' '}
         </p>
         <h4 className="legal__subtitle2">WordPress </h4>
         <p className="legal__text">
           {' '}
           Píldoras UX es usuaria de la plataforma de suministro y alojamiento de
-          blogs WordPress, propiedad de la empresa norteamericana Automattic,
-          Inc. A tales efectos, los usos de tales cookies por los sistemas nunca
-          están bajo control o gestión del responsable de la web, pueden cambiar
-          su función en cualquier momento, y entrar cookies nuevas.{' '}
+          blogs <b>WordPress</b>, propiedad de la empresa norteamericana
+          Automattic, Inc. A tales efectos, los usos de tales cookies por los
+          sistemas nunca están bajo control o gestión del responsable de la web,
+          pueden cambiar su función en cualquier momento, y entrar cookies
+          nuevas.{' '}
         </p>
         <p className="legal__text">
           Estas cookies tampoco reportan al responsable de esta web beneficio
           alguno. Automattic, Inc., utiliza además otras cookies con la
           finalidad de ayudar a identificar y rastrear a los visitantes de los
-          sitios de WordPress, conocer el uso que hacen del sitio web de
+          sitios de <b>WordPress</b>, conocer el uso que hacen del sitio web de
           Automattic, así como sus preferencias de acceso al mismo, tal y como
           se recoge en el apartado “Cookies” de su política de privacidad.{' '}
         </p>
@@ -167,25 +171,46 @@ const CookiePolicy: React.FC = () => {
         </p>
         <ul className="legal__list">
           <li className="legal__list__item">
-            Cookies de Facebook, ver más información en su política de cookies
+            Cookies de Facebook, ver más información en su{' '}
+            <a href="https://www.facebook.com/policies/cookies/">
+              <b>política de cookies</b>
+            </a>
           </li>
           <li className="legal__list__item">
-            Cookies de Soundcloud, ver más información en su política de cookies
+            Cookies de Soundcloud, ver más información en su{' '}
+            <a href="https://soundcloud.com/pages/cookies">
+              <b>política de cookies</b>
+            </a>
           </li>
           <li className="legal__list__item">
-            Cookies de Instagram, ver más información en su política de cookies
+            Cookies de Instagram, ver más información en su{' '}
+            <a href="https://www.facebook.com/policies/cookies/">
+              <b>política de cookies</b>
+            </a>
           </li>
           <li className="legal__list__item">
-            Cookies de Linkedin, ver más información en su política de cookies
+            Cookies de Linkedin, ver más información en su{' '}
+            <a href="https://www.linkedin.com/legal/cookie-policy?trk=hp-cookies">
+              <b>política de cookies</b>
+            </a>
           </li>
           <li className="legal__list__item">
-            Cookies de Pinterest, ver más información en su política de cookies
+            Cookies de Pinterest, ver más información en su{' '}
+            <a href="https://policy.pinterest.com/es/cookies">
+              <b>política de cookies</b>
+            </a>
           </li>
           <li className="legal__list__item">
-            Cookies de Youtube, ver más información en su política de cookies
+            Cookies de Youtube, ver más información en su{' '}
+            <a href="http://www.google.com/intl/es/policies/technologies/types/">
+              <b>política de cookies</b>
+            </a>
           </li>
           <li className="legal__list__item">
-            Cookies de Vimeo, ver más información en su política de cookies
+            Cookies de Vimeo, ver más información en su{' '}
+            <a href="https://vimeo.com/privacy">
+              <b>política de cookies</b>
+            </a>
           </li>{' '}
         </ul>
         <p className="legal__text">
@@ -198,7 +223,9 @@ const CookiePolicy: React.FC = () => {
           borrado de la información referente a tus hábitos de navegación, y el
           perfil relacionado que ha generado los referidos hábitos, accediendo
           de forma directa y gratuita a:
-          https://www.google.com/settings/ads/preferences?hl=es.{' '}
+          <a href="https://www.google.com/settings/ads/preferences?hl=es">
+            <b>https://www.google.com/settings/ads/preferences?hl=es.</b>
+          </a>{' '}
         </p>
         <h4 className="legal__subtitle2">Hotjar</h4>
         <p className="legal__text">
@@ -228,13 +255,18 @@ const CookiePolicy: React.FC = () => {
         </p>
         <p className="legal__text">
           Para más detalles, consulte la política de privacidad de Hotjar en
-          https://www.hotjar.com/legal/policies/privacy.
+          <a href="https://www.hotjar.com/legal/policies/privacy">
+            <b>https://www.hotjar.com/legal/policies/privacy</b>
+          </a>
+          .
         </p>
         <p className="legal__text">
           En cualquier momento, puede deshabilitar la creación del perfil de
           usuario, el almacenamiento de datos de uso del sitio y el seguimiento
           de cookies realizado por Hotjar. Solo acceso
-          https://www.hotjar.com/legal/compliance/opt-out.{' '}
+          <a href="https://www.hotjar.com/legal/compliance/opt-out.">
+            <b>https://www.hotjar.com/legal/compliance/opt-out.</b>
+          </a>{' '}
         </p>
         <h3 className="legal__subtitle1">¿Se pueden eliminar las cookies?</h3>{' '}
         <p className="legal__text">
@@ -248,16 +280,28 @@ const CookiePolicy: React.FC = () => {
         </p>
         <ul className="legal__list">
           <li className="legal__list__item">
-            Configuración de cookies para Google Chrome
+            Configuración de cookies para{' '}
+            <a href="http://support.google.com/chrome/bin/answer.py?hl=es&answer=95647">
+              <b>Google Chrome</b>
+            </a>
           </li>{' '}
           <li className="legal__list__item">
-            Configuración de cookies para Apple Safari
+            Configuración de cookies para{' '}
+            <a href="https://support.apple.com/es-es/HT201265">
+              <b>Apple Safari</b>
+            </a>
           </li>{' '}
           <li className="legal__list__item">
-            Configuración de cookies para Internet Explorer
+            Configuración de cookies para{' '}
+            <a href="https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies#ie=ie-10">
+              <b>Internet Explorer</b>
+            </a>
           </li>
           <li className="legal__list__item">
-            Configuración de cookies para Mozilla Firefox
+            Configuración de cookies para{' '}
+            <a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias?redirectlocale=es&redirectslug=habilitar-y-deshabilitar-cookies-que-los-sitios-we">
+              <b>Mozilla Firefox</b>
+            </a>
           </li>{' '}
         </ul>
         <h3 className="legal__subtitle1">
@@ -278,8 +322,11 @@ const CookiePolicy: React.FC = () => {
         <h3 className="legal__subtitle1">Más información sobre las cookies</h3>{' '}
         <p className="legal__text">
           Puedes consultar el reglamento sobre cookies publicado por la Agencia
-          Española de Protección de Datos en su “Guía sobre el uso de las
-          cookies”.{' '}
+          Española de Protección de Datos en su{' '}
+          <a href="https://www.aepd.es/sites/default/files/2020-07/guia-cookies.pdf">
+            <b>“Guía sobre el uso de las cookies”</b>
+          </a>
+          .{' '}
         </p>
         <p className="legal__text">
           Si desea tener un mayor control sobre la instalación de cookies, puede
