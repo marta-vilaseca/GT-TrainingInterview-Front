@@ -6,7 +6,7 @@ select {
   line-height: calc($font-medium + 1rem);
   height: calc($font-medium + 2rem);
   font-size: $font-small;
-  background-color: $text-light-color;
+  background-color: $white;
   color: $text-color;
   border: 1px solid $main-color-medium;
   padding: $padding-x-small $padding-small;
@@ -16,6 +16,10 @@ select {
 
   &:focus {
     border: 2px solid $secondary-color;
+  }
+
+  &.form__error:focus {
+    border: 1px solid $error;
   }
 
   &::placeholder {

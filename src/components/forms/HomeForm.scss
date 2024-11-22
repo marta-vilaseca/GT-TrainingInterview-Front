@@ -10,7 +10,7 @@
   text-align: left;
   font-size: 1.6rem;
   padding: $padding-medium;
-  &__text{
+  &__text {
     font-size: $font-small;
   }
 }
@@ -29,7 +29,6 @@
 .form > ul {
   gap: $padding-medium;
   font-size: $font-small;
-
 }
 .form select option {
   font-size: $font-small;
@@ -44,7 +43,6 @@
   max-width: $xxs-width;
   margin: 0 auto;
   font-size: $font-small;
-
 }
 
 .answer-section textarea {
@@ -54,7 +52,6 @@
   font-size: $font-small;
   padding: $padding-small;
   margin-bottom: $padding-small;
-  
 }
 
 .user-answer,
@@ -71,30 +68,28 @@
   border-radius: 1rem;
 }
 
-.button{
+.button {
   &__container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: stretch;
-  gap: $padding-medium;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: stretch;
+    gap: $padding-medium;
+  }
+  &__item {
+    margin: 0px;
+    width: calc(50% - $padding-small);
+  }
+  &__secondary {
+    background-color: white;
+    border: solid $main-color 1px;
+    color: $main-color;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
-&__item{
-  width: 100%;
-  margin: 0px;
-
-}
-&__secondary{
-  background-color: white;
-  border: solid $main-color 1px;
-  color: $main-color;
-  width: 70%  ;
-  padding-left: 0;
-  padding-right: 0;
-}
-}
-.error{
-  color: #AF1D03;
+.error {
+  color: $error;
   font-size: $font-small;
   font-weight: 400;
 }

@@ -35,6 +35,7 @@ export interface RadioButtonProps {
 
 export interface FormSelectProps {
   id: string;
+  className?: string;
   labelText: string;
   name: string;
   value: string;
