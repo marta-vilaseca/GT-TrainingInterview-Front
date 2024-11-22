@@ -3,6 +3,7 @@ import './FormElements.scss';
 
 export default function FormSelect({
   id,
+  className,
   labelText,
   name,
   value,
@@ -17,7 +18,7 @@ export default function FormSelect({
         {labelText}
       </label>
       <select
-        className="form__text"
+        className={className}
         id={id}
         name={name}
         value={value}

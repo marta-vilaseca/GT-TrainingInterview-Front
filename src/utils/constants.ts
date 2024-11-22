@@ -34,7 +34,7 @@ export const themes: { [key in RoleType]: { [themeName: string]: string } } = {
     'HTML y semántica': 'html',
     'CSS y estilización': 'css',
     'Javascript y manipulación del DOM': 'javascript',
-    'Frameworks y librerías (React, Vue, Angular)': 'frameworks',
+    'Frameworks y librerías (React)': 'frameworksReact',
     'Control de versiones y herramientas de construcción': 'controlversiones',
   },
   backend: {

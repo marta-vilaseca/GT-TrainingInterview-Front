@@ -110,7 +110,7 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
               Nombre
             </label>
             <input
-              className="form__text"
+              className={`form__text ${formErrors.name ? 'form__error' : ''}`}
               type="text"
               name="name"
               placeholder="Introduce tu nombre aquí."
@@ -127,6 +127,7 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
           <li>
             <Dropdown
               id="role"
+              className={`form__text ${formErrors.name ? 'form__error' : ''}`}
               labelText="Rol"
               name="role"
               required
@@ -149,6 +150,7 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
           <li>
             <Dropdown
               id="experienceLevel"
+              className={`form__text ${formErrors.name ? 'form__error' : ''}`}
               labelText="Experiencia"
               name="experienceLevel"
               hidden={false}
@@ -174,6 +176,7 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
           <li>
             <Dropdown
               id="theme"
+              className="form__text"
               labelText="Temática"
               name="theme"
               required
@@ -214,14 +217,14 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
                 disabled={loadingState}
                 onClick={handleCancel}
               >
-                Cancelar
+                Volver
               </Button>
               <Button
                 className="button__item"
                 disabled={loadingState}
                 onClick={handleClickConfirm}
               >
-                Enviar
+                Continuar
               </Button>
             </div>
           </li>

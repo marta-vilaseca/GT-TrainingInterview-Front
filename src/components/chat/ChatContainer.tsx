@@ -276,6 +276,7 @@ export default function ChatContainer() {
       setAreQuestionsLoading(false);
     } else {
       // When set is completed, display "Continuar" bubble and then the encouragement message
+      setIsSetCompleted(false);
       setChatHistory((prevHistory) => [
         ...prevHistory,
         {
@@ -461,7 +462,7 @@ export default function ChatContainer() {
         <form className="controlsBox">
           {!isChatStarted && (
             <Button className="primary start" onClick={handleStartChat}>
-              Iniciar
+              Comenzar entrevista
             </Button>
           )}
 

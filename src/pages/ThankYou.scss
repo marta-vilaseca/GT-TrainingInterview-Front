@@ -23,7 +23,6 @@
     font-size: map-get($subtitle, font-size);
     margin: $padding-medium 0;
     color: $text-color;
-    text-align: left;
   }
 
   &__reviewTitle {
@@ -31,7 +30,6 @@
     font-size: map-get($subtitle, font-size);
     padding: $padding-small 0;
     color: $secondary-color-darker;
-    text-align: left;
   }
 
   p {
@@ -39,7 +37,7 @@
   }
 
   &__reviewQuestions p {
-    text-align: left;
+    text-align: center;
   }
 
   ol {
@@ -60,6 +58,7 @@
 
   .exitMessage {
     margin: 2rem 0;
+    text-align: left;
   }
 }
 
@@ -74,5 +73,16 @@
   button {
     width: 100%;
     max-width: 400px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .thankyou {
+    &__reviewQuestions p {
+      text-align: center;
+    }
+    .exitMessage {
+      text-align: center;
+    }
   }
 }
