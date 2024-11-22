@@ -23,6 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 file_tree.txt
+notes.txt
 *.Zone.Identifier
 *copy.tsx
 *copy.txt

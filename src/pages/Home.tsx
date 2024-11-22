@@ -11,11 +11,11 @@ import './Home.scss';
 const Home: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const navigate = useNavigate();
-  const handleStart = (e: React.MouseEvent<HTMLElement>) => {
+  const handleStart = (_e: React.MouseEvent<HTMLElement>) => {
     navigate('/login');
   };
 
-  const handleClickModal = (e: React.MouseEvent<HTMLElement>) => {
+  const handleClickModal = (_e: React.MouseEvent<HTMLElement>) => {
     setShowModal(true);
   };
 
