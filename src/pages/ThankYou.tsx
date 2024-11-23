@@ -5,6 +5,7 @@ import Button from '../components/common/Button';
 import Dora from '../assets/artificial-bot-intelligence-svgrepo-com.svg';
 import { exit_message } from '../utils/constants';
 import { ReviewQuestion } from '../types/IChatTypes';
+import { renderInlineCode } from '../components/common/renderInlineCode';
 import './ThankYou.scss';
 
 const ThankYou: React.FC = () => {
@@ -65,10 +66,10 @@ const ThankYou: React.FC = () => {
                 {reviewQuestions.map((item: ReviewQuestion, index: number) => (
                   <li className="reviewItem" key={index}>
                     <p className="reviewItem__question">
-                      {item.question.question}
+                      {renderInlineCode(item.question.question)}
                     </p>
                     <p className="reviewItem__answer">
-                      {item.question.correctAnswer}
+                      {renderInlineCode(item.question.correctAnswer)}
                     </p>
                   </li>
                 ))}
