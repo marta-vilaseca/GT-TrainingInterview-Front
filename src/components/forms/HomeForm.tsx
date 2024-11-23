@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Dropdown from '../common/SelectDropdown';
 import Button from '../common/Button';
 import Loader from '../common/Loader';
@@ -21,7 +21,7 @@ interface FormProps {
 
 const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const [loadingState, setLoadingState] = useState(false);
 
   const [formErrors, setFormErrors] = useState({
@@ -29,6 +29,18 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
     role: '',
     name: '',
   });
+
+  useEffect(() => {
+    if (location.state) {
+      const { name, role, experience, theme } = location.state; // Expecting formData here
+      setHomeFormData({
+        name: name || '',
+        role: role || '',
+        experience: experience || '',
+        theme: theme || 'General', // default to 'General' if no theme is selected
+      });
+    }
+  }, [location, setHomeFormData]); // This will run when location changes (when coming from ThankYou)
 
   const handleSubmitForm = (e: React.FormEvent) => {
     e.preventDefault();
