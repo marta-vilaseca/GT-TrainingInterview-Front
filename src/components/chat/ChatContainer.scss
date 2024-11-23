@@ -189,7 +189,7 @@
 
   pre,
   .highlighted__code {
-    background-color: rgba(221, 248, 255, 0.7) !important;
+    background-color: rgba(221, 248, 255, 0.4) !important;
     color: $secondary-dark !important;
     opacity: 0.8;
   }
@@ -204,7 +204,7 @@
 
   pre,
   .highlighted__code {
-    background-color: rgba(221, 248, 255, 0.5) !important;
+    background-color: rgba(221, 248, 255, 0) !important;
     color: $secondary-dark !important;
   }
 }
@@ -246,6 +246,13 @@
       max-width: 200px;
     }
   }
+}
+
+pre,
+.highlighted__code {
+  font-family: 'Noto Sans Mono', monospace;
+  // font-size: map-get($body, font-size);
+  font-size: 90%;
 }
 
 .animated-bubble {

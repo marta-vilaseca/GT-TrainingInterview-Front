@@ -1,61 +1,48 @@
 import React from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-// import { prism } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import hljs from 'highlight.js/lib/core';
+import 'highlight.js/styles/a11y-light.min.css';
 
 const inlineCodeStyle: React.CSSProperties = {
-  display: 'inline',
+  display: 'inline-block',
   padding: '0 0.5rem',
-  // background: '#DDF8FF',
   margin: '0 0.5rem',
+  borderRadius: '4px',
+  fontWeight: 600,
 };
 
-const codeTagProps = {
-  style: {
-    fontSize: '105%',
-    fontWeight: '500',
-    textShadow: 'none',
-    // color: '#045950',
-  },
-};
-
+// Renders inline code with Highlight.js
 export const renderInlineCode = (text: string): React.ReactNode => {
   const regex = /\\`(.*?)\\`/g; // Match escaped backticks and capture text between them
   let match;
   let lastIndex = 0;
-  const elements: React.ReactNode[] = []; // Use React.ReactNode to allow strings and JSX
+  const elements: React.ReactNode[] = [];
 
   while ((match = regex.exec(text)) !== null) {
-    // Add the text before the match as a plain string
+    // Add the text before the match
     if (match.index > lastIndex) {
       elements.push(
         <span key={lastIndex}>{text.substring(lastIndex, match.index)}</span>
       );
     }
 
-    // Add the matched inline code wrapped in the SyntaxHighlighter component
+    // Highlight inline code (escaping with Highlight.js)
+    const escapedCode = hljs.highlightAuto(match[1]).value; // Uses auto-detection
     elements.push(
-      <SyntaxHighlighter
+      <code
         key={match.index}
-        // style={prism}
-        customStyle={inlineCodeStyle}
-        codeTagProps={codeTagProps}
+        style={inlineCodeStyle}
+        dangerouslySetInnerHTML={{ __html: escapedCode }}
         className="highlighted__code"
-      >
-        {match[1]}
-      </SyntaxHighlighter>
+      />
     );
 
     lastIndex = regex.lastIndex;
   }
 
+  // Add any remaining plain text
   if (lastIndex < text.length) {
     elements.push(<span key={lastIndex}>{text.substring(lastIndex)}</span>);
   }
 
-  if (elements.length > 0) {
-    return <>{elements}</>;
-  }
-
-  // If there are no elements, return a default empty string (ensure that it never returns undefined)
-  return '';
+  return <>{elements}</>;
 };
