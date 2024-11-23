@@ -43,7 +43,8 @@ export default function ChatContainer() {
     handleAnswerChange,
     handleSubmitAnswer,
     displayNextQuestion,
-    resetChat, // added to reset the state and start with a clean chat
+    resetChat,
+    updateUserData,
   } = useChatStore();
 
   const handleCancelSession = () => {
@@ -80,11 +81,18 @@ export default function ChatContainer() {
     return content; // Return as-is for anything else (arrays, numbers, etc.)
   };
 
-  // added to reset the state and start with a clean chat
-  // This will reset the state when the component mounts
+  // Update the initial useEffect
   useEffect(() => {
     resetChat();
-  }, []);
+
+    // If we have user data, just update the stored values without starting chat
+    if (role && experience) {
+      updateUserData(role, experience, theme);
+    } else {
+      // If we don't have user data, redirect back to the form
+      navigate('/');
+    }
+  }, [role, experience, theme]);
 
   useEffect(() => {
     const scrollTimeout = setTimeout(() => {

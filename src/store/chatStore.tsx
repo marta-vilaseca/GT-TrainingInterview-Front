@@ -41,6 +41,7 @@ type Actions = {
     theme: string
   ) => Promise<void>;
   resetChat: () => void;
+  updateUserData: (role: string, experience: string, theme?: string) => void;
 };
 
 const initialState: State = {
@@ -101,10 +102,13 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
           correctAnswer: firstQuestion.correctAnswer,
           currentQuestionIndex: 0,
           totalQuestions: state.totalQuestions + 5,
+          areQuestionsLoading: false,
+          areControlsDisabled: false,
         }));
       }
     } catch (error) {
       console.error('Failed to fetch questions:', error);
+      set(initialState);
     } finally {
       set({
         areQuestionsLoading: false,
@@ -344,5 +348,15 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
 
   resetChat: () => {
     set(initialState);
+  },
+
+  // New action to update user data without starting chat
+  updateUserData: (role: string, experience: string, theme?: string) => {
+    set({
+      ...initialState,
+      currentRole: role,
+      currentExperience: experience,
+      currentTheme: theme,
+    });
   },
 }));
