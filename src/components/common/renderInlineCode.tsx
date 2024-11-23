@@ -1,24 +1,25 @@
 import React from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { prism } from 'react-syntax-highlighter/dist/esm/styles/prism';
+// import { prism } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const inlineCodeStyle: React.CSSProperties = {
   display: 'inline',
   padding: '0 0.5rem',
-  background: '#DDF8FF',
+  // background: '#DDF8FF',
   margin: '0 0.5rem',
 };
 
 const codeTagProps = {
   style: {
-    fontSize: '110%',
-    fontWeight: '600',
-    color: '#045950',
+    fontSize: '105%',
+    fontWeight: '500',
+    textShadow: 'none',
+    // color: '#045950',
   },
 };
 
 export const renderInlineCode = (text: string): React.ReactNode => {
-  const regex = /([^]+)`/g; // Regular expression to match text between backticks
+  const regex = /\\`(.*?)\\`/g; // Match escaped backticks and capture text between them
   let match;
   let lastIndex = 0;
   const elements: React.ReactNode[] = []; // Use React.ReactNode to allow strings and JSX
@@ -35,9 +36,10 @@ export const renderInlineCode = (text: string): React.ReactNode => {
     elements.push(
       <SyntaxHighlighter
         key={match.index}
-        style={prism}
+        // style={prism}
         customStyle={inlineCodeStyle}
         codeTagProps={codeTagProps}
+        className="highlighted__code"
       >
         {match[1]}
       </SyntaxHighlighter>

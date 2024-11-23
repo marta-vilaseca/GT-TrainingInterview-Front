@@ -56,6 +56,13 @@
     }
   }
 
+  pre,
+  .highlighted__code {
+    background-color: rgba(221, 248, 255, 0.7) !important;
+    color: $secondary-dark !important;
+    font-weight: 500 !important;
+  }
+
   .exitMessage {
     margin: 2rem 0;
     text-align: left;
