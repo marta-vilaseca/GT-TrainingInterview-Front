@@ -4,7 +4,7 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import prettier from 'eslint-plugin-prettier';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
-import eslintConfigPrettier from 'eslint-config-prettier'; // Import this correctly
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default [
   js.configs.recommended,
@@ -17,6 +17,10 @@ export default [
       globals: {
         document: 'readonly',
         window: 'readonly',
+        console: 'readonly',
+        HTMLInputElement: 'readonly',
+        HTMLSelectElement: 'readonly',
+        HTMLButtonElement: 'readonly',
       },
     },
     plugins: {
@@ -29,6 +33,8 @@ export default [
       'react/react-in-jsx-scope': 'off',
       'prettier/prettier': 'error',
       'no-unused-vars': 'off',
+      'no-undef': 'off',
+      'no-console': 'off', // Allow console logs
     },
     settings: {
       react: {
@@ -36,5 +42,8 @@ export default [
       },
     },
   },
-  eslintConfigPrettier, // Ensure this is at the end
+  eslintConfigPrettier,
+  {
+    ignores: ['dist/**'], // Ensure this line is outside the config object
+  },
 ];

@@ -2,6 +2,19 @@
 @import '../../styles/_variables';
 
 .header {
-    padding: $padding-medium;
-    @include center-flex;
-  }
+  @include center-flex;
+  padding: $padding-medium;
+  background-color: $white;
+  color: $main-color-medium;
+  height: 4rem;
+  margin: 2rem 0 0 0;
+}
+
+.logo {
+  height: 4rem;
+  margin-top: 1rem;
+}
+
+.logged-in-menu {
+  display: none;
+}

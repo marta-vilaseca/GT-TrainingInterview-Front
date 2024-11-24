@@ -1,16 +1,71 @@
 // styles/_variables.scss
 
 // Color variables
-$dark: #242424;
-$accent: #646cff;
-$light: #ffffde;
+$white: #ffffff;
+
+$main-color: #42495c;
+$main-color-dark: #93979f;
+$main-color-medium: #cacaca;
+$main-color-light: #dcdcdc;
+$main-color-lighter: #f1f1f1;
+
+// TODO: buscar y unificar todos las ocurrencias de esto a $main-color-lighter
+$text-light-color: #f1f1f1;
+
+$secondary-dark: #045950;
+$secondary-color-darker: #0aada3;
+$secondary-color: #0bbfb5;
+$secondary-color-lighter: #88e9e5;
+
+$text-color: #282a31;
+
+$error: #af1d03;
+
+// Fonts
+$title: (
+  font-family: Montserrat,
+  font-weight: 700,
+  font-size: 2.4rem,
+);
+$subtitle: (
+  font-family: Lato,
+  font-weight: 700,
+  font-size: 1.8rem,
+);
+
+$body: (
+  font-family: Lato,
+  font-weight: 400,
+  line-height: 1.6,
+  font-size: 1.6rem,
+);
 
 // Spacing
+$padding-x-small: 0.5rem;
 $padding-small: 1rem;
 $padding-medium: 2rem;
 $padding-large: 4rem;
 
 // Font sizes
-$font-small: 1.2rem;
-$font-medium: 1.6rem;
-$font-large: 2.4rem;
+$font-x-small: 1.2rem;
+$font-small: 1.6rem;
+$font-medium: 1.8rem;
+$font-large: 2.6rem;
+$font-x-large: 3rem;
+
+// Widths
+$xxs-width: 360px;
+$xs-width: 480px;
+$s-width: 600px;
+$m-width: 750px;
+$l-width: 960px;
+$xl-width: 1280px;
+$xxl-width: 1440px;
+
+// TEMP - Previous variables - Pendiente de eliminar
+$main-font: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+$dark: #242424;
+$accent: #646cff;
+$accent-dark: #4c55fa;
+$light: #ffffde;

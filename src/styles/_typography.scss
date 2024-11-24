@@ -1,9 +1,5 @@
 @use 'sass:color';
 
-body {
-  font-size: 1.5rem;
-}
-
 h1,
 h2,
 h3,
@@ -14,21 +10,19 @@ h6 {
   line-height: 1.2;
 }
 
-h1 {
-  font-size: 4rem;
-}
-
-p {
-  font-size: $font-medium;
+p,
+ol,
+ul {
+  font-size: map-get($body, font-size);
   text-wrap: pretty;
 }
 
 a {
   font-weight: 500;
-  color: $accent;
+  color: $secondary-color;
   text-decoration: inherit;
 
   &:hover {
-    color: color.scale($accent, $lightness: 10%);
+    color: color.scale($secondary-color-darker);
   }
 }

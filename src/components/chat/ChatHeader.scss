@@ -1,0 +1,28 @@
+@import '../../styles/_variables';
+
+.chat-header a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 $padding-small;
+  font-size: 2rem;
+  font-weight: 700;
+  height: 8rem;
+  gap: 2rem;
+  color: $text-color;
+
+  &:hover {
+    color: $secondary-color;
+  }
+}
+
+.chat-header h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: $text-color;
+}
+
+.chat-header svg {
+  stroke: $secondary-color;
+}

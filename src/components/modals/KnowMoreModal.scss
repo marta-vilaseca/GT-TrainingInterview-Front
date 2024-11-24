@@ -1,0 +1,104 @@
+@import '../../styles/_mixins';
+@import '../../styles/_variables';
+
+
+.container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+   
+    display: flex;
+        justify-content: center;
+        align-items: center;
+}
+.background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    opacity: 0.8;
+
+}
+
+.modal__container{
+        background-color: white;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid 2px $main-color;
+        border-radius: 20px;
+        flex-direction: column;
+width: 80vw;
+padding: $padding-medium;
+}
+
+.modal {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &__title{
+        font-family: map-get($subtitle, font-family);
+        font-weight: 700;
+        font-size: 1.6rem;
+        text-align: left;
+        width: 100%;
+        padding:0 $padding-small;
+
+    }
+    &__text{
+        width: 100%;
+        font-family: map-get($body, font-family);
+    font-weight: 500;
+    font-size: map-get($body, font-size);
+    padding: $padding-small;
+    text-align: left;
+    font-size: 1.4rem;
+        &__list{
+            margin-left: 4rem;
+            padding: $padding-small;
+            padding-left: 0;
+        }
+    }
+    &__cross{
+        position: absolute;
+        right: 2rem;
+        top: 2rem;
+        font-size: 2rem;
+    }
+    &__cross:hover{
+        cursor: pointer;
+    }
+    &__button{
+        width: 90%;
+        margin: $padding-small;
+
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.visible{
+    display: inherit;
+}
+
+.secondarycolor{
+    color: $secondary-color;
+}
+
+@media (min-width: 480px) {
+    .modal__container{
+        
+max-width: 680px;
+}
+
+
+}

@@ -1,0 +1,95 @@
+@import '../styles/variables';
+
+.thankyou {
+  &__logo {
+    width: 30%;
+    height: auto;
+    margin: 2rem auto;
+  }
+  &__message {
+    font-size: 1.8rem;
+  }
+  &__title {
+    font-family: map-get($title, font-family);
+    font-weight: map-get($title, font-weight);
+    font-size: map-get($title, font-size);
+    padding: $padding-medium;
+    color: $text-color;
+  }
+
+  &__title2 {
+    font-family: map-get($title, font-family);
+    font-weight: map-get($title, font-weight);
+    font-size: map-get($subtitle, font-size);
+    margin: $padding-medium 0;
+    color: $text-color;
+  }
+
+  &__reviewTitle {
+    font-family: map-get($subtitle, font-family);
+    font-size: map-get($subtitle, font-size);
+    padding: $padding-small 0;
+    color: $secondary-color-darker;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  &__reviewQuestions p {
+    text-align: center;
+  }
+
+  ol {
+    list-style-type: none;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: -0.5rem;
+    margin-top: 2rem;
+
+    .reviewItem {
+      &__question {
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  pre,
+  .highlighted__code {
+    background-color: rgba(221, 248, 255, 0.7) !important;
+    color: $secondary-dark !important;
+    font-weight: 500 !important;
+  }
+
+  .exitMessage {
+    margin: 2rem 0;
+    text-align: left;
+  }
+}
+
+.buttons {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 0;
+
+  button {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .thankyou {
+    &__reviewQuestions p {
+      text-align: center;
+    }
+    .exitMessage {
+      text-align: center;
+    }
+  }
+}

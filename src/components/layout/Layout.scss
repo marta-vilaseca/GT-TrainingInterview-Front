@@ -4,59 +4,25 @@
 @import '../../styles/_variables';
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
 }
 
 .wrapper > * {
-    @include center-flex; 
-    text-align: center;
-}
-
-.header { 
-    @include center-flex;
-    padding: $padding-medium; 
-}
-
-.main { 
-    flex-grow: 1; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: $padding-medium;
-    padding: $padding-large $padding-medium; 
-}
+  @include center-flex;
+  text-align: center;
   
-.footer { 
-    @include center-flex;
-    padding: $padding-medium;
 }
 
-/* TEMP - Vite starter styles for the logo */
-.logo {
-    height: 6em;
-    padding: $padding-small;
-    will-change: filter;
-    transition: filter 300ms;
-}
+.main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: $padding-large $padding-medium;
+  max-width: 800px;
 
-.logo:hover {
-    filter: drop-shadow(0 0 2em $accent);
-}
-
-.logo.react:hover {
-    filter: drop-shadow(0 0 2em #61dafb);
-}
-
-@keyframes logo-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    a:nth-of-type(2) .logo {
-        animation: logo-spin infinite 20s linear;
-    }
 }

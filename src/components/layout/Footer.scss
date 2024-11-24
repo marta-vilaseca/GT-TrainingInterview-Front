@@ -2,7 +2,81 @@
 @import '../../styles/_variables';
 
 .footer {
-    padding: $padding-medium;
-    @include center-flex;
+  padding: $padding-medium;
+  @include center-flex;
+  height: 6rem;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1200px;
+  &__logo {
+    display: none;
   }
-  
+}
+
+nav.nav-footer {
+  display: flex;
+  width: 100%;
+}
+
+.nav-footer-chat {
+  display: none;
+}
+
+.wrapper.chat {
+  .nav-footer-general {
+    display: none;
+  }
+
+  .nav-footer-chat {
+    display: block;
+    width: 100%;
+  }
+}
+
+.nav-footer ul {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style-type: none;
+  font-size: $font-small;
+
+  a:link,
+  a:visited {
+    color: $main-color;
+    text-decoration: none;
+    display: inline-block;
+    border-bottom: 1px solid $main-color;
+    font-weight: 600;
+  }
+
+  a:hover,
+  a:active {
+    color: $secondary-color-darker;
+    border-bottom: 1px solid $secondary-color-darker;
+  }
+}
+
+.nav-footer-chat.nav-footer ul {
+  justify-content: flex-end;
+}
+
+@media (min-width: 640px) {
+  .footer {
+    &__logo {
+      display: block;
+      width: 200px;
+    }
+  }
+  .nav-footer-general {
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  .nav-footer-general ul {
+    gap: 2rem;
+    justify-content: end;
+  }
+}
