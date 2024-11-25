@@ -151,10 +151,10 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                 const fullValue = e.target.value;
                 const shortValue = roles[fullValue as keyof typeof roles];
-                setHomeFormData({ 
-                  ...homeFormData, 
-                  role: shortValue, 
-                  theme: 'General' 
+                setHomeFormData({
+                  ...homeFormData,
+                  role: shortValue,
+                  theme: 'General',
                 });
               }}
               options={Object.keys(roles)}
