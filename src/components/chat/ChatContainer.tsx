@@ -1,20 +1,20 @@
 // src/components/chat/ChatContainer.tsx
 import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import './ChatContainer.scss';
-import ChatLoader from './ChatLoader';
 import { useChatStore } from '../../store/chatStore';
 import { ChatUser } from '../../types/IChatTypes';
 import ChatIntro from './ChatIntro';
 import ChatHistory from './ChatHistory';
 import CurrentQuestion from './CurrentQuestion';
 import ChatControls from './ChatControls';
+import ChatLoader from './ChatLoader';
+import Loader from '../common/Loader';
+import './ChatContainer.scss';
 
 export default function ChatContainer() {
   const navigate = useNavigate();
   const location = useLocation();
   const chatEndRef = useRef<HTMLDivElement | null>(null);
-  const currentQuestionSetRef = useRef<number>(0); // to track question set changes
 
   const { state } = location;
   const userData = state as ChatUser;
@@ -23,16 +23,15 @@ export default function ChatContainer() {
   const {
     chatHistory,
     areQuestionsLoading,
+    isProcessing,
     currentQuestion,
-    isSetCompleted,
     resetChat,
     updateUserData,
+    isTerminating,
   } = useChatStore();
 
-  // Update the initial useEffect
   useEffect(() => {
     resetChat();
-
     // If we have user data, just update the stored values without starting chat
     if (role && experience) {
       updateUserData(role, experience, theme);
@@ -48,13 +47,13 @@ export default function ChatContainer() {
     }, 100);
 
     return () => clearTimeout(scrollTimeout);
-  }, [chatHistory, currentQuestion]);
-
-  useEffect(() => {
-    if (isSetCompleted) {
-      currentQuestionSetRef.current += 1;
-    }
-  }, [isSetCompleted]);
+  }, [
+    chatHistory,
+    currentQuestion,
+    areQuestionsLoading,
+    isProcessing,
+    isTerminating,
+  ]);
 
   return (
     <div className="chat-container">
@@ -64,11 +63,13 @@ export default function ChatContainer() {
           <ChatHistory />
           <CurrentQuestion />
 
-          {areQuestionsLoading && (
+          {isTerminating ? (
+            <Loader />
+          ) : areQuestionsLoading || isProcessing ? (
             <div className="chat-loader">
               <ChatLoader />
             </div>
-          )}
+          ) : null}
 
           <div className="spacer" ref={chatEndRef}></div>
         </div>

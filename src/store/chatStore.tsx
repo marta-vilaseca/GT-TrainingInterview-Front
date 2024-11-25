@@ -12,6 +12,7 @@ type State = {
   isChatStarted: boolean;
   areControlsDisabled: boolean;
   areQuestionsLoading: boolean;
+  isProcessing: boolean; // New state for tracking timeouts/transitions
   isAnswerSelected: boolean;
   isSetCompleted: boolean;
   showFeedback: boolean;
@@ -28,6 +29,7 @@ type State = {
   currentRole: string;
   currentExperience: string;
   currentTheme: string | undefined;
+  isTerminating: boolean;
 };
 
 type Actions = {
@@ -42,12 +44,14 @@ type Actions = {
   ) => Promise<void>;
   resetChat: () => void;
   updateUserData: (role: string, experience: string, theme?: string) => void;
+  terminateChat: () => void;
 };
 
 const initialState: State = {
   isChatStarted: false,
   areControlsDisabled: true,
   areQuestionsLoading: false,
+  isProcessing: false, // New field
   isAnswerSelected: false,
   isSetCompleted: false,
   showFeedback: false,
@@ -64,6 +68,7 @@ const initialState: State = {
   currentRole: '',
   currentExperience: '',
   currentTheme: '',
+  isTerminating: false,
 };
 
 export const useChatStore = create<State & Actions>()((set, get) => ({
@@ -102,8 +107,6 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
           correctAnswer: firstQuestion.correctAnswer,
           currentQuestionIndex: 0,
           totalQuestions: state.totalQuestions + 5,
-          areQuestionsLoading: false,
-          areControlsDisabled: false,
         }));
       }
     } catch (error) {
@@ -128,9 +131,11 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
     const state = get();
     if (!state.currentQuestion || !state.isAnswerSelected) return;
 
+    // Start processing state
+    set({ isProcessing: true });
+
     const isCorrect = state.selectedAnswer === state.correctAnswer;
 
-    // Update stats first
     set((state) => ({
       correctQuestions: isCorrect
         ? state.correctQuestions + 1
@@ -140,7 +145,6 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
         : [...state.reviewQuestions, { question: state.currentQuestion! }],
     }));
 
-    // Clear current question to prevent duplicate render
     const currentQuestionCopy = state.currentQuestion;
     const currentAnswersCopy = state.currentAnswers;
     const selectedAnswerCopy = state.selectedAnswer;
@@ -151,7 +155,6 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
       selectedAnswer: null,
     });
 
-    // Add to chat history
     set((state) => ({
       chatHistory: [
         ...state.chatHistory,
@@ -162,11 +165,10 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
           feedback: null,
           selectedAnswer: selectedAnswerCopy,
           questionSetIndex: state.currentQuestionIndex,
-        } as ChatHistoryItem, // Explicitly type the new item
+        } as ChatHistoryItem,
       ],
     }));
 
-    // Handle correction and feedback
     const correction = isCorrect ? null : (
       <>
         <span className="feedback__incorrect">Respuesta incorrecta</span>. La
@@ -188,16 +190,15 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
       set((state) => ({
         chatHistory: state.chatHistory.map((item, index) =>
           index === state.chatHistory.length - 1
-            ? ({
+            ? {
                 ...item,
                 correction,
                 feedback: feedbackToAdd,
-              } as ChatHistoryItem) // Explicitly type the updated item
+              }
             : item
         ),
       }));
 
-      // Set completion check
       if (state.currentQuestionIndex === state.questionSet.length - 1) {
         set({ isSetCompleted: true });
         const continueQuestion = randomizeStrings(continue_question)[0];
@@ -213,11 +214,13 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
                 selectedAnswer: null,
               },
             ],
+            isProcessing: false, // End processing state
           }));
         }, 1000);
       } else {
         setTimeout(() => {
           get().displayNextQuestion();
+          set({ isProcessing: false }); // End processing state
         }, 2000);
       }
     }, 1000);
@@ -225,6 +228,7 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
 
   displayNextQuestion: () => {
     const state = get();
+    set({ isProcessing: true }); // Start processing state
 
     if (!state.isSetCompleted) {
       const nextIndex = state.currentQuestionIndex + 1;
@@ -243,16 +247,15 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
         correctAnswer: nextQuestion.correctAnswer,
         currentAnswers: randomizedAnswers,
         currentQuestionIndex: nextIndex,
+        isProcessing: false, // End processing state
       });
     } else {
-      // Clear current question before transition
       set({
         currentQuestion: null,
         currentAnswers: null,
         selectedAnswer: null,
       });
 
-      // Add "Continue" message
       set((state) => ({
         chatHistory: [
           ...state.chatHistory,
@@ -263,11 +266,10 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
             feedback: 'Continuar',
             selectedAnswer: null,
             questionSetIndex: state.currentQuestionIndex,
-          } as ChatHistoryItem, // Explicitly type the new item
+          } as ChatHistoryItem,
         ],
       }));
 
-      // Add encouragement message
       setTimeout(() => {
         const continueMessage = randomizeStrings(continue_ok_message)[0];
         set((state) => ({
@@ -280,18 +282,17 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
               feedback: continueMessage,
               selectedAnswer: null,
               questionSetIndex: state.currentQuestionIndex,
-            } as ChatHistoryItem, // Explicitly type the new item
+            } as ChatHistoryItem,
           ],
         }));
 
-        // Start new question set after showing messages
         const state = get();
         if (state.isSetCompleted) {
           setTimeout(() => {
             get().startNewQuestionSet(
-              state.currentQuestion?.role || '',
-              state.currentQuestion?.experience || '',
-              state.currentQuestion?.theme || ''
+              state.currentRole,
+              state.currentExperience,
+              state.currentTheme || ''
             );
           }, 2000);
         }
@@ -299,9 +300,11 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
     }
   },
 
-  startNewQuestionSet: async () => {
-    const { currentRole, currentExperience, currentTheme } = get();
-
+  startNewQuestionSet: async (
+    role: string,
+    experience: string,
+    theme: string
+  ) => {
     set({
       areQuestionsLoading: true,
       areControlsDisabled: true,
@@ -310,13 +313,14 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
       currentAnswers: null,
       selectedAnswer: null,
       isAnswerSelected: false,
+      isProcessing: false,
     });
 
     try {
       const fetchedQuestions = await fetchQuestions({
-        role: currentRole,
-        experience: currentExperience,
-        theme: currentTheme,
+        role,
+        experience,
+        theme,
       });
 
       if (fetchedQuestions.length > 0) {
@@ -342,6 +346,7 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
       set({
         areQuestionsLoading: false,
         areControlsDisabled: false,
+        isProcessing: false,
       });
     }
   },
@@ -350,13 +355,19 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
     set(initialState);
   },
 
-  // New action to update user data without starting chat
   updateUserData: (role: string, experience: string, theme?: string) => {
     set({
       ...initialState,
       currentRole: role,
       currentExperience: experience,
       currentTheme: theme,
+    });
+  },
+
+  terminateChat: () => {
+    set({
+      isProcessing: true,
+      isTerminating: true,
     });
   },
 }));

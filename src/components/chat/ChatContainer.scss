@@ -128,7 +128,7 @@
   }
 
   & .bubble {
-    flex-grow: 1;
+    flex-grow: 0;
   }
 }
 
@@ -180,7 +180,8 @@
 
 .question,
 .current-question,
-.feedback {
+.feedback,
+.loading {
   background-color: $white;
   color: $text-color;
   text-align: left;
