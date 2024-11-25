@@ -1,6 +1,9 @@
-import { QuestionData2 } from '../types/IAxios';
+// src/utils/fetchedQuestions.ts
+// Dummy data for testing
 
-export const fetchedQuestions: QuestionData2[] = [
+import { QuestionData } from '../types/IAxios';
+
+export const fetchedQuestions: QuestionData[] = [
   {
     id: 1,
     question: '¿Qué es la jerarquía visual en el diseño UX/UI?',

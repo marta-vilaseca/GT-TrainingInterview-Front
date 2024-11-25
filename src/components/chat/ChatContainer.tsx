@@ -5,7 +5,7 @@ import { useChatStore } from '../../store/chatStore';
 import { ChatUser } from '../../types/IChatTypes';
 import ChatIntro from './ChatIntro';
 import ChatHistory from './ChatHistory';
-import CurrentQuestion from './CurrentQuestion';
+import ChatCurrentQuestion from './ChatCurrentQuestion';
 import ChatControls from './ChatControls';
 import ChatLoader from './ChatLoader';
 import Loader from '../common/Loader';
@@ -56,13 +56,14 @@ export default function ChatContainer() {
   ]);
 
   return (
-    <div className="chat-container">
+    <section className="chat-container">
       <div className="scrollbar-padding">
-        <div className="chat-body">
+        <article className="chat-body">
           <ChatIntro />
           <ChatHistory />
-          <CurrentQuestion />
+          <ChatCurrentQuestion />
 
+          {/* Show regular loader when exiting the chat, chat dot bubble otherwise */}
           {isTerminating ? (
             <Loader />
           ) : areQuestionsLoading || isProcessing ? (
@@ -72,10 +73,10 @@ export default function ChatContainer() {
           ) : null}
 
           <div className="spacer" ref={chatEndRef}></div>
-        </div>
+        </article>
       </div>
 
       <ChatControls />
-    </div>
+    </section>
   );
 }

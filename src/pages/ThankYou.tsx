@@ -1,11 +1,12 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+// src/pages/ThankYou.tsx
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ReviewQuestion } from '../types/IChatTypes';
 import Layout from '../components/layout/Layout';
 import Button from '../components/common/Button';
-import Dora from '../assets/artificial-bot-intelligence-svgrepo-com.svg';
 import { exit_message } from '../utils/constants';
-import { ReviewQuestion } from '../types/IChatTypes';
 import { renderInlineCode } from '../components/common/renderInlineCode';
+import Dora from '../assets/artificial-bot-intelligence-svgrepo-com.svg';
 import './ThankYou.scss';
 
 const ThankYou: React.FC = () => {
@@ -48,7 +49,7 @@ const ThankYou: React.FC = () => {
   return (
     <>
       <Layout page="thankyou" extraClassName="thankyou">
-        <div className="thankyou">
+        <article className="thankyou">
           <img src={Dora} className="thankyou__logo" alt="PildorasUX logo" />
           <h2 className="thankyou__title">¡Gran trabajo, {formData.name}!</h2>
           <p className="thankyou__message">
@@ -60,7 +61,7 @@ const ThankYou: React.FC = () => {
             Respuestas correctas: {correctQuestions}/{totalQuestions}
           </h4>
           {reviewQuestions.length > 0 && (
-            <div className="thankyou__reviewQuestions">
+            <section className="thankyou__reviewQuestions">
               <p>¡Bien hecho! Estas son las preguntas que puedes mejorar:</p>
               <ol>
                 {reviewQuestions.map((item: ReviewQuestion, index: number) => (
@@ -74,11 +75,11 @@ const ThankYou: React.FC = () => {
                   </li>
                 ))}
               </ol>
-            </div>
+            </section>
           )}
           <p className="exitMessage">{exit_message}</p>
-        </div>
-        <div className="buttons">
+        </article>
+        <section className="buttons">
           <Button
             className="button__item button__secondary"
             disabled={loadingState}
@@ -93,7 +94,7 @@ const ThankYou: React.FC = () => {
           >
             Empezar otro chat
           </Button>
-        </div>
+        </section>
       </Layout>
     </>
   );

@@ -27,3 +27,5 @@ notes.txt
 *.Zone.Identifier
 *copy.tsx
 *copy.txt
+*.tsx.txt
+src/components/_copy

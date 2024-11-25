@@ -1,3 +1,4 @@
+// src/components/common/renderInlineCode.tsx
 import React from 'react';
 import hljs from 'highlight.js/lib/core';
 import 'highlight.js/styles/a11y-light.min.css';

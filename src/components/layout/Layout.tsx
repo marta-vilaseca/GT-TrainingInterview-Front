@@ -1,21 +1,21 @@
-import { PropsWithChildren } from 'react';
-import Footer from './Footer';
-import Header from './Header';
-import FooterChat from './FooterChat';
+// src/components/layout/Layout.tsx
 import { useLocation } from 'react-router-dom';
+import { PropsWithChildren } from 'react';
+import Header from './Header';
+import Footer from './Footer';
+import FooterChat from './FooterChat';
 import './Layout.scss';
 
 export interface Props {
   title?: string;
   page: string;
-  extraClassName?: string | string[]; // Accept a string or an array of strings if extra classes are needed
+  extraClassName?: string | string[];
 }
 
 export default function Layout(props: PropsWithChildren<Props>) {
-  // Join extraClassName if it's an array, or use it directly if it's a string
   const extraClasses = Array.isArray(props.extraClassName)
     ? props.extraClassName.join(' ')
-    : props.extraClassName || ''; // and fall back to an empty string if undefined
+    : props.extraClassName || '';
 
   const location = useLocation();
 

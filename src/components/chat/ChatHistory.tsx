@@ -1,12 +1,12 @@
-// src/components/chat/ChatContainer.tsx
+// src/components/chat/ChatHistory.tsx
 import React, { ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
-import RadioButton from '../common/RadioButton';
-import Dora from '../../assets/dora-white.svg';
-import './ChatContainer.scss';
-import { renderInlineCode } from '../common/renderInlineCode';
 import { useChatStore } from '../../store/chatStore';
 import { ChatHistoryItem, ChatUser } from '../../types/IChatTypes';
+import RadioButton from '../common/RadioButton';
+import { renderInlineCode } from '../common/renderInlineCode';
+import Dora from '../../assets/dora-white.svg';
+import './ChatContainer.scss';
 
 export const ChatHistory = () => {
   const location = useLocation();
@@ -19,17 +19,16 @@ export const ChatHistory = () => {
   const renderContent = (content: ReactNode): ReactNode => {
     if (content === null) return null;
 
-    // If the content is a string, apply renderInlineCode
+    // If content is a string -> renderInlineCode
     if (typeof content === 'string') {
       return renderInlineCode(content);
     }
 
-    // If it's a JSX element, recursively look for any string content inside it and apply renderInlineCode
+    // If content is a JSX element, recursively look for any string content inside, then -> renderInlineCode
     if (React.isValidElement(content)) {
       const children = React.Children.map(content.props.children, (child) =>
         renderContent(child)
       );
-
       return React.cloneElement(content, {}, ...children); // Clone the element and apply recursive rendering
     }
 
@@ -40,13 +39,13 @@ export const ChatHistory = () => {
     <>
       {/* Chat history section */}
       {chatHistory.map((chatItem: ChatHistoryItem, index: number) => (
-        <div className="chat__history" key={index}>
+        <section className="chat__history" key={index}>
           {chatItem.question && chatItem.answers.length > 0 && (
-            <div className="outer__bubble ia">
+            <article className="outer__bubble ia">
               <div className="avatar">
                 <img src={Dora} className="avatar__dora" alt="Dora logo" />
               </div>
-              <div className="bubble question test">
+              <div className="bubble question">
                 <p>
                   <strong>{renderInlineCode(chatItem.question)}</strong>
                 </p>
@@ -66,48 +65,48 @@ export const ChatHistory = () => {
                   ))}
                 </ul>
               </div>
-            </div>
+            </article>
           )}
 
           {chatItem.selectedAnswer && (
-            <div className="outer__bubble user">
+            <article className="outer__bubble user">
               <div className="avatar">{name.toUpperCase()[0]}</div>
               <div className="bubble answer">
                 <p>{renderInlineCode(chatItem.selectedAnswer)}</p>
               </div>
-            </div>
+            </article>
           )}
 
           {chatItem.correction && (
-            <div className="outer__bubble ia">
+            <article className="outer__bubble ia">
               <div className="avatar">
                 <img src={Dora} className="avatar__dora" alt="Dora logo" />
               </div>
               <div className="bubble feedback">
                 {renderContent(chatItem.correction)}
               </div>
-            </div>
+            </article>
           )}
 
           {chatItem.feedback &&
             (chatItem.feedback === 'Continuar' ? (
-              <div className="outer__bubble user">
+              <article className="outer__bubble user">
                 <div className="avatar">{name.toUpperCase()[0]}</div>
                 <div className="bubble answer">
                   {renderContent(chatItem.feedback)}
                 </div>
-              </div>
+              </article>
             ) : (
-              <div className="outer__bubble ia">
+              <article className="outer__bubble ia">
                 <div className="avatar">
                   <img src={Dora} className="avatar__dora" alt="Dora logo" />
                 </div>
                 <div className="bubble feedback">
                   {renderContent(chatItem.feedback)}
                 </div>
-              </div>
+              </article>
             ))}
-        </div>
+        </section>
       ))}
     </>
   );
