@@ -1,11 +1,12 @@
-import Layout from '../components/layout/Layout';
-import Dora from '../assets/artificial-bot-intelligence-svgrepo-com.svg';
-import Button from '../components/common/Button';
-import Modal from '../components/modals/KnowMoreModal';
+// src/pages/Home.tsx
 import React from 'react';
-import { FaArrowRight } from 'react-icons/fa6';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Layout from '../components/layout/Layout';
+import Modal from '../components/modals/KnowMoreModal';
+import Button from '../components/common/Button';
+import Dora from '../assets/artificial-bot-intelligence-svgrepo-com.svg';
+import { FaArrowRight } from 'react-icons/fa6';
 import './Home.scss';
 
 const Home: React.FC = () => {
@@ -22,7 +23,7 @@ const Home: React.FC = () => {
   return (
     <>
       <Layout page="home" extraClassName="home">
-        <div className="greetings">
+        <section className="greetings">
           <img src={Dora} className="greetings__logo" alt="PildorasUX logo" />
           <h2 className="greetings__title">¡Hola, soy Dora!</h2>
           <h3 className="greetings__title greetings__title2">
@@ -35,9 +36,9 @@ const Home: React.FC = () => {
           <Button className="greetings__button" onClick={handleStart}>
             Comenzar entrevista
           </Button>
-        </div>
+        </section>
 
-        <div className="benefits">
+        <section className="benefits">
           <p className="benefits__text">Con Dora podrás:</p>
           <ol className="benefits__list">
             <li>
@@ -56,7 +57,7 @@ const Home: React.FC = () => {
             </p>
             <FaArrowRight className="benefits__more__arrow" />
           </div>
-        </div>
+        </section>
         <Modal
           showModal={showModal}
           onClose={() => setShowModal(false)}

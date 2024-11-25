@@ -1,9 +1,10 @@
+// src/components/chat/ChatControls.tsx
 import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Button from '../common/Button';
-import './ChatContainer.scss';
 import { useChatStore } from '../../store/chatStore';
 import { ChatUser } from '../../types/IChatTypes';
+import Button from '../common/Button';
+import './ChatContainer.scss';
 
 const ChatControls = () => {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ const ChatControls = () => {
   }, [isSetCompleted]);
 
   return (
-    <div className="chat-form">
+    <section className="chat-form">
       <form className="controlsBox">
         {!isChatStarted && (
           <Button
@@ -86,7 +87,7 @@ const ChatControls = () => {
           </div>
         )}
       </form>
-    </div>
+    </section>
   );
 };
 

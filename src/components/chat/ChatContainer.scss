@@ -1,3 +1,4 @@
+// components/chat/ChatContainer.scss
 @import '../../styles/_variables';
 @import '../../styles/_mixins';
 @import '../../styles/typography';
@@ -27,7 +28,7 @@
     height: calc(100% - 7rem);
     width: calc(100% - 1rem);
 
-    --sb-track-color: #dedede;
+    --sb-track-color: #dcdcdc;
     --sb-thumb-color: #93979f;
     --sb-size: 10px;
 
@@ -62,6 +63,7 @@
   min-height: 100%;
 }
 
+// Intro section
 .chat-intro {
   text-align: center;
   display: flex;
@@ -90,6 +92,7 @@
   }
 }
 
+// History & Current questions section
 .chat__history {
   @include column-top;
   gap: 2rem;
@@ -205,7 +208,7 @@
 
   pre,
   .highlighted__code {
-    background-color: rgba(221, 248, 255, 0) !important;
+    background-color: transparent !important;
     color: $secondary-dark !important;
   }
 }
@@ -279,7 +282,7 @@ pre,
   color: $error;
 }
 
-@media (min-width: 480px) {
+@media screen and (min-width: 480px) {
   .controlsBox {
     .start {
       width: 100%;

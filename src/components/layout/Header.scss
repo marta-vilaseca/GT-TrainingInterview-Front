@@ -1,3 +1,5 @@
+// components/layout/Header.scss
+
 @import '../../styles/_mixins';
 @import '../../styles/_variables';
 
@@ -13,8 +15,4 @@
 .logo {
   height: 4rem;
   margin-top: 1rem;
-}
-
-.logged-in-menu {
-  display: none;
 }

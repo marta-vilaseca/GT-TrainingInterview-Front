@@ -1,5 +1,6 @@
-import './Footer.scss';
+// src/components/layout/Footer.tsx
 import Dora from '../../assets/Logotipo_PildorasUX.svg';
+import './Footer.scss';
 
 export default function Footer() {
   return (

@@ -1,5 +1,7 @@
+// src/components/layout/FooterChat.tsx
 import './Footer.scss';
-export default function Footer() {
+
+export default function FooterChat() {
   return (
     <footer className="footer">
       <nav className="nav-footer nav-footer-chat">

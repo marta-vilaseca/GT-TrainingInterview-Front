@@ -1,6 +1,7 @@
-import './KnowMoreModal.scss';
+// src/components/modals/KnowMoreModal.tsx
 import Button from '../common/Button';
 import { RxCross1 } from 'react-icons/rx';
+import './KnowMoreModal.scss';
 
 type propTypes = {
   showModal: boolean;
