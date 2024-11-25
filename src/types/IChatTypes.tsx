@@ -1,7 +1,9 @@
-import { QuestionData2 } from './IAxios';
+// src/types/IChatTypes.ts
+
+import { QuestionData } from './IAxios';
 
 export interface ReviewQuestion {
-  question: QuestionData2;
+  question: QuestionData;
 }
 
 // src/types/chat.ts
@@ -32,8 +34,8 @@ export interface ChatState {
   showFeedback: boolean;
 
   // Questions and answers
-  questionSet: QuestionData2[];
-  currentQuestion: QuestionData2 | null;
+  questionSet: QuestionData[];
+  currentQuestion: QuestionData | null;
   currentQuestionIndex: number;
   currentAnswers: string[] | null;
   correctAnswer: string | null;

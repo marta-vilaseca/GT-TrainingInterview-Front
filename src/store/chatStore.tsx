@@ -179,7 +179,7 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
     const correctMessage = randomizeStrings(correct_answer)[0];
     const feedbackToAdd = isCorrect ? (
       <>
-        <span className="feedback__correct">{correctMessage}</span>
+        <span className="feedback__correct">{correctMessage} </span>
         {currentQuestionCopy.correctFeedback}
       </>
     ) : (
@@ -360,7 +360,7 @@ export const useChatStore = create<State & Actions>()((set, get) => ({
       ...initialState,
       currentRole: role,
       currentExperience: experience,
-      currentTheme: theme,
+      currentTheme: theme || 'General',
     });
   },
 

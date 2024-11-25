@@ -1,6 +1,14 @@
+// components/common/FormElements.scss
 @import '../../styles/_variables';
 @import '../../styles/_mixins';
 
+label {
+  line-height: 3rem;
+  height: 3rem;
+  font-size: $font-small;
+}
+
+// Text Inputs & Select Dropdowns
 input[type='text'],
 select {
   line-height: calc($font-medium + 1rem);
@@ -31,12 +39,7 @@ select > option {
   font-size: $font-small;
 }
 
-label {
-  line-height: 3rem;
-  height: 3rem;
-  font-size: $font-small;
-}
-
+// Custom radio buttons
 .radio__button {
   display: flex;
   align-items: stretch;
@@ -47,8 +50,8 @@ label {
     width: 2.4rem;
     height: 2.4rem;
     margin-top: 0.3rem;
-    appearance: none; /* Removes default styling (for better control) */
-    -webkit-appearance: none; /* For Webkit-based browsers */
+    appearance: none;
+    -webkit-appearance: none;
     background-color: $white;
     accent-color: $secondary-color;
     border: 1px solid $secondary-color;
@@ -58,7 +61,7 @@ label {
   }
 
   input[type='radio']:checked {
-    background-color: $white; /* Custom color when checked (optional) */
+    background-color: $white;
   }
 
   input[type='radio']::after {
@@ -72,11 +75,11 @@ label {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    visibility: hidden; /* Hide initially */
+    visibility: hidden;
   }
 
   input[type='radio']:checked::after {
-    visibility: visible; /* Show when checked */
+    visibility: visible;
   }
 
   label {
@@ -84,6 +87,7 @@ label {
   }
 }
 
+// Buttons
 button {
   border-radius: 5rem;
   padding: $padding-x-small $padding-medium;

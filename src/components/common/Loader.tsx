@@ -1,3 +1,4 @@
+// src/components/common/Loader.tsx
 import './Loader.scss';
 
 const Loader = () => {

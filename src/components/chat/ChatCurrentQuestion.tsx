@@ -1,11 +1,11 @@
+// src/components/chat/ChatCurrentQuestion.tsx
+import { useChatStore } from '../../store/chatStore';
 import RadioButton from '../common/RadioButton';
+import { renderInlineCode } from '../common/renderInlineCode';
 import Dora from '../../assets/dora-white.svg';
 import './ChatContainer.scss';
-// import ChatLoader from './ChatLoader';
-import { renderInlineCode } from '../common/renderInlineCode';
-import { useChatStore } from '../../store/chatStore';
 
-const CurrentQuestion = () => {
+const ChatCurrentQuestion = () => {
   const {
     isChatStarted,
     areQuestionsLoading,
@@ -23,7 +23,7 @@ const CurrentQuestion = () => {
         currentQuestion &&
         !isSetCompleted &&
         !areQuestionsLoading && (
-          <div className="outer__bubble ia">
+          <article className="outer__bubble ia">
             <div className="avatar">
               <img src={Dora} className="avatar__dora" alt="Dora logo" />
             </div>
@@ -47,10 +47,10 @@ const CurrentQuestion = () => {
                   ))}
               </ul>
             </div>
-          </div>
+          </article>
         )}
     </>
   );
 };
 
-export default CurrentQuestion;
+export default ChatCurrentQuestion;

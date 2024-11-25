@@ -1,18 +1,17 @@
+// src/components/forms/HomeForm.tsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { LoginFormProps } from '../../types/ILoginForm';
 import Dropdown from '../common/SelectDropdown';
 import Button from '../common/Button';
 import Loader from '../common/Loader';
-import './HomeForm.scss';
-
 import {
   experienceLevels,
   roles,
   themes,
   RoleType,
 } from '../../utils/constants';
-
-import { LoginFormProps } from '../../types/ILoginForm';
+import './HomeForm.scss';
 
 interface FormProps {
   homeFormData: LoginFormProps;
@@ -44,9 +43,8 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
 
   const handleSubmitForm = (e: React.FormEvent) => {
     e.preventDefault();
-    // Verificar si hay errores en el formulario antes de enviar
+    // Check for any errors before sending form
     if (Object.values(formErrors).some((error) => error !== '')) {
-      // Si hay algún error, no enviar el formulario
       return;
     }
 
@@ -88,7 +86,7 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
       }));
       hasErrors = true;
     } else {
-      setFormErrors((prevErrors) => ({ ...prevErrors, name: '' })); // Limpiar error
+      setFormErrors((prevErrors) => ({ ...prevErrors, name: '' })); // Clear error
     }
     if (!homeFormData.experience || homeFormData.experience === '') {
       setFormErrors((prevErrors) => ({
@@ -97,7 +95,7 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
       }));
       hasErrors = true;
     } else {
-      setFormErrors((prevErrors) => ({ ...prevErrors, experienceLevel: '' })); // Limpiar error
+      setFormErrors((prevErrors) => ({ ...prevErrors, experienceLevel: '' })); // Clear error
     }
     if (!homeFormData.role || homeFormData.role === '') {
       setFormErrors((prevErrors) => ({
@@ -106,7 +104,7 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
       }));
       hasErrors = true;
     } else {
-      setFormErrors((prevErrors) => ({ ...prevErrors, role: '' })); // Limpiar error
+      setFormErrors((prevErrors) => ({ ...prevErrors, role: '' })); // Clear error
     }
     if (hasErrors) {
       return;
@@ -114,7 +112,7 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
     handleSubmitForm(e);
   };
   return (
-    <div>
+    <section>
       <form className="form" onSubmit={handleSubmitForm}>
         <ul>
           <li>
@@ -153,7 +151,11 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                 const fullValue = e.target.value;
                 const shortValue = roles[fullValue as keyof typeof roles];
-                setHomeFormData({ ...homeFormData, role: shortValue });
+                setHomeFormData({ 
+                  ...homeFormData, 
+                  role: shortValue, 
+                  theme: 'General' 
+                });
               }}
               options={Object.keys(roles)}
             />
@@ -207,10 +209,10 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                 const selectedKey = e.target.value;
                 const selectedValue =
-                  selectedKey === 'General'
+                  selectedKey === 'General' || !selectedKey
                     ? 'General'
                     : themes[homeFormData.role as RoleType]?.[selectedKey] ||
-                      '';
+                      'General';
                 setHomeFormData({ ...homeFormData, theme: selectedValue });
               }}
               options={[
@@ -243,7 +245,7 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
         </ul>
         {loadingState && <Loader />}
       </form>
-    </div>
+    </section>
   );
 };
 

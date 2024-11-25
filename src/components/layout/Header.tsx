@@ -1,3 +1,4 @@
+// src/components/layout/Header.tsx
 import Logo from '../../assets/Logotipo_PildorasUX.svg';
 import './Header.scss';
 
