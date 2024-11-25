@@ -34,7 +34,7 @@ export default function ChatContainer() {
     resetChat();
     // If we have user data, just update the stored values without starting chat
     if (role && experience) {
-      updateUserData(role, experience, theme);
+      updateUserData(role, experience, theme || 'General');
     } else {
       // If we don't have user data, redirect back to the form
       navigate('/');

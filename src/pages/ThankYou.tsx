@@ -30,13 +30,23 @@ const ThankYou: React.FC = () => {
   const handleStartNewChat = (e: React.FormEvent) => {
     e.preventDefault();
     setLoadingState(true);
-    navigate('/login', { state: formData });
+    navigate('/login', {
+      state: {
+        ...formData,
+        theme: formData.theme || 'General', // Ensure theme is always set
+      },
+    });
   };
 
   const handleNavHome = (e: React.FormEvent) => {
     e.preventDefault();
     setLoadingState(true);
-    navigate('/');
+    navigate('/', {
+      state: {
+        ...formData,
+        theme: formData.theme || 'General', // Ensure theme is always set
+      },
+    });
   };
 
   useEffect(() => {

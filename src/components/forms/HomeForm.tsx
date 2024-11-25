@@ -151,7 +151,11 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                 const fullValue = e.target.value;
                 const shortValue = roles[fullValue as keyof typeof roles];
-                setHomeFormData({ ...homeFormData, role: shortValue });
+                setHomeFormData({ 
+                  ...homeFormData, 
+                  role: shortValue, 
+                  theme: 'General' 
+                });
               }}
               options={Object.keys(roles)}
             />
@@ -205,10 +209,10 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                 const selectedKey = e.target.value;
                 const selectedValue =
-                  selectedKey === 'General'
+                  selectedKey === 'General' || !selectedKey
                     ? 'General'
                     : themes[homeFormData.role as RoleType]?.[selectedKey] ||
-                      '';
+                      'General';
                 setHomeFormData({ ...homeFormData, theme: selectedValue });
               }}
               options={[
