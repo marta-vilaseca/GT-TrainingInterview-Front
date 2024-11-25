@@ -16,15 +16,6 @@ const ThankYou: React.FC = () => {
   const { formData, correctQuestions, totalQuestions, reviewQuestions } =
     location.state || {};
 
-  console.log('formData:', formData);
-  console.log(
-    'correctQuestions: ',
-    correctQuestions,
-    'totalQuestions: ',
-    totalQuestions,
-    'reviewQuestions: ',
-    reviewQuestions
-  );
   const [loadingState, setLoadingState] = useState(false);
 
   const handleStartNewChat = (e: React.FormEvent) => {
