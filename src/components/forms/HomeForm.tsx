@@ -126,6 +126,7 @@ const HomeForm: React.FC<FormProps> = ({ homeFormData, setHomeFormData }) => {
               placeholder="Introduce tu nombre aquí."
               autoComplete="name"
               required
+              maxLength={50}
               value={homeFormData.name || ''}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 const value = e.target.value;

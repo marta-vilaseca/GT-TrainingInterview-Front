@@ -1,6 +1,6 @@
 # 💼 AdoptaUnJunior - Entrenador de Entrevistas
 
-Repositorio de Frontend para el proyecto **Entrenador de Entrevistas**, desarrollado en el marco de la **2a Edición de los Grupos de Trabajo** organizados durante la segunda mitad del año 2024 por la asociación [Adopta un Junior](https://adoptaunjunior.es/)
+Repositorio de Frontend para el proyecto **Entrenador de Entrevistas**, desarrollado en el marco de la **2a Edición de los Grupos de Trabajo** organizados entre Agosto y Noviembre de 2024 por la asociación [Adopta un Junior](https://adoptaunjunior.es/)
 
 #### [🔗 Repositorio de BackEnd](https://github.com/AdoptaUnJuniorPlatform/GT-TrainingInterview-Back)
 
@@ -64,12 +64,12 @@ Para construir la versión de producción podemos ejecutar `npm run build` (los 
 src/
 ├── assets/        # Archivos estáticos como imágenes, fuentes, etc.
 ├── components/    # Componentes reutilizables
-├── pages/         # Componentes de páginas principales
-├── services/      # Servicios (conexión a la API mediante Axios)
-├── store/         # Estado global (utilizando Zustand)
-├── styles/        # Archivos SCSS
-├── types/         # Tipos de TypeScript
-├── utils/         # Utilidades y helpers
+├── pages/         # Componentes principales que representan páginas de la aplicación
+├── services/      # Servicios para la comunicación con la API (implementados con Axios)
+├── store/         # Estado global de la aplicación (gestión con Zustand)
+├── styles/        # Archivos globales de estilos SCSS
+├── types/         # Definiciones de tipos y interfaces de TypeScript
+├── utils/         # Funciones utilitarias y helpers reutilizables
 ```
 
 ## 👩🏻‍💻 Equipo FrontEnd
