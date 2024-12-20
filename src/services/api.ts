@@ -20,7 +20,7 @@ export const fetchQuestions = async (data: RequestData) => {
 
   try {
     const response: AxiosResponse<QuestionData[]> = await api.post(
-      '/questionary/loadQuestions',
+      '/',
       processedData
     );
     return response.data;
