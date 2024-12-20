@@ -20,9 +20,9 @@ export const fetchQuestions = async (data: RequestData) => {
 
   try {
     const response: AxiosResponse<QuestionData[]> = await api.post(
-      '/',
+      '',
       processedData
-    );
+    ); // Empty string instead of '/'
     return response.data;
   } catch (error) {
     console.error('Error posting data', error);
